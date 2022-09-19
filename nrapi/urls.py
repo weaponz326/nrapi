@@ -27,10 +27,12 @@ urlpatterns = [
     path('rest/', include('rest_framework.urls')),
     path('auth/', include('djoser.urls')),
 
+    # personal
     path('personal-users/', include('suites.personal.users.urls')),
     path('personal-nodules/calendar/', include('suites.personal.modules.calendarx.urls')),
     path('personal-nodules/budget/', include('suites.personal.modules.budget.urls')),
     path('personal-nodules/notes/', include('suites.personal.modules.notes.urls')),
     path('personal-nodules/accounts/', include('suites.personal.modules.accountx.urls')),
     path('personal-nodules/tasks/', include('suites.personal.modules.tasks.urls')),
+    path('personal-nodules/settings/', include('suites.personal.modules.settings.urls')),
 ]

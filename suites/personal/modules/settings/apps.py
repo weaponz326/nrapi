@@ -3,5 +3,5 @@ from django.apps import AppConfig
 
 class SettingsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'modules.settings'
-    verbose_name = 'module settings'
+    name = 'suites.personal.modules.settings'
+    verbose_name = 'personal module settings'

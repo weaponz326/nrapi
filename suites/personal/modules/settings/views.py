@@ -11,8 +11,8 @@ from rest_framework.filters import OrderingFilter
 
 from .models import ExtendedProfile
 from .serializers import ExtendedProfileSerializer, InvitationSerializer
-from users.models import User
-from users.paginations import TablePagination
+from suites.personal.users.models import User
+from suites.personal.users.paginations import TablePagination
 
 
 # Create your views here.

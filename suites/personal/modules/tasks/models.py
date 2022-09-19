@@ -10,7 +10,7 @@ class TaskGroup(CustomBaseModel):
     task_group = models.CharField(max_length=256, null=True)
 
     class Meta:
-        db_table = 'personal_task_group'
+        db_table = 'personal_module_task_group'
 
     def __str__(self):
         return str(self.id)
@@ -25,7 +25,7 @@ class TaskItem(CustomBaseModel):
     status = models.CharField(max_length=16, null=True)
 
     class Meta:
-        db_table = 'personal_task_item'
+        db_table = 'personal_module_task_item'
 
     def __str__(self):
         return str(self.id)
