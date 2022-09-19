@@ -1,0 +1,34 @@
++ suites
+	+ personal
+		+ users (A)
+		+ modules
+			+ portal (A)
+			+ settings (A)
+			+ calendar (A)
+			+ budget (A)
+			+ notes (A)
+			+ accounts (A)
+			+ tasks (A)
+    + restaurant
+		+ accounts (A)
+		+ modules
+			+ admin (A)
+			+ portal (A)
+			+ settings (A)
+			+ menu (A)
+			+ staff (A)
+			+ tables (A)
+			+ customers (A)
+			+ deliveries (A)
+			+ payments (A)
+			+ roster (A)
+			+ reservations (A)
+			+ orders (A)
+			+ kitchen stock (A)
+    + school
+    + association
+    + enterprise
+    + hotel
+    + hospital
+    + shop
+    + production
