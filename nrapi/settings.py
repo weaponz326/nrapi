@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'suites.personal.modules.notes',
     'suites.personal.modules.accountx',
     'suites.personal.modules.tasks',
+    'suites.personal.modules.portal',
     'suites.personal.modules.settings',
 ]
 

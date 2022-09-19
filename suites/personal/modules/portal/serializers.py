@@ -1,34 +1,17 @@
 from rest_framework import serializers
 
 from .models import Rink
-from users.serializers import UserSerializer
 
 
 class RinkSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rink
-        fields = [
-            'id',
-            'created_at',
-            'sender',
-            'recipient',
-            'rink_type',
-            'rink_source',
-            'comment',
-        ]
+        fields = '__all__'
 
-class RinkNestedSerializer(serializers.ModelSerializer):
-    sender = UserSerializer()
-    recipient = UserSerializer()
-
-    class Meta:
-        model = Rink
-        fields = [
-            'id',
-            'created_at',
-            'sender',
-            'recipient',
-            'rink_type',
-            'rink_source',
-            'comment',
-        ]
+    def __init__(self, *args, **kwargs):
+        super(RinkSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1

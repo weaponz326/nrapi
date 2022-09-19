@@ -1,7 +1,6 @@
 from django.db import models
 
-from users.models import CustomBaseModel
-from users.models import User
+from suites.personal.users.models import CustomBaseModel, User
 
 
 # Create your models here.
@@ -12,6 +11,9 @@ class Rink(CustomBaseModel):
     rink_type = models.CharField(max_length=64, null=True)
     rink_source = models.CharField(max_length=64, null=True)
     comment = models.TextField(null="True", blank=True)
+
+    class Meta:
+        db_table = 'personal_module_rink'
 
     def __str__(self):
         return str(self.id)
