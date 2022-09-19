@@ -12,7 +12,7 @@ from rest_framework.decorators import api_view
 
 from .models import Budget, Income, Expenditure
 from .serializers import BudgetSerializer, IncomeSerializer, ExpenditureSerializer
-from users.paginations import TablePagination
+from suites.personal.users.paginations import TablePagination
 
 
 # Create your views here.

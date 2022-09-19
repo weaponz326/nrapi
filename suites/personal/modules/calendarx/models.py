@@ -25,7 +25,7 @@ class Schedule(CustomBaseModel):
     status = models.CharField(null=True, blank=True, max_length=32)
 
     class Meta:
-        db_table = 'personal_module_schedule'
+        db_table = 'personal_module_calendar_schedule'
 
     def __str__(self):
         return str(self.id)

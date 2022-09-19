@@ -29,4 +29,5 @@ urlpatterns = [
 
     path('personal-users/', include('suites.personal.users.urls')),
     path('personal-nodules/calendar/', include('suites.personal.modules.calendarx.urls')),
+    path('personal-nodules/budget/', include('suites.personal.modules.budget.urls')),
 ]
