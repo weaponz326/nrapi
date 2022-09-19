@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 
     # personal
     'suites.personal.users',
+    'suites.personal.modules.calendarx',
 ]
 
 MIDDLEWARE = [

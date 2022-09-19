@@ -27,5 +27,6 @@ urlpatterns = [
     path('rest/', include('rest_framework.urls')),
     path('auth/', include('djoser.urls')),
 
-    path('users/', include('suites.personal.users.urls')),
+    path('personal-users/', include('suites.personal.users.urls')),
+    path('personal-nodules/calendar/', include('suites.personal.modules.calendarx.urls')),
 ]
