@@ -4,7 +4,7 @@ from django.contrib.auth.models import (BaseUserManager)
 
 class CustomBaseManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(deleted_at=None).defer('pkid')
+        return super().get_queryset().filter(deleted_at=None).defer('pkid', 'deleted_at')
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):

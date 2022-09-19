@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'rest_framework',
+    'rest_framework.authtoken',
     'djoser',
 
     # personal
@@ -203,7 +204,8 @@ CORS_ALLOW_CREDENTIALS = True
 # Rest framework settings
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication'],
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication',],
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated',],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
 }
 
@@ -213,7 +215,7 @@ REST_FRAMEWORK = {
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
-    "SERIALIZERS": { 'current_user': 'users.serializers.UserSerializer' },
+    "SERIALIZERS": { 'current_user': 'suites.personal.users.serializers.UserSerializer' },
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "SEND_CONFIRMATION_EMAIL": True,
     "SET_USERNAME_RETYPE": True,
