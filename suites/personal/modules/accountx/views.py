@@ -12,9 +12,9 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
 from .models import Account, Transaction
-from .serializers import AccountSerializer, TransactionNestedSerializer, TransactionSerializer
-from users.paginations import TablePagination
-from users.services import fillZeroDates
+from .serializers import AccountSerializer, TransactionSerializer
+from suites.personal.users.paginations import TablePagination
+from suites.personal.users.services import fillZeroDates
 
 
 # Create your views here.
@@ -111,7 +111,7 @@ class AllTransactionsView(APIView, TablePagination):
         user = self.request.query_params.get('user', None)
         account = Transaction.objects.filter(account__user=user)
         results = self.paginate_queryset(account, request, view=self)
-        serializer = TransactionNestedSerializer(results, many=True)
+        serializer = TransactionSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
 # --------------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 from django.db import models
 
-from users.models import CustomBaseModel, User
+from suites.personal.users.models import CustomBaseModel, User
 
 
 # Create your models here.
@@ -12,6 +12,9 @@ class Account(CustomBaseModel):
     bank_name = models.CharField(max_length=126, null=True)
     account_type = models.CharField(max_length=32, null=True)
 
+    class Meta:
+        db_table = 'personal_module_account'
+
     def __str__(self):
         return str(self.id)
 
@@ -22,5 +25,8 @@ class Transaction(CustomBaseModel):
     transaction_type = models.CharField(max_length=32)
     amount = models.DecimalField(max_digits=16, decimal_places=2, null=True)
 
+    class Meta:
+        db_table = 'personal_module_account_transaction'
+    
     def __str__(self):
         return str(self.id)
