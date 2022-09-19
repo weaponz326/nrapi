@@ -13,8 +13,8 @@ from rest_framework.decorators import api_view
 
 from .models import Note
 from .serializers import NoteSerializer
-from users.paginations import TablePagination
-from users.services import fillZeroDates
+from suites.personal.users.paginations import TablePagination
+from suites.personal.users.services import fillZeroDates
 
 
 # Create your views here.
