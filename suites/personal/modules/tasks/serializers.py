@@ -6,42 +6,17 @@ from .models import TaskGroup, TaskItem
 class TaskGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskGroup
-        fields = [
-            'id',
-            'created_at',
-            'updated_at',
-            'user',
-            'task_group',
-        ]
+        fields = '__all__'
 
 class TaskItemSerializer(serializers.ModelSerializer):    
     class Meta:
         model = TaskItem
-        fields = [
-            'id',
-            'updated_at',
-            'task_group',
-            'task_item',
-            'description',
-            'start_date',
-            'end_date',
-            'priority',
-            'status',
-        ]
+        fields = '__all__'
 
-class TaskItemNestedSerializer(serializers.ModelSerializer):
-    task_group = TaskGroupSerializer()
-    
-    class Meta:
-        model = TaskItem
-        fields = [
-            'id',
-            'updated_at',
-            'task_group',
-            'task_item',
-            'description',
-            'start_date',
-            'end_date',
-            'priority',
-            'status',
-        ]
+    def __init__(self, *args, **kwargs):
+        super(TaskItemSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1

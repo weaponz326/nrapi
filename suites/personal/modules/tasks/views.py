@@ -12,9 +12,9 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
 from .models import TaskGroup, TaskItem
-from .serializers import TaskGroupSerializer, TaskItemNestedSerializer, TaskItemSerializer
-from users.paginations import TablePagination
-from users.services import fillZeroDates
+from .serializers import TaskGroupSerializer, TaskItemSerializer
+from suites.personal.users.paginations import TablePagination
+from suites.personal.users.services import fillZeroDates
 
 
 # Create your views here.
@@ -73,7 +73,7 @@ class AllTaskItemView(APIView, TablePagination):
         user = self.request.query_params.get('user', None)
         task_item = TaskItem.objects.filter(task_group__user=user)
         results = self.paginate_queryset(task_item, request, view=self)
-        serializer = TaskItemNestedSerializer(results, many=True)
+        serializer = TaskItemSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
 class TaskItemView(APIView):

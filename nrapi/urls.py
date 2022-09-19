@@ -32,4 +32,5 @@ urlpatterns = [
     path('personal-nodules/budget/', include('suites.personal.modules.budget.urls')),
     path('personal-nodules/notes/', include('suites.personal.modules.notes.urls')),
     path('personal-nodules/accounts/', include('suites.personal.modules.accountx.urls')),
+    path('personal-nodules/tasks/', include('suites.personal.modules.tasks.urls')),
 ]

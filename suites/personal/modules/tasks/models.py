@@ -1,6 +1,6 @@
 from django.db import models
 
-from users.models import CustomBaseModel, User
+from suites.personal.users.models import CustomBaseModel, User
 
 
 # Create your models here.
@@ -8,6 +8,9 @@ from users.models import CustomBaseModel, User
 class TaskGroup(CustomBaseModel):
     user = models.ForeignKey(User, to_field='id', on_delete=models.CASCADE)
     task_group = models.CharField(max_length=256, null=True)
+
+    class Meta:
+        db_table = 'personal_task_group'
 
     def __str__(self):
         return str(self.id)
@@ -20,6 +23,9 @@ class TaskItem(CustomBaseModel):
     end_date = models.DateField(null=True)
     priority = models.CharField(max_length=16, null=True)
     status = models.CharField(max_length=16, null=True)
+
+    class Meta:
+        db_table = 'personal_task_item'
 
     def __str__(self):
         return str(self.id)

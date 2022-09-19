@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'suites.personal.modules.budget',
     'suites.personal.modules.notes',
     'suites.personal.modules.accountx',
+    'suites.personal.modules.tasks',
 ]
 
 MIDDLEWARE = [
