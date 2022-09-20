@@ -1,13 +1,14 @@
 import uuid
 from django.db import models
 
-from accounts.models import CustomBaseModel, Account
+from suites.personal.users.models import CustomBaseModel
+from suites.restaurant.accounts.models import Account
 
 
 def staff_upload_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
-    return '{}/modules/staff/{}'.format(instance.account.id, filename)
+    return 'restaurant/{}/modules/staff/{}'.format(instance.account.id, filename)
 
 # Create your models here.
 
@@ -29,6 +30,9 @@ class Staff(CustomBaseModel):
     staff_code = models.CharField(max_length=32, null=True, blank=True)
     department = models.CharField(max_length=256, null=True, blank=True)
     job = models.CharField(max_length=256, null=True, blank=True)
+
+    class Meta:
+        db_table = 'restaurant_module_staff'
 
     def __str__(self):
         return str(self.id)

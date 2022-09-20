@@ -1,7 +1,8 @@
 import uuid
 from django.db import models
 
-from suites.restaurant.accounts.models import CustomBaseModel, Account
+from suites.personal.users.models import CustomBaseModel
+from suites.restaurant.accounts.models import Account
 
 
 def menu_upload_path(instance, filename):
