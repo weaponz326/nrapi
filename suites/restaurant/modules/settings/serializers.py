@@ -7,26 +7,10 @@ class ExtendedProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExtendedProfile
-        fields = [
-            'id',
-            'created_at',
-            'country',
-            'state',
-            'city',
-            'email',
-            'phone',
-            'address',
-        ]
+        fields = '__all__'
 
 class SubscriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscription
-        fields = [
-            'id',
-            'created_at',
-            'subscription_type',
-            'billing_frequency',
-            'number_users',
-            'email',
-        ]
+        fields = '__all__'

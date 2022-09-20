@@ -1,7 +1,7 @@
 from django.db import models
 import uuid
 
-from accounts.models import CustomBaseModel, Account
+from suites.personal.users.models import CustomBaseModel
 
 
 # Create your models here.
@@ -14,6 +14,9 @@ class ExtendedProfile(CustomBaseModel):
     phone = models.CharField(max_length=32, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
 
+    class Meta:
+        db_table = 'restaurant_module_settings_extended_profile'
+
     def __str__(self):
         return str(self.id)
 
@@ -23,6 +26,9 @@ class Subscription(CustomBaseModel):
     number_users = models.IntegerField(null=True, blank=True)
     email = models.CharField(max_length=100, null=True, blank=True)
     status = models.CharField(max_length=32, null=True, blank=True)
+
+    class Meta:
+        db_table = 'restaurant_module_settings_subscription'
 
     def __str__(self):
         return str(self.id)

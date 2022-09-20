@@ -31,7 +31,7 @@ class AccountUserView(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = AccountUserSerializer(data=request.data)
+        serializer = AccountUserSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -45,7 +45,7 @@ class AccountUserDetailView(APIView):
 
     def put(self, request, id, format=None):
         user = AccountUser.objects.get(id=id)
-        serializer = AccountUserSerializer(user, data=request.data)
+        serializer = AccountUserSerializer(user, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -117,7 +117,7 @@ class InvitationView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = InvitationSerializer(data=request.data)
+        serializer = InvitationSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.id = request.data.get(id)
             serializer.save()
@@ -132,7 +132,7 @@ class InvitationDetailView(APIView):
 
     def put(self, request, id, format=None):
         access = Invitation.objects.get(id=id)
-        serializer = InvitationSerializer(access, data=request.data)
+        serializer = InvitationSerializer(access, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -162,9 +162,8 @@ def save_account_user(sender, instance, created, **kwargs):
     if created:
         AccountUser.objects.create(
             account=Account.objects.get(id=instance.id),
+            account_user=instance.creator,
             is_creator=True,
-            personal_id=instance.creator_id,
-            personal_name=instance.creator_name,
             access_level="Admin",
         )
 

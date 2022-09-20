@@ -21,7 +21,7 @@ class AccountView(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = AccountSerializer(data=request.data)
+        serializer = AccountSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -35,7 +35,7 @@ class AccountDetailView(APIView):
 
     def put(self, request, id, format=None):
         account = Account.objects.get(id=id)
-        serializer = AccountSerializer(account, data=request.data, partial=True)
+        serializer = AccountSerializer(account, data=request.data, context={'request': request}, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response({ 'message': 'OK', 'data': serializer.data })

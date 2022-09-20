@@ -7,8 +7,8 @@ from rest_framework.views import APIView
 from rest_framework import generics, mixins, status
 
 from .models import ExtendedProfile, Subscription
-from accounts.models import Account
 from .serializers import ExtendedProfileSerializer, SubscriptionSerializer
+from suites.restaurant.accounts.models import Account
 
 
 # Create your views here.

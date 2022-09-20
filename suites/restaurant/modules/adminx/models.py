@@ -8,13 +8,12 @@ from suites.restaurant.accounts.models import Account
 
 class AccountUser(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
+    account_user = models.ForeignKey(User, to_field='id', on_delete=models.DO_NOTHING)
     is_creator = models.BooleanField(default=False)
-    personal_id = models.CharField(null=True, max_length=256)
-    personal_name = models.CharField(null=True, max_length=256)
     access_level = models.CharField(null=True, max_length=32)
 
     class Meta:
-        db_table = 'restaurant_module_admin'
+        db_table = 'restaurant_module_admin_account_user'
 
     def __str__(self):
         return str(self.id)
