@@ -32,10 +32,10 @@ urlpatterns = [
     path('personal-users/', include('suites.personal.users.urls')),
     path('personal-modules/portal/', include('suites.personal.modules.portal.urls')),
     path('personal-modules/settings/', include('suites.personal.modules.settings.urls')),
-    path('personal-modules/calendar/', include('suites.personal.modules.calendarx.urls')),
+    path('personal-modules/calendar/', include('suites.personal.modules.calendar.urls')),
     path('personal-modules/budget/', include('suites.personal.modules.budget.urls')),
     path('personal-modules/notes/', include('suites.personal.modules.notes.urls')),
-    path('personal-modules/accounts/', include('suites.personal.modules.accountx.urls')),
+    path('personal-modules/accounts/', include('suites.personal.modules.accounts.urls')),
     path('personal-modules/tasks/', include('suites.personal.modules.tasks.urls')),
  
     # restaurant

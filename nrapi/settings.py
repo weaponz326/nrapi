@@ -63,10 +63,10 @@ INSTALLED_APPS = [
     'suites.personal.users',
     'suites.personal.modules.portal',
     'suites.personal.modules.settings',
-    'suites.personal.modules.calendarx',
+    'suites.personal.modules.calendar',
     'suites.personal.modules.budget',
     'suites.personal.modules.notes',
-    'suites.personal.modules.accountx',
+    'suites.personal.modules.accounts',
     'suites.personal.modules.tasks',
 
     # restaurant
