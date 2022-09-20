@@ -1,6 +1,7 @@
 from django.db import models
 
-from accounts.models import CustomBaseModel, Account
+from suites.personal.users.models import CustomBaseModel
+from suites.restaurant.accounts.models import Account
 
 
 # Create your models here.
@@ -14,5 +15,8 @@ class StockItem(CustomBaseModel):
     quantity = models.IntegerField(null=True, blank=True)
     refill_ordered = models.IntegerField(null=True, blank=True)
 
+    class Meta:
+        db_table = 'restaurant_module_stock_item'
+        
     def __str__(self):
         return str(self.id)
