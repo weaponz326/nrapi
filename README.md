@@ -1,4 +1,4 @@
-# nr-api
+# nrapi
 
 ## Comands
 

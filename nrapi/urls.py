@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('rest/', include('rest_framework.urls')),
     path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
 
     # personal
     path('personal-users/', include('suites.personal.users.urls')),
