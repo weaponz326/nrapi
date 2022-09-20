@@ -29,8 +29,8 @@ from .serializers import (
     RosterDaySerializer,
     RosterSheetSerializer
 )
-from modules.staff.models import Staff
-from accounts.paginations import TablePagination
+from suites.restaurant.modules.staff.models import Staff
+from suites.personal.users.paginations import TablePagination
 
 
 # Create your views here.

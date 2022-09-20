@@ -12,67 +12,29 @@ from .models import (
 class RosterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Roster
-        fields = [
-            'id',
-            'created_at',
-            'account',
-            'roster_code',
-            'roster_name',
-            'from_date',
-            'to_date',
-        ]
+        fields = '__all__'
 
 class ShiftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shift
-        fields = [
-            'id',
-            'created_at',
-            'roster',
-            'shift_name',
-            'start_time',
-            'end_time',
-        ]
+        fields = '__all__'
 
 class BatchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Batch
-        fields = [
-            'id',
-            'created_at',
-            'roster',
-            'batch_name',
-            'batch_symbol',
-        ]
+        fields = '__all__'
 
 class StaffPersonnelSerializer(serializers.ModelSerializer):
     class Meta:
         model = StaffPersonnel
-        fields = [
-            'id',
-            'created_at',
-            'roster',
-            'staff',
-            'batch',
-        ]
+        fields = '__all__'
 
 class RosterDaySerializer(serializers.ModelSerializer):
     class Meta:
         model = RosterDay
-        fields = [
-            'id',
-            'created_at',
-            'roster',
-            'day',
-        ]
+        fields = '__all__'
 
 class RosterSheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = RosterSheet
-        fields = [
-            'id',
-            'created_at',
-            'roster_day',
-            'shift',
-            'batch',
-        ]
+        fields = '__all__'
