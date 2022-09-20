@@ -13,7 +13,7 @@ class Rink(CustomBaseModel):
     comment = models.TextField(null="True", blank=True)
 
     class Meta:
-        db_table = 'personal_module_rink'
+        db_table = 'personal_module_portal_rink'
 
     def __str__(self):
         return str(self.id)

@@ -10,8 +10,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view
 
 from .models import Rink
-from .serializers import RinkSerializer, RinkNestedSerializer
-from accounts.services import fillZeroDates
+from .serializers import RinkSerializer
+from suites.personal.users.services import fillZeroDates
 
 
 # Create your views here.
@@ -21,7 +21,7 @@ class RinkView(APIView):
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
         rink = Rink.objects.filter(account=account)
-        serializer = RinkNestedSerializer(rink, many=True)
+        serializer = RinkSerializer(rink, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -34,7 +34,7 @@ class RinkView(APIView):
 class RinkDetailView(APIView):
     def get(self, request, id, format=None):
         rink = Rink.objects.get(id=id)
-        serializer = RinkNestedSerializer(rink)
+        serializer = RinkSerializer(rink)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
@@ -52,7 +52,7 @@ class RinkDetailView(APIView):
 
 # list all incoming and outgoing rinks of a account
 class AllRinkView(generics.ListAPIView):
-    serializer_class = RinkNestedSerializer
+    serializer_class = RinkSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['created_at']
     ordering = ['-created_at']

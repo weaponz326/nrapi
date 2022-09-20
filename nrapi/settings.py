@@ -72,7 +72,7 @@ INSTALLED_APPS = [
     # restaurant
     'suites.restaurant.accounts',
     'suites.restaurant.modules.adminx',
-    # 'suites.restaurant.modules.portal',
+    'suites.restaurant.modules.portal',
     # 'suites.restaurant.modules.settings',
     'suites.restaurant.modules.menu',
     'suites.restaurant.modules.staff',
