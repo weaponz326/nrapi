@@ -1,7 +1,8 @@
 from django.db import models
 
-from accounts.models import CustomBaseModel, Account
-from modules.orders.models import Order
+from suites.personal.users.models import CustomBaseModel
+from suites.restaurant.accounts.models import Account
+from suites.restaurant.modules.orders.models import Order
 
 
 # Create your models here.
@@ -13,5 +14,8 @@ class Payment(CustomBaseModel):
     payment_date = models.DateTimeField(null=True, blank=True)
     amount_paid = models.DecimalField(max_digits=11, decimal_places=2, null=True, blank=True)
 
+    class Meta:
+        db_table = 'restaurant_module_payment'
+        
     def __str__(self):
         return str(self.id)

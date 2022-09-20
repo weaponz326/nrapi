@@ -13,9 +13,9 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
 from .models import Payment
-from .serializers import PaymentDepthSerializer, PaymentSerializer
-from accounts.paginations import TablePagination
-from accounts.services import fillZeroDates
+from .serializers import PaymentSerializer
+from suites.personal.users.paginations import TablePagination
+from suites.personal.users.services import fillZeroDates
 
 
 # Create your views here.
@@ -29,7 +29,7 @@ class PaymentView(APIView, TablePagination):
         account = self.request.query_params.get('account', None)
         payment = Payment.objects.filter(account=account)
         results = self.paginate_queryset(payment, request, view=self)
-        serializer = PaymentDepthSerializer(results, many=True)
+        serializer = PaymentSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
@@ -42,7 +42,7 @@ class PaymentView(APIView, TablePagination):
 class PaymentDetailView(APIView):
     def get(self, request, id, format=None):
         payment = Payment.objects.get(id=id)
-        serializer = PaymentDepthSerializer(payment)
+        serializer = PaymentSerializer(payment)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
