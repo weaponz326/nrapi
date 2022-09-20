@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'suites.restaurant.modules.menu',
     'suites.restaurant.modules.staff',
     # 'suites.restaurant.modules.payments',
+    # 'suites.restaurant.modules.orders',
 ]
 
 MIDDLEWARE = [

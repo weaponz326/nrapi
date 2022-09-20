@@ -1,68 +1,30 @@
 from rest_framework import serializers
 
 from .models import Order, OrderItem
-from modules.customers.serializers import CustomerSerializer
-from modules.tables.serializers import TableSerializer
-from modules.menu.serializers import MenuItemSerializer
 
 
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = [
-            'id',
-            'created_at',
-            'account',
-            'table',
-            'customer',
-            'customer_name',
-            'order_code',
-            'order_date',
-            'order_type',
-            'order_status',
-            'order_total',
-        ]
+        fields = '__all__'
 
-class OrderDepthSerializer(serializers.ModelSerializer):
-    table = TableSerializer()
-    customer = CustomerSerializer()
-
-    class Meta:
-        model = Order
-        fields = [
-            'id',
-            'created_at',
-            'account',
-            'table',
-            'customer',
-            'customer_name',
-            'order_code',
-            'order_date',
-            'order_type',
-            'order_status',
-            'order_total',
-        ]
+    def __init__(self, *args, **kwargs):
+        super(OrderSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
-        fields = [
-            'id',
-            'created_at',
-            'order',
-            'menu_item',
-            'quantity',
-        ]
+        fields = '__all__'
 
-class OrderItemDepthSerializer(serializers.ModelSerializer):
-    menu_item = MenuItemSerializer()
-    
-    class Meta:
-        model = OrderItem
-        fields = [
-            'id',
-            'created_at',
-            'order',
-            'menu_item',
-            'quantity',
-        ]
+    def __init__(self, *args, **kwargs):
+        super(OrderItemSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1

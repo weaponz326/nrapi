@@ -43,4 +43,5 @@ urlpatterns = [
     path('restaurant-modules/menu/', include('suites.restaurant.modules.menu.urls')),
     path('restaurant-modules/staff/', include('suites.restaurant.modules.staff.urls')),
     # path('restaurant-modules/payments/', include('suites.restaurant.modules.payments.urls')),
+    # path('restaurant-modules/orders/', include('suites.restaurant.modules.orders.urls')),
 ]
