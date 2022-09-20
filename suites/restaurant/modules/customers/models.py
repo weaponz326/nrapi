@@ -1,6 +1,7 @@
 from django.db import models
 
-from accounts.models import CustomBaseModel, Account
+from suites.personal.users.models import CustomBaseModel
+from suites.restaurant.accounts.models import Account
 
 
 # Create your models here.
@@ -19,5 +20,8 @@ class Customer(CustomBaseModel):
     allergies = models.TextField(null=True, blank=True)
     preferences = models.TextField(null=True, blank=True)
     
+    class Meta:
+        db_table = 'restaurant_module_customer'
+        
     def __str__(self):
         return str(self.id)
