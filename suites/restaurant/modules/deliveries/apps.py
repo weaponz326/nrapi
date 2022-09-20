@@ -3,5 +3,5 @@ from django.apps import AppConfig
 
 class DeliveriesConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'modules.deliveries'
-    verbose_name = 'module deliveries'
+    name = 'suites.restaurant.modules.deliveries'
+    verbose_name = 'restaurant module deliveries'

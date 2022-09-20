@@ -12,10 +12,10 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
 from .models import Delivery
-from .serializers import DeliveryDepthSerializer, DeliverySerializer
-from modules.orders.models import Order
-from accounts.paginations import TablePagination
-from accounts.services import fillZeroDates
+from .serializers import DeliverySerializer
+from suites.restaurant.modules.orders.models import Order
+from suites.personal.users.paginations import TablePagination
+from suites.personal.users.services import fillZeroDates
 
 
 # Create your views here.
@@ -29,7 +29,7 @@ class DeliveryView(APIView, TablePagination):
         account = self.request.query_params.get('account', None)
         delivery = Delivery.objects.filter(account=account)
         results = self.paginate_queryset(delivery, request, view=self)
-        serializer = DeliveryDepthSerializer(results, many=True)        
+        serializer = DeliverySerializer(results, many=True)        
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
@@ -46,7 +46,7 @@ class DeliveryDetailView(APIView):
     def get(self, request, id, format=None):
         if Delivery.objects.filter(id=id).exists():
             delivery = Delivery.objects.get(id=id)
-            serializer = DeliveryDepthSerializer(delivery)
+            serializer = DeliverySerializer(delivery)
             return Response(serializer.data)
         else:
             return Response('not exist')

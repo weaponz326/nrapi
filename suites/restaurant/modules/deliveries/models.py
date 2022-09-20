@@ -15,5 +15,8 @@ class Delivery(CustomBaseModel):
     delivery_location = models.CharField(max_length=256, null=True, blank=True)
     delivery_status = models.CharField(max_length=64, null=True, blank=True)
 
+    class Meta:
+        db_table = 'restaurant_module_delivery'
+
     def __str__(self):
         return str(self.id)
