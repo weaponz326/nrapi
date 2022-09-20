@@ -76,13 +76,13 @@ INSTALLED_APPS = [
     # 'suites.restaurant.modules.settings',
     'suites.restaurant.modules.menu',
     'suites.restaurant.modules.staff',
-    # 'suites.restaurant.modules.payments',
-    # 'suites.restaurant.modules.orders',
+    'suites.restaurant.modules.payments',
+    'suites.restaurant.modules.orders',
     'suites.restaurant.modules.kitchen_stock',
     'suites.restaurant.modules.roster',
     'suites.restaurant.modules.tables',
-    # 'suites.restaurant.modules.deliveries',
-    # 'suites.restaurant.modules.reservations',
+    'suites.restaurant.modules.deliveries',
+    'suites.restaurant.modules.reservations',
     'suites.restaurant.modules.customers',
 ]
 

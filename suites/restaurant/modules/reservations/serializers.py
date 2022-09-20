@@ -1,8 +1,6 @@
 from rest_framework import serializers
 
 from .models import Reservation, ReservationTable
-from modules.customers.serializers import CustomerSerializer
-from modules.tables.serializers import TableSerializer
 
 
 class ReservationSerializer(serializers.ModelSerializer):
