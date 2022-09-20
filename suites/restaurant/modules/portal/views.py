@@ -25,7 +25,7 @@ class RinkView(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = RinkSerializer(data=request.data)
+        serializer = RinkSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -39,7 +39,7 @@ class RinkDetailView(APIView):
 
     def put(self, request, id, format=None):
         rink = Rink.objects.get(id=id)
-        serializer = RinkSerializer(rink, data=request.data)
+        serializer = RinkSerializer(rink, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

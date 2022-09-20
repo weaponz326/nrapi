@@ -32,7 +32,7 @@ class ReservationView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ReservationSerializer(data=request.data)
+        serializer = ReservationSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -46,7 +46,7 @@ class ReservationDetailView(APIView):
 
     def put(self, request, id, format=None):
         reservation = Reservation.objects.get(id=id)
-        serializer = ReservationSerializer(reservation, data=request.data)
+        serializer = ReservationSerializer(reservation, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -68,7 +68,7 @@ class ReservationTableView(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ReservationTableSerializer(data=request.data)
+        serializer = ReservationTableSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -82,7 +82,7 @@ class ReservationTableDetailView(APIView):
 
     def put(self, request, id, format=None):
         reservation_table = ReservationTable.objects.get(id=id)
-        serializer = ReservationSerializer(reservation_table, data=request.data)
+        serializer = ReservationSerializer(reservation_table, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

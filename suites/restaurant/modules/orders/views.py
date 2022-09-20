@@ -32,7 +32,7 @@ class OrderView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = OrderSerializer(data=request.data)
+        serializer = OrderSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -46,7 +46,7 @@ class OrderDetailView(APIView):
 
     def put(self, request, id, format=None):
         order = Order.objects.get(id=id)
-        serializer = OrderSerializer(order, data=request.data, partial=True)
+        serializer = OrderSerializer(order, data=request.data, context={'request': request}, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -71,7 +71,7 @@ class OrderItemView(APIView):
         # TODO:
         # insert into deliveries if order_type == delivery
 
-        serializer = OrderItemSerializer(data=request.data)
+        serializer = OrderItemSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -85,7 +85,7 @@ class OrderItemDetailView(APIView):
 
     def put(self, request, id, format=None):
         item = OrderItem.objects.get(id=id)
-        serializer = OrderItemSerializer(item, data=request.data)
+        serializer = OrderItemSerializer(item, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

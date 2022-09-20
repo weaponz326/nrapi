@@ -82,7 +82,7 @@ class MenuItemView(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = MenuItemSerializer(data=request.data)
+        serializer = MenuItemSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -96,7 +96,7 @@ class MenuItemDetailView(APIView):
 
     def put(self, request, id, format=None):
         item = MenuItem.objects.get(id=id)
-        serializer = MenuItemSerializer(item, data=request.data)
+        serializer = MenuItemSerializer(item, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

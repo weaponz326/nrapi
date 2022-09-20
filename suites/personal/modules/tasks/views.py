@@ -86,7 +86,7 @@ class TaskItemView(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = TaskItemSerializer(data=request.data)
+        serializer = TaskItemSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -102,7 +102,7 @@ class TaskItemDetailView(APIView):
 
     def put(self, request, id, format=None):
         task_item = TaskItem.objects.get(id=id)
-        serializer = TaskItemSerializer(task_item, data=request.data)
+        serializer = TaskItemSerializer(task_item, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

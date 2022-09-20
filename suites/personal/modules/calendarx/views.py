@@ -89,7 +89,7 @@ class ScheduleView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ScheduleSerializer(data=request.data)
+        serializer = ScheduleSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.id = request.data.get(id)
             serializer.save()
@@ -106,7 +106,7 @@ class ScheduleDetailView(APIView):
 
     def put(self, request, id, format=None):
         access = Schedule.objects.get(id=id)
-        serializer = ScheduleSerializer(access, data=request.data)
+        serializer = ScheduleSerializer(access, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
