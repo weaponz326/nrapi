@@ -18,6 +18,8 @@ from suites.personal.users.services import fillZeroDates
 
 
 class RinkView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
         rink = Rink.objects.filter(account=account)
@@ -32,6 +34,8 @@ class RinkView(APIView):
         return Response(serializer.errors)
 
 class RinkDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         rink = Rink.objects.get(id=id)
         serializer = RinkSerializer(rink)
@@ -52,6 +56,7 @@ class RinkDetailView(APIView):
 
 # list all incoming and outgoing rinks of a account
 class AllRinkView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
     serializer_class = RinkSerializer
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['created_at']

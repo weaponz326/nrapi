@@ -5,6 +5,7 @@ from django.dispatch import receiver
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import generics, mixins, status
+from rest_framework.permissions import IsAuthenticated
 
 from .models import ExtendedProfile, Subscription
 from .serializers import ExtendedProfileSerializer, SubscriptionSerializer
@@ -15,6 +16,8 @@ from suites.restaurant.accounts.models import Account
 
 
 class ExtendedProfileView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
         profile = ExtendedProfile.objects.filter(id=account)
@@ -29,6 +32,8 @@ class ExtendedProfileView(APIView):
         return Response(serializer.errors)
 
 class ExtendedProfileDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         rink = ExtendedProfile.objects.get(id=id)
         serializer = ExtendedProfileSerializer(rink)
@@ -51,6 +56,8 @@ class ExtendedProfileDetailView(APIView):
 # subscriptions
 
 class SubscriptionView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
         subscription = Subscription.objects.filter(account=account)
@@ -65,6 +72,8 @@ class SubscriptionView(APIView):
         return Response(serializer.errors)
 
 class SubscriptionDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         subscription = Subscription.objects.get(id=id)
         serializer = SubscriptionSerializer(subscription)

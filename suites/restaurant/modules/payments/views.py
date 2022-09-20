@@ -21,6 +21,7 @@ from suites.personal.users.services import fillZeroDates
 # Create your views here.
 
 class PaymentView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'payment_code', 'amount_paid', 'order.order_code', 'order.customer_name']
     ordering = ['-created_at']
@@ -40,6 +41,8 @@ class PaymentView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class PaymentDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def get(self, request, id, format=None):
         payment = Payment.objects.get(id=id)
         serializer = PaymentSerializer(payment)

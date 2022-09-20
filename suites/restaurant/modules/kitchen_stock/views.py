@@ -17,6 +17,7 @@ from suites.personal.users.paginations import TablePagination
 # Create your views here.
 
 class StockItemView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'item_code', 'item_name', 'quantity', 'category', 'item_type', 'refill_ordered']
     ordering = ['-created_at']
@@ -36,6 +37,8 @@ class StockItemView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class StockItemDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def get(self, request, id, format=None):
         item = StockItem.objects.get(id=id)
         serializer = StockItemSerializer(item)

@@ -24,6 +24,8 @@ from suites.personal.users.paginations import TablePagination
 # users
 
 class AccountUserView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
         user = AccountUser.objects.filter(account=account)
@@ -38,6 +40,8 @@ class AccountUserView(APIView):
         return Response(serializer.errors)
 
 class AccountUserDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         user = AccountUser.objects.get(id=id)
         serializer = AccountUserSerializer(user)
@@ -58,6 +62,8 @@ class AccountUserDetailView(APIView):
 
 # all accounts of an account belonging to a user
 class AccountUserAccountView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         personal_id = self.request.query_params.get('personal_id', None)
         user = AccountUser.objects.filter(personal_id=personal_id)
@@ -69,6 +75,8 @@ class AccountUserAccountView(APIView):
 # ---------------------------------------------------------------------------
 
 class AccessView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
         access = Access.objects.filter(account=account)
@@ -84,6 +92,8 @@ class AccessView(APIView):
         return Response(serializer.errors)
 
 class AccessDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         access = Access.objects.get(id=id)
         serializer = AccessSerializer(access)
@@ -105,6 +115,7 @@ class AccessDetailView(APIView):
 # -------------------------------------------------------------------------------------------------------
 
 class InvitationView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'invitee_name', 'invitation_status']
     ordering = ['-created_at']
@@ -125,6 +136,8 @@ class InvitationView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class InvitationDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def get(self, request, id, format=None):
         access = Invitation.objects.get(id=id)
         serializer = InvitationSerializer(access)

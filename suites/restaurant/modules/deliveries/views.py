@@ -21,6 +21,7 @@ from suites.personal.users.services import fillZeroDates
 # Create your views here.
 
 class DeliveryView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'delivery_date', 'delivery_location', 'delivery_status', 'order.order_code', 'order.order_date']
     ordering = ['-created_at']
@@ -43,6 +44,8 @@ class DeliveryView(APIView, TablePagination):
             return Response(serializer.errors)
 
 class DeliveryDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         if Delivery.objects.filter(id=id).exists():
             delivery = Delivery.objects.get(id=id)

@@ -18,6 +18,7 @@ from suites.personal.users.paginations import TablePagination
 # Create your views here.
 
 class MenuGroupView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'menu_group', 'category']
@@ -38,6 +39,7 @@ class MenuGroupView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class MenuGroupDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
 
     def get(self, request, id, format=None):
@@ -62,6 +64,7 @@ class MenuGroupDetailView(APIView):
 # menu items
 
 class AllMenuItemView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     parser_classes = (MultiPartParser,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'item_code', 'item_name', 'price', 'menu_group.menu_group', 'menu_group.category']
@@ -75,6 +78,8 @@ class AllMenuItemView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
 class MenuItemView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def get(self, request, format=None):
         menu_group = self.request.query_params.get('menu_group', None)
         item = MenuItem.objects.filter(menu_group=menu_group)
@@ -89,6 +94,8 @@ class MenuItemView(APIView):
         return Response(serializer.errors)
 
 class MenuItemDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         item = MenuItem.objects.get(id=id)
         serializer = MenuItemSerializer(item)

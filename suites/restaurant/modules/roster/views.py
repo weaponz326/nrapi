@@ -36,6 +36,7 @@ from suites.personal.users.paginations import TablePagination
 # Create your views here.
 
 class RosterView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'roster_code', 'roster_name']
     ordering = ['-created_at']
@@ -55,6 +56,8 @@ class RosterView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class RosterDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         roster = Roster.objects.get(id=id)
         serializer = RosterSerializer(roster)
@@ -77,6 +80,8 @@ class RosterDetailView(APIView):
 # shifts
 
 class ShiftView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         roster = self.request.query_params.get('roster', None)
         shift = Shift.objects.filter(roster=roster)
@@ -91,6 +96,8 @@ class ShiftView(APIView):
         return Response(serializer.errors)
 
 class ShiftDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         shift = Shift.objects.get(id=id)
         serializer = ShiftSerializer(shift)
@@ -113,6 +120,8 @@ class ShiftDetailView(APIView):
 # batches
 
 class BatchView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         roster = self.request.query_params.get('roster', None)
         batch = Batch.objects.filter(roster=roster)
@@ -127,6 +136,8 @@ class BatchView(APIView):
         return Response(serializer.errors)
 
 class BatchDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         batch = Batch.objects.get(id=id)
         serializer = BatchSerializer(batch)
@@ -149,6 +160,8 @@ class BatchDetailView(APIView):
 # personnel
 
 class RefreshPersonnelView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         roster = self.request.query_params.get('roster', None)
         roster_instance = Roster.objects.get(id=roster)
@@ -163,6 +176,8 @@ class RefreshPersonnelView(APIView):
         return Response({ 'message' : 'OK' })
 
 class StaffPersonnelView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         roster = self.request.query_params.get('roster', None)
         personnel = StaffPersonnel.objects.filter(roster=roster)
@@ -170,6 +185,8 @@ class StaffPersonnelView(APIView):
         return Response(serializer.data)
 
 class StaffPersonnelDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def put(self, request, id, format=None):
         personnel = Batch.objects.get(id=id)
         serializer = StaffPersonnelSerializer(personnel, data=request.data)

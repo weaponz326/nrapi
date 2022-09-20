@@ -20,6 +20,7 @@ from suites.personal.users.services import fillZeroDates
 # Create your views here.
 
 class OrderView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'order_code', 'order_date', 'customer_name', 'order_type', 'total_amount']
     ordering = ['-created_at']
@@ -39,6 +40,8 @@ class OrderView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class OrderDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         order = Order.objects.get(id=id)
         serializer = OrderSerializer(order)
@@ -61,6 +64,8 @@ class OrderDetailView(APIView):
 # order item
 
 class OrderItemView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         order = self.request.query_params.get('order', None)
         item = OrderItem.objects.filter(order=order)
@@ -78,6 +83,8 @@ class OrderItemView(APIView):
         return Response(serializer.errors)
 
 class OrderItemDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def get(self, request, id, format=None):
         item = OrderItem.objects.get(id=id)
         serializer = OrderItemSerializer(item)

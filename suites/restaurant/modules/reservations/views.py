@@ -20,6 +20,7 @@ from suites.personal.users.services import fillZeroDates
 # Create your views here.
 
 class ReservationView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'resrevation_code', 'reservation_date', 'customer_name', 'arrival_date', 'reservation_status']
     ordering = ['-created_at']
@@ -39,6 +40,8 @@ class ReservationView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class ReservationDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         reservation = Reservation.objects.get(id=id)
         serializer = ReservationSerializer(reservation)
@@ -61,6 +64,8 @@ class ReservationDetailView(APIView):
 # reservations
 
 class ReservationTableView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         reservation = self.request.query_params.get('account', None)
         reservation_table = ReservationTable.objects.filter(reservation=reservation)
@@ -75,6 +80,8 @@ class ReservationTableView(APIView):
         return Response(serializer.errors)
 
 class ReservationTableDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def get(self, request, id, format=None):
         reservation_table = ReservationTable.objects.get(id=id)
         serializer = ReservationTableSerializer(reservation_table)

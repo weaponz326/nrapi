@@ -17,6 +17,7 @@ from suites.personal.users.paginations import TablePagination
 # Create your views here.
 
 class StaffView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'staff_code', 'first_name', 'last_name', 'department', 'job']
@@ -37,6 +38,7 @@ class StaffView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class StaffDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
 
     def get(self, request, id, format=None):

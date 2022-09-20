@@ -16,6 +16,7 @@ from suites.personal.users.paginations import TablePagination
 # Create your views here.
 
 class CustomerView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter,]
     ordering_fields = ('created_at', 'customer_code', 'customer_name', 'phone')
     ordering = ('-created_at',)
@@ -35,6 +36,8 @@ class CustomerView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class CustomerDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def get(self, request, id, format=None):
         customer = Customer.objects.get(id=id)
         serializer = CustomerSerializer(customer)

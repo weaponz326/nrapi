@@ -16,6 +16,7 @@ from suites.personal.users.paginations import TablePagination
 # Create your views here.
 
 class TableView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     ordering_fields = ['created_at', 'table_number', 'table_type', 'table_status']
     ordering = ['-created_at']
@@ -35,6 +36,8 @@ class TableView(APIView, TablePagination):
         return Response(serializer.errors)
 
 class TableDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def get(self, request, id, format=None):
         table = Table.objects.get(id=id)
         serializer = TableSerializer(table)

@@ -4,6 +4,7 @@ from django.contrib.sessions.backends.db import SessionStore
 
 from rest_framework.response import Response
 from rest_framework import generics, request, status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import filters
 from rest_framework.views import APIView
 
@@ -14,6 +15,8 @@ from .serializers import AccountSerializer
 # Create your views here.
 
 class AccountView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
         account = Account.objects.filter(account=account)
@@ -28,6 +31,8 @@ class AccountView(APIView):
         return Response(serializer.errors)
 
 class AccountDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, id, format=None):
         account = Account.objects.get(id=id)
         serializer = AccountSerializer(account)
@@ -51,6 +56,7 @@ class AccountDetailView(APIView):
 # restaurant search
 
 class AccountSearchView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     filter_backends = [filters.SearchFilter]
