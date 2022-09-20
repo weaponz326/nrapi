@@ -66,7 +66,7 @@ class AccountUserAccountView(APIView):
 
     def get(self, request, format=None):
         personal_id = self.request.query_params.get('personal_id', None)
-        user = AccountUser.objects.filter(personal_id=personal_id)
+        user = AccountUser.objects.filter(personal_user__id=personal_id)
         serializer = AccountUserSerializer(user, many=True)
         return Response(serializer.data)
 
@@ -175,7 +175,7 @@ def save_account_user(sender, instance, created, **kwargs):
     if created:
         AccountUser.objects.create(
             account=Account.objects.get(id=instance.id),
-            account_user=instance.creator,
+            personal_user=instance.creator,
             is_creator=True,
             access_level="Admin",
         )

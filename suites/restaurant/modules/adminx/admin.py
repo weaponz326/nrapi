@@ -6,7 +6,7 @@ from .models import AccountUser, Access, Invitation
 # Register your models here.
 
 class AccountUserAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'account_user', 'access_level')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'personal_user', 'access_level')
 
 class AccessAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'account', 'admin_access', 'portal_access', 'settings_access')
