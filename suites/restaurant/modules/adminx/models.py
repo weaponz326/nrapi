@@ -1,6 +1,7 @@
 from django.db import models
 
-from accounts.models import CustomBaseModel, Account
+from suites.personal.users.models import CustomBaseModel, User
+from suites.restaurant.accounts.models import Account
 
 
 # Create your models here.
@@ -11,6 +12,9 @@ class AccountUser(CustomBaseModel):
     personal_id = models.CharField(null=True, max_length=256)
     personal_name = models.CharField(null=True, max_length=256)
     access_level = models.CharField(null=True, max_length=32)
+
+    class Meta:
+        db_table = 'restaurant_module_admin'
 
     def __str__(self):
         return str(self.id)
@@ -31,15 +35,20 @@ class Access(CustomBaseModel):
     orders_access = models.BooleanField(default=False)
     kitchen_stock_access = models.BooleanField(default=False)
 
+    class Meta:
+        db_table = 'restaurant_module_admin_access'
+
     def __str__(self):
         return str(self.id)
 
 class Invitation(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    invitee_id = models.CharField(null=True, max_length=256)
-    invitee_name = models.CharField(null=True, max_length=256)
+    invitee = models.ForeignKey(User, to_field='id', related_name='restauarant_invitee', on_delete=models.DO_NOTHING)
     invitation_status = models.CharField(null=True, max_length=64)
     date_confirmed = models.DateTimeField(null=True)
+
+    class Meta:
+        db_table = 'restaurant_module_admin_invitation'
 
     def __str__(self):
         return str(self.id)

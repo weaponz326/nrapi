@@ -14,9 +14,9 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
 from .models import AccountUser, Access, Invitation
-from .serializers import AccountUserDepthSerializer, AccountUserSerializer, AccessSerializer, InvitationSerializer
-from accounts.models import Account
-from accounts.paginations import TablePagination
+from .serializers import AccountUserSerializer, AccessSerializer, InvitationSerializer
+from suites.restaurant.accounts.models import Account
+from suites.personal.users.paginations import TablePagination
 
 
 # Create your views here.
@@ -61,7 +61,7 @@ class AccountUserAccountView(APIView):
     def get(self, request, format=None):
         personal_id = self.request.query_params.get('personal_id', None)
         user = AccountUser.objects.filter(personal_id=personal_id)
-        serializer = AccountUserDepthSerializer(user, many=True)
+        serializer = AccountUserSerializer(user, many=True)
         return Response(serializer.data)
 
 

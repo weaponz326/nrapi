@@ -6,6 +6,6 @@ from .models import Account
 # Register your models here.
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'name', 'location')
+    list_display = ('pkid', 'id', 'created_at', 'name', 'location', 'creator')
 
 admin.site.register(Account, AccountAdmin)
