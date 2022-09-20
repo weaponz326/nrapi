@@ -40,7 +40,7 @@ urlpatterns = [
  
     # restaurant
     path('restaurant-accounts/', include('suites.restaurant.accounts.urls')),
-    path('restaurant-modules/admin/', include('suites.restaurant.modules.adminx.urls')),
+    path('restaurant-modules/admin/', include('suites.restaurant.modules.admin.urls')),
     path('restaurant-modules/portal/', include('suites.restaurant.modules.portal.urls')),
     path('restaurant-modules/settings/', include('suites.restaurant.modules.settings.urls')),
     path('restaurant-modules/menu/', include('suites.restaurant.modules.menu.urls')),
