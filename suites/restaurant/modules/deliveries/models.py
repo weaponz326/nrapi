@@ -1,8 +1,8 @@
 from django.db import models
 
-from accounts.models import CustomBaseModel, Account
-from modules.orders.models import Order
-from modules.customers.models import Customer
+from suites.personal.users.models import CustomBaseModel
+from suites.restaurant.accounts.models import Account
+from suites.restaurant.modules.orders.models import Order
 
 
 # Create your models here.

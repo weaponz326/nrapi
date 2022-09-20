@@ -8,57 +8,25 @@ from modules.tables.serializers import TableSerializer
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Reservation
-        fields = [
-            'id',
-            'created_at',
-            'account',
-            'customer',
-            'customer_name',
-            'reservation_code',
-            'reservation_date',
-            'number_guests',
-            'number_tables',
-            'arrival_date',
-            'reservation_status',
-        ]
+        fields = '__all__'
 
-class ReservationDepthSerializer(serializers.ModelSerializer):
-    customer = CustomerSerializer()
-    class Meta:
-        model = Reservation
-        fields = [
-            'id',
-            'created_at',
-            'account',
-            'customer',
-            'customer_name',
-            'reservation_code',
-            'reservation_date',
-            'number_guests',
-            'number_tables',
-            'arrival_date',
-            'reservation_status',
-        ]
+    def __init__(self, *args, **kwargs):
+        super(ReservationSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1
 
 class ReservationTableSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReservationTable
-        fields = [
-            'id',
-            'created_at',
-            'reservation',
-            'table',
-        ]
+        fields = '__all__'
 
-class ReservationTableDepthSerializer(serializers.ModelSerializer):
-    table = TableSerializer()
-
-    class Meta:
-        model = ReservationTable
-        fields = [
-            'id',
-            'created_at',
-            'reservation',
-            'table',
-        ]
-   
+    def __init__(self, *args, **kwargs):
+        super(ReservationTableSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1

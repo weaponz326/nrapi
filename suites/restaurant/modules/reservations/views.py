@@ -12,9 +12,9 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
 from .models import Reservation, ReservationTable
-from .serializers import ReservationDepthSerializer, ReservationSerializer, ReservationTableDepthSerializer, ReservationTableSerializer
-from accounts.paginations import TablePagination
-from accounts.services import fillZeroDates
+from .serializers import ReservationSerializer, ReservationTableSerializer
+from suites.personal.users.paginations import TablePagination
+from suites.personal.users.services import fillZeroDates
 
 
 # Create your views here.
@@ -41,7 +41,7 @@ class ReservationView(APIView, TablePagination):
 class ReservationDetailView(APIView):
     def get(self, request, id, format=None):
         reservation = Reservation.objects.get(id=id)
-        serializer = ReservationDepthSerializer(reservation)
+        serializer = ReservationSerializer(reservation)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
@@ -64,7 +64,7 @@ class ReservationTableView(APIView):
     def get(self, request, format=None):
         reservation = self.request.query_params.get('account', None)
         reservation_table = ReservationTable.objects.filter(reservation=reservation)
-        serializer = ReservationTableDepthSerializer(reservation_table, many=True)
+        serializer = ReservationTableSerializer(reservation_table, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -77,7 +77,7 @@ class ReservationTableView(APIView):
 class ReservationTableDetailView(APIView):
     def get(self, request, id, format=None):
         reservation_table = ReservationTable.objects.get(id=id)
-        serializer = ReservationTableDepthSerializer(reservation_table)
+        serializer = ReservationTableSerializer(reservation_table)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):

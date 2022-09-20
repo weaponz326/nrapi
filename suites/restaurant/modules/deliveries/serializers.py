@@ -15,4 +15,4 @@ class DeliverySerializer(serializers.ModelSerializer):
         if request and (request.method == 'POST' or request.method == 'PUT'):
             self.Meta.depth = 0
         else:
-            self.Meta.depth = 1
+            self.Meta.depth = 2
