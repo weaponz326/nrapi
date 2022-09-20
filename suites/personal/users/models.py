@@ -9,7 +9,7 @@ from .managers import CustomBaseManager, CustomUserManager
 def users_upload_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
-    return '{}/users/{}'.format(instance.id, filename)
+    return 'personal/{}/users/{}'.format(instance.id, filename)
 
 # Create your models here.
 

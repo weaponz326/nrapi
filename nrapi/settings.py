@@ -61,13 +61,19 @@ INSTALLED_APPS = [
 
     # personal
     'suites.personal.users',
+    'suites.personal.modules.portal',
+    'suites.personal.modules.settings',
     'suites.personal.modules.calendarx',
     'suites.personal.modules.budget',
     'suites.personal.modules.notes',
     'suites.personal.modules.accountx',
     'suites.personal.modules.tasks',
-    'suites.personal.modules.portal',
-    'suites.personal.modules.settings',
+
+    # restaurant
+    'suites.restaurant.accounts',
+    # 'suites.restaurant.modules.admin',
+    # 'suites.restaurant.modules.portal',
+    # 'suites.restaurant.modules.settings',
 ]
 
 MIDDLEWARE = [

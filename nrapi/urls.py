@@ -37,4 +37,7 @@ urlpatterns = [
     path('personal-modules/tasks/', include('suites.personal.modules.tasks.urls')),
     path('personal-modules/portal/', include('suites.personal.modules.portal.urls')),
     path('personal-modules/settings/', include('suites.personal.modules.settings.urls')),
+ 
+    # restaurant
+    path('restaurant-accounts/', include('suites.restaurant.accounts.urls')),
 ]
