@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     # 'suites.restaurant.modules.admin',
     # 'suites.restaurant.modules.portal',
     # 'suites.restaurant.modules.settings',
+    'suites.restaurant.modules.menu',
 ]
 
 MIDDLEWARE = [

@@ -11,8 +11,8 @@ from rest_framework.parsers import MultiPartParser, FileUploadParser
 from rest_framework.decorators import api_view
 
 from .models import MenuGroup, MenuItem
-from .serializers import  MenuGroupSerializer, MenuItemDepthSerializer, MenuItemSerializer
-from accounts.paginations import TablePagination
+from .serializers import  MenuGroupSerializer, MenuItemSerializer
+from suites.personal.users.paginations import TablePagination
 
 
 # Create your views here.
@@ -71,7 +71,7 @@ class AllMenuItemView(APIView, TablePagination):
         account = self.request.query_params.get('account', None)
         menu_item = MenuItem.objects.filter(menu_group__account=account)
         results = self.paginate_queryset(menu_item, request, view=self)
-        serializer = MenuItemDepthSerializer(results, many=True)
+        serializer = MenuItemSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
 class MenuItemView(APIView):

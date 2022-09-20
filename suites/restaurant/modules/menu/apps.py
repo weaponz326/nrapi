@@ -3,5 +3,5 @@ from django.apps import AppConfig
 
 class MenuConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'modules.menu'
-    verbose_name = 'module menu'
+    name = 'suites.restaurant.modules.menu'
+    verbose_name = 'restaurant module menu'
