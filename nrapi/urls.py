@@ -30,13 +30,13 @@ urlpatterns = [
 
     # personal
     path('personal-users/', include('suites.personal.users.urls')),
+    path('personal-modules/portal/', include('suites.personal.modules.portal.urls')),
+    path('personal-modules/settings/', include('suites.personal.modules.settings.urls')),
     path('personal-modules/calendar/', include('suites.personal.modules.calendarx.urls')),
     path('personal-modules/budget/', include('suites.personal.modules.budget.urls')),
     path('personal-modules/notes/', include('suites.personal.modules.notes.urls')),
     path('personal-modules/accounts/', include('suites.personal.modules.accountx.urls')),
     path('personal-modules/tasks/', include('suites.personal.modules.tasks.urls')),
-    path('personal-modules/portal/', include('suites.personal.modules.portal.urls')),
-    path('personal-modules/settings/', include('suites.personal.modules.settings.urls')),
  
     # restaurant
     path('restaurant-accounts/', include('suites.restaurant.accounts.urls')),
@@ -46,4 +46,5 @@ urlpatterns = [
     # path('restaurant-modules/orders/', include('suites.restaurant.modules.orders.urls')),
     path('restaurant-modules/kitchen_stock/', include('suites.restaurant.modules.kitchen_stock.urls')),
     path('restaurant-modules/roster/', include('suites.restaurant.modules.roster.urls')),
+    path('restaurant-modules/tables/', include('suites.restaurant.modules.tables.urls')),
 ]

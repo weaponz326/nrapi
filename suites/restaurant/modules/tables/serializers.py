@@ -6,13 +6,4 @@ from .models import Table
 class TableSerializer(serializers.ModelSerializer):
     class Meta:
         model = Table
-        fields = [
-            'id',
-            'created_at',
-            'account',
-            'table_number',
-            'table_type',
-            'capacity',
-            'location',
-            'table_status',
-        ]
+        fields = '__all__'
