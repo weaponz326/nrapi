@@ -6,7 +6,6 @@ from .models import (
     Batch, 
     StaffPersonnel, 
     RosterDay, 
-    RosterSheet
 )
 
 
@@ -27,12 +26,8 @@ class StaffPersonnelAdmin(admin.ModelAdmin):
 class RosterDayAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'roster', 'day')
 
-class RosterSheetAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'roster_day', 'shift', 'batch')
-
 admin.site.register(Roster, RosterAdmin)
 admin.site.register(Shift, ShiftAdmin)
 admin.site.register(Batch, BatchAdmin)
 admin.site.register(StaffPersonnel, StaffPersonnelAdmin)
 admin.site.register(RosterDay, RosterDayAdmin)
-admin.site.register(RosterSheet, RosterSheetAdmin)

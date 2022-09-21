@@ -19,7 +19,6 @@ from .models import (
     Batch,
     StaffPersonnel,
     RosterDay,
-    RosterSheet
 )
 from .serializers import (
     RosterSerializer,
@@ -27,7 +26,6 @@ from .serializers import (
     BatchSerializer,
     StaffPersonnelSerializer,
     RosterDaySerializer,
-    RosterSheetSerializer
 )
 from suites.restaurant.modules.staff.models import Staff
 from suites.personal.users.paginations import TablePagination
@@ -112,8 +110,8 @@ class ShiftDetailView(APIView):
         return Response(serializer.errors)
 
     def delete(self, request, id, format=None):
-        roster = Roster.objects.get(id=id)
-        roster.delete()
+        shift = Shift.objects.get(id=id)
+        shift.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # ------------------------------------------------------------------------------------------------------------
@@ -152,28 +150,12 @@ class BatchDetailView(APIView):
         return Response(serializer.errors)
 
     def delete(self, request, id, format=None):
-        roster = Batch.objects.get(id=id)
-        roster.delete()
+        batch = Batch.objects.get(id=id)
+        batch.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # --------------------------------------------------------------------------------
 # personnel
-
-class RefreshPersonnelView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, format=None):
-        roster = self.request.query_params.get('roster', None)
-        roster_instance = Roster.objects.get(id=roster)
-        account = roster_instance.account
-        staff_set = Staff.objects.filter(account=account)
-
-        for staff in staff_set:
-            if not StaffPersonnel.objects.filter(roster=roster):
-                personnel = StaffPersonnel(roster=roster_instance, staff=staff)
-                personnel.save()
-
-        return Response({ 'message' : 'OK' })
 
 class StaffPersonnelView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -196,93 +178,49 @@ class StaffPersonnelDetailView(APIView):
         return Response(serializer.errors)
 
     def delete(self, request, id, format=None):
-        roster = Batch.objects.get(id=id)
-        roster.delete()
+        personnel = StaffPersonnel.objects.get(id=id)
+        personnel.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # -----------------------------------------------------------------------------------------------------------
-# roster sheet
-
-class RefreshSheetView(APIView):
-    def get(self, request, format=None):
-
-        def daterange(from_date, to_date):
-            for n in range(int((to_date - from_date).days)):
-                yield from_date + timedelta(n)
-
-        roster = self.request.query_params.get('roster', None)
-        roster_instance = Roster.objects.get(id=roster)
-
-    	# fill days table
-        from_date = roster_instance.from_date
-        to_date = roster_instance.to_date
-
-        add_list = []
-        delete_list = []
-        day_set = RosterDay.objects.filter(roster=roster)
-
-        if day_set.exists():
-            for new_day in daterange(from_date, to_date):
-                for day in day_set.iterator():
-                    if (new_day != day) and (new_day > to_date):
-                        add_list.append(RosterDay(roster=roster_instance, day=str(new_day)))
-                    if (new_day != day) and (new_day < from_date):
-                        delete_list.append({roster:roster_instance, day:day})
-
-            if not add_list == []: RosterDay.objects.bulk_create(add_list)
-            if not delete_list == []: RosterDay.objects.filter(roster__in=delete_list[roster], day__in=delete_list[day])
-        else:
-            for new_day in daterange(from_date, to_date):
-                add_list.append(RosterDay(roster=roster_instance, day=str(new_day)))
-            if not add_list == []: RosterDay.objects.bulk_create(add_list)
-
-        return Response({ 'message' : 'OK' })
+# roster day
 
 class RosterDayView(APIView):
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request, format=None):
         roster = self.request.query_params.get('roster', None)
-        day = RosterDay.objects.filter(roster=roster)
-        serializer = RosterDaySerializer(day, many=True)
+        roster_day = RosterDay.objects.filter(roster=roster)
+        serializer = RosterDaySerializer(roster_day, many=True)
         return Response(serializer.data)
 
-# TODO: insert and get sheet batches
-class RosterSheetView(APIView):
-    def get(self, request, format=None):
-        return Response({ 'message' : 'TODO' })
-
     def post(self, request, format=None):
-        return Response({ 'message' : 'TODO' })
+        serializer = RosterDaySerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
-# -----------------------------------------------------------------------------------
+class RosterDayDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
 
-@receiver(post_save, sender=Shift)
-def save_sheet(sender, instance, created, **kwargs):
-    shifts = Shift.objects.filter(roster=instance.roster)
-    days = get_roster_days(instance.from_date, instance.to_date)
+    def get(self, request, id, format=None):
+        roster_day = RosterDay.objects.get(id=id)
+        serializer = RosterDaySerializer(roster_day)
+        return Response(serializer.data)
 
-    if created:
-        for s in shifts:
-            RosterSheet.objects.create(
-                roster=instance.roster,
-                shift=s.shift_name, 
-                days=days
-            )
+    def put(self, request, id, format=None):
+        roster_day = RosterDay.objects.get(id=id)
+        serializer = RosterDaySerializer(roster_day, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
 
-    if not created:
-        pass
-
-def get_roster_days(from_date, to_date):
-    date_batch_objects = {}
-    delta = date(to_date) - date(from_date)
-
-    for i in range(delta.days + 1):
-        day = from_date + timedelta(days=i)
-        data = {day: ''}
-        data = json.load(data)
-        date_batch_objects.update(data)
-
-    print(date_batch_objects)
-    return date_batch_objects
+    def delete(self, request, id, format=None):
+        roster_day = RosterDay.objects.get(id=id)
+        roster_day.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
     
 # --------------------------------------------------------------------------------------
 # dashboard
