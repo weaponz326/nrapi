@@ -40,8 +40,8 @@ class CustomBaseModel(models.Model):
 
 class User(AbstractUser, CustomBaseModel):
     username = None
-    email = models.EmailField(max_length=255, unique=True)
-    location = models.CharField(max_length=255)
+    email = models.EmailField(max_length=256, unique=True)
+    location = models.CharField(max_length=256)
     about = models.TextField()
     photo = models.FileField(null=True, blank=True, upload_to=users_upload_path)
 
