@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 
 from .models import User
 from .serializers import UserSerializer
+from .paginations import TablePagination
 
 
 # Create your views here.
@@ -15,6 +16,7 @@ from .serializers import UserSerializer
 class UserSearchView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    pagination_class = TablePagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['first_name', 'last_name']
 
