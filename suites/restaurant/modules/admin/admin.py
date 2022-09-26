@@ -12,7 +12,7 @@ class AccessAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'account', 'admin_access', 'portal_access', 'settings_access')
 
 class InvitationAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'invitee', 'invitation_status')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'user', 'invitation_status')
 
 admin.site.register(AccountUser, AccountUserAdmin)
 admin.site.register(Access, AccessAdmin)

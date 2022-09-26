@@ -20,17 +20,3 @@ class ExtendedProfile(CustomBaseModel):
     def __str__(self):
         return str(self.id)
 
-class Invitation(CustomBaseModel):
-    user = models.ForeignKey(User, to_field='id', on_delete=models.DO_NOTHING)
-    invitation_status = models.CharField(max_length=16, null=True, blank=True)
-    inviter_type = models.CharField(max_length=32, null=True, blank=True)
-    inviter_invitation_id = models.CharField(max_length=64, null=True, blank=True)
-    inviter_id = models.CharField(max_length=64, null=True, blank=True)
-    inviter_name = models.CharField(max_length=256, null=True, blank=True)
-    inviter_location = models.CharField(max_length=256, null=True, blank=True)
-
-    class Meta:
-        db_table = 'personal_module_settings_invitation'
-
-    def __str__(self):
-        return str(self.id)

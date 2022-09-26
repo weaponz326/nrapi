@@ -11,9 +11,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 
 from .models import ExtendedProfile
-from .serializers import ExtendedProfileSerializer, InvitationSerializer
+from .serializers import ExtendedProfileSerializer
 from suites.personal.users.models import User
 from suites.personal.users.paginations import TablePagination
+
+from suites.restaurant.modules.admin.models import Invitation
+from suites.restaurant.modules.admin.serializers import InvitationSerializer
 
 
 # Create your views here.
@@ -63,43 +66,28 @@ def save_extended_profile(sender, instance, created, **kwargs):
 # ------------------------------------------------------------------------------------------
 # invitations
 
+# TODO: union queryset with invitations of other suites
+
 class InvitationView(APIView, TablePagination):
     permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ['subject', 'created_at', 'inviter', 'inviter_type', 'invitation_status']
+    ordering_fields = ['created_at', 'account', 'account_type', 'invitation_status']
     ordering = ['-created_at']
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        Invitation = Invitation.objects.filter(user=user)
-        results = self.paginate_queryset(Invitation, request, view=self)
+        invitation = Invitation.objects.filter(user=user)
+        results = self.paginate_queryset(invitation, request, view=self)
         serializer = InvitationSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = InvitationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
 
 class InvitationDetailView(APIView):
     permission_classes = (IsAuthenticated,)
     
-    def get(self, request, id, format=None):
-        Invitation = Invitation.objects.get(id=id)
-        serializer = InvitationSerializer(Invitation)
-        return Response(serializer.data)
-
     def put(self, request, id, format=None):
-        Invitation = Invitation.objects.get(id=id)
-        serializer = InvitationSerializer(Invitation, data=request.data)
+        invitation = Invitation.objects.get(id=id)
+        serializer = InvitationSerializer(invitation, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
-
-    def delete(self, request, id, format=None):
-        Invitation = Invitation.objects.get(id=id)
-        Invitation.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)

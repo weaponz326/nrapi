@@ -1,3 +1,4 @@
+from functools import partial
 from django.shortcuts import render
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -41,7 +42,7 @@ class ExtendedProfileDetailView(APIView):
 
     def put(self, request, id, format=None):
         rink = ExtendedProfile.objects.get(id=id)
-        serializer = ExtendedProfileSerializer(rink, data=request.data)
+        serializer = ExtendedProfileSerializer(rink, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -81,7 +82,7 @@ class SubscriptionDetailView(APIView):
 
     def put(self, request, id, format=None):
         subscription = Subscription.objects.get(id=id)
-        serializer = SubscriptionSerializer(subscription, data=request.data)
+        serializer = SubscriptionSerializer(subscription, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
