@@ -13,12 +13,6 @@ from .paginations import TablePagination
 # Create your views here.
 
 # user search
-# class UserSearchView(generics.ListAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-#     pagination_class = TablePagination
-#     filter_backends = [filters.SearchFilter]
-#     search_fields = ['first_name', 'last_name']
 
 class UserSearchView(APIView, TablePagination):
     permission_classes = (IsAuthenticated,)
