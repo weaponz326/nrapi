@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 
 from .models import Account
 from .serializers import AccountSerializer
+from suites.personal.users.paginations import TablePagination
 
 
 # Create your views here.
@@ -55,13 +56,16 @@ class AccountDetailView(APIView):
 
 # restaurant search
 
-class AccountSearchView(generics.ListAPIView):
+class AccountSearchView(APIView, TablePagination):
     permission_classes = (IsAuthenticated,)
-    queryset = Account.objects.all()
-    serializer_class = AccountSerializer
+    pagination_class = TablePagination
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
 
-    # TODO:
-    # account = request.query_params.get('account', None)
-    # exclude_field = [id=account]
+    def get(self, request, format=None):
+        account = self.request.query_params.get('account', None)
+        account = Account.objects.all().exclude(id=account)
+        results = self.paginate_queryset(account, request, view=self)
+        serializer = AccountSerializer(results, many=True)        
+        return self.get_paginated_response(serializer.data)
+        

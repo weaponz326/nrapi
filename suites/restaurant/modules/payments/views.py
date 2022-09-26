@@ -34,7 +34,7 @@ class PaymentView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = PaymentSerializer(data=request.data)
+        serializer = PaymentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -50,7 +50,7 @@ class PaymentDetailView(APIView):
 
     def put(self, request, id, format=None):
         payment = Payment.objects.get(id=id)
-        serializer = PaymentSerializer(payment, data=request.data)
+        serializer = PaymentSerializer(payment, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

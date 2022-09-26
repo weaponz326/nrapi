@@ -86,7 +86,7 @@ class ScheduleView(APIView, TablePagination):
         calendar = self.request.query_params.get('calendar', None)
         schedule = Schedule.objects.filter(calendar=calendar)
         serializer = ScheduleSerializer(schedule, many=True)
-        return self.get_paginated_response(serializer.data)
+        return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = ScheduleSerializer(data=request.data, context={'request': request})

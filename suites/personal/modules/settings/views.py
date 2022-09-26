@@ -1,3 +1,4 @@
+from functools import partial
 from django.shortcuts import render
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -43,7 +44,7 @@ class ExtendedProfileDetailView(APIView):
 
     def put(self, request, id, format=None):
         extended_profile = ExtendedProfile.objects.get(id=id)
-        serializer = ExtendedProfileSerializer(extended_profile, data=request.data)
+        serializer = ExtendedProfileSerializer(extended_profile, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

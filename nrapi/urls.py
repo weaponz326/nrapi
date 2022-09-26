@@ -50,7 +50,7 @@ urlpatterns = [
     path('restaurant-modules/staff/', include('suites.restaurant.modules.staff.urls')),
     path('restaurant-modules/payments/', include('suites.restaurant.modules.payments.urls')),
     path('restaurant-modules/orders/', include('suites.restaurant.modules.orders.urls')),
-    path('restaurant-modules/kitchen_stock/', include('suites.restaurant.modules.kitchen_stock.urls')),
+    path('restaurant-modules/kitchen-stock/', include('suites.restaurant.modules.kitchen_stock.urls')),
     path('restaurant-modules/roster/', include('suites.restaurant.modules.roster.urls')),
     path('restaurant-modules/tables/', include('suites.restaurant.modules.tables.urls')),
     path('restaurant-modules/deliveries/', include('suites.restaurant.modules.deliveries.urls')),

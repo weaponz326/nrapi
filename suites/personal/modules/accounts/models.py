@@ -7,10 +7,10 @@ from suites.personal.users.models import CustomBaseModel, User
 
 class Account(CustomBaseModel):
     user = models.ForeignKey(User, to_field='id', on_delete=models.DO_NOTHING)
-    account_name = models.CharField(max_length=126, null=True)
-    account_number = models.CharField(max_length=32, null=True)
-    bank_name = models.CharField(max_length=126, null=True)
-    account_type = models.CharField(max_length=32, null=True)
+    account_name = models.CharField(max_length=126, null=True, blank=True)
+    account_number = models.CharField(max_length=64, null=True, blank=True)
+    bank_name = models.CharField(max_length=126, null=True, blank=True)
+    account_type = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:
         db_table = 'personal_module_account'
