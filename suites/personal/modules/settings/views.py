@@ -9,14 +9,15 @@ from rest_framework.views import APIView
 from rest_framework import generics, mixins, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
+from rest_framework.decorators import api_view
 
 from .models import ExtendedProfile
 from .serializers import ExtendedProfileSerializer
 from suites.personal.users.models import User
 from suites.personal.users.paginations import TablePagination
 
-from suites.restaurant.modules.admin.models import Invitation
-from suites.restaurant.modules.admin.serializers import InvitationSerializer
+from suites.restaurant.modules.admin.models import AccountUser, Invitation
+from suites.restaurant.modules.admin.serializers import AccountUserSerializer, InvitationSerializer
 
 
 # Create your views here.
@@ -76,7 +77,7 @@ class InvitationView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        invitation = Invitation.objects.filter(user=user)
+        invitation = Invitation.objects.filter(user=user).exclude(invitation_status='Cancelled')
         results = self.paginate_queryset(invitation, request, view=self)
         serializer = InvitationSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -91,3 +92,52 @@ class InvitationDetailView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+
+# -----------------------------------------------------------------------------------------------
+# all user suite accounts
+
+# all accounts of an account belonging to a user
+class AllUserSuiteAccountView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        personal_id = self.request.query_params.get('personal_id', None)
+
+        # restaurant accounts
+        restaurant_user = AccountUser.objects.filter(personal_user__id=personal_id)
+        restaurant_serializer = AccountUserSerializer(restaurant_user, many=True)
+        # # restaurant accounts
+        # school_user = AccountUser.objects.filter(personal_user__id=personal_id)
+        # school_serializer = AccountUserSerializer(school_user, many=True)
+
+        content = {
+            'restaurant': restaurant_serializer.data
+        }
+
+        return Response(content)
+
+# --------------------------------------------------------------------------------------
+# dashboard
+
+@api_view()
+def all_user_suite_account_count(request):
+    personal_id = request.query_params.get('personal_id', None)
+
+    restaurant_count = AccountUser.objects.filter(personal_user__id=personal_id).count()
+    # school_count = AccountUser.objects.filter(user__id=user).count()
+
+    content = {'count': restaurant_count}
+    return Response(content)
+
+@api_view()
+def user_suite_account_share(request):
+    personal_id = request.query_params.get('personal_id', None)
+
+    restaurant_count = AccountUser.objects.filter(personal_user__id=personal_id).count()
+    # school_count = AccountUser.objects.filter(personal_user__id=personal_id).count()
+
+    content = {
+        'restaurant': restaurant_count
+    }
+    
+    return Response(content)
