@@ -43,9 +43,10 @@ class Access(CustomBaseModel):
 
 class Invitation(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    invitee = models.ForeignKey(User, to_field='id', related_name='restauarant_invitee', on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, to_field='id', related_name='restauarant_invitee', on_delete=models.DO_NOTHING)
+    account_type = models.CharField(null=True, max_length=64)
     invitation_status = models.CharField(null=True, max_length=64)
-    date_confirmed = models.DateTimeField(null=True)
+    date_confirmed = models.DateTimeField(null=True, blank=True)
 
     class Meta:
         db_table = 'restaurant_module_admin_invitation'

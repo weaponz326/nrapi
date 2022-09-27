@@ -171,7 +171,7 @@ def account_user_count(request):
 # signals
 
 @receiver(post_save, sender=Account)
-def save_account_user(sender, instance, created, **kwargs):
+def save_creator_user(sender, instance, created, **kwargs):
     if created:
         AccountUser.objects.create(
             account=Account.objects.get(id=instance.id),
@@ -179,6 +179,16 @@ def save_account_user(sender, instance, created, **kwargs):
             is_creator=True,
             access_level="Admin",
         )
+
+@receiver(post_save, sender=Invitation)
+def save_invitation_user(sender, instance, created, **kwargs):
+    if not created:
+        if instance.invitation_status == 'Accepted':
+            AccountUser.objects.create(
+                account=Account.objects.get(id=uuid.UUID(str(instance.account))),
+                personal_user=instance.user,
+                access_level="Staff",
+            )
 
 @receiver(post_save, sender=AccountUser)
 def save_access(sender, instance, created, **kwargs):
@@ -204,7 +214,7 @@ def save_access(sender, instance, created, **kwargs):
         else:
             Access.objects.create(
                 id=instance.id,
-                account=Account.objects.get(id=uuid.UUID(str(id=instance.account))),
+                account=Account.objects.get(id=uuid.UUID(str(instance.account))),
                 admin_access=False,
                 portal_access=False,
                 settings_access=False,
