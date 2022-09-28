@@ -116,6 +116,21 @@ class AllUserSuiteAccountView(APIView):
 
         return Response(content)
 
+class AllUserSuiteAccountDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def delete(self, request, id, format=None):
+        account_type = self.request.query_params.get('account_type', None)
+
+        if account_type == 'restaurant':
+            restaurant_account_user = AccountUser.objects.get(id=id)
+            restaurant_account_user.delete()
+        # if account_type == 'school':
+        #     school_account_user = AccountUser.objects.get(id=id)
+        #     school_account_user.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 # --------------------------------------------------------------------------------------
 # dashboard
 
