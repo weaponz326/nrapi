@@ -11,13 +11,13 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('personal_module_tasks', '0001_initial'),
+        ('restaurant_account', '0001_initial'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='taskgroup',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to=settings.AUTH_USER_MODEL, to_field='id'),
+            model_name='account',
+            name='creator',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='restaurant_account', to=settings.AUTH_USER_MODEL, to_field='id'),
         ),
     ]
