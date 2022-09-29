@@ -7,4 +7,5 @@ urlpatterns = [
     path('extended-profile/<id>', views.ExtendedProfileDetailView.as_view()),
     path('subscription/', views.SubscriptionView.as_view()),
     path('subscription/<id>', views.SubscriptionDetailView.as_view()),
+    path('subscription-event/', views.SubscriptionEventView.as_view()),
 ]
