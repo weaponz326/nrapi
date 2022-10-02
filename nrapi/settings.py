@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'suites.personal.modules.accounts',
     'suites.personal.modules.tasks',
     'suites.personal.payments',
+    'suites.personal.support',
 
     # restaurant
     'suites.restaurant.accounts',
@@ -241,12 +242,12 @@ REST_FRAMEWORK = {
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
+    "SET_PASSWORD_RETYPE": True,
     "SERIALIZERS": { 'current_user': 'suites.personal.users.serializers.UserSerializer' },
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
-    "SEND_CONFIRMATION_EMAIL": True,
     "SET_USERNAME_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
-    "PASSWORD_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
-    "ACTIVATION_URL": "activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_URL": "https://www.netrink.com/auth/activate?uid={uid}&token={token}",
+    "PASSWORD_RESET_CONFIRM_URL": "https://www.netrink.com/auth/reset?uid={uid}&token={token}",
 }

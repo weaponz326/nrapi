@@ -41,6 +41,7 @@ urlpatterns = [
     path('personal-modules/accounts/', include('suites.personal.modules.accounts.urls')),
     path('personal-modules/tasks/', include('suites.personal.modules.tasks.urls')),
     path('payments/', include('suites.personal.payments.urls')),
+    path('support/', include('suites.personal.support.urls')),
  
     # restaurant
     path('restaurant-accounts/', include('suites.restaurant.accounts.urls')),
