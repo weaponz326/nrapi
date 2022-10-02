@@ -239,15 +239,21 @@ REST_FRAMEWORK = {
 
 # Djoser config
 
+# DOMAIN = 'www.netrink.com'
+DOMAIN = 'localhost:4200'
+SITENAME = 'netRink'
+
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
-    "SERIALIZERS": { 'current_user': 'suites.personal.users.serializers.UserSerializer' },
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
     "SET_USERNAME_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
     "SEND_ACTIVATION_EMAIL": True,
-    "ACTIVATION_URL": "https://www.netrink.com/auth/activate?uid={uid}&token={token}",
-    "PASSWORD_RESET_CONFIRM_URL": "https://www.netrink.com/auth/reset?uid={uid}&token={token}",
+    "ACTIVATION_URL": "auth/activate?uid={uid}&token={token}",
+    "PASSWORD_RESET_CONFIRM_URL": "auth/reset?uid={uid}&token={token}",
+    "SERIALIZERS": { 
+        'current_user': 'suites.personal.users.serializers.UserSerializer' 
+    },
 }

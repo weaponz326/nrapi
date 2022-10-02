@@ -17,7 +17,6 @@ import suites.personal.payments.services as PaystackPayments
 
 # Create your views here.
 
-
 class ExtendedProfileView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -76,17 +75,27 @@ class SubscriptionDetailView(APIView):
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
-        result = PaystackPayments.initialize_transaction(request.data)
+        subscription = Subscription.objects.filter(id=id)
+        serializer = SubscriptionSerializer(subscription, data=request.data, partial=True)
+        
+        if serializer.is_valid():
+            result = PaystackPayments.innitialize_transaction(request.data)
+            print(result)
 
-        if result.status_code == 200:
-            subscription = Subscription.objects.get(id=id)
-            serializer = SubscriptionSerializer(subscription, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                content = {'model_data': serializer.data, 'payment_data': result}
-                return Response(content)
-            return Response(serializer.errors)
-        return 'Transaction initialization failed'
+            if result['status'] == True:
+                subscription.update(
+                    subscription_type = request.data['subscription_type'],
+                    billing_frequency = request.data['billing_frequency'],
+                    number_users = request.data['number_users'],
+                    status = request.data['status'],
+                    email = request.data['email'],
+                    plan = request.data['plan'],
+                    quantity = request.data['quantity'],
+                )
+
+                return Response(result)
+            return Response({'messsage': 'Payment failed'})
+        return Response(serializer.errors)
 
 # ---------------------------------------------------------------------------------------------------
 # subscription events
@@ -112,6 +121,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Account)
 def save_subscription(sender, instance, created, **kwargs):
     if created:
+
         Subscription.objects.create(
             id=instance.id,
             subscription_type="Individual",

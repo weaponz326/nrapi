@@ -22,6 +22,8 @@ class ExtendedProfile(CustomBaseModel):
         return str(self.id)
 
 class Subscription(CustomBaseModel):
+    customer_code = models.CharField(max_length=64, null=True, blank=True)
+    subscription_code = models.CharField(max_length=64, null=True, blank=True)
     subscription_type = models.CharField(max_length=32, null=True, blank=True)
     billing_frequency = models.CharField(max_length=32, null=True, blank=True)
     number_users = models.IntegerField(null=True, blank=True)
