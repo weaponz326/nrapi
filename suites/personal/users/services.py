@@ -2,9 +2,8 @@ import datetime
 from django.db.models.functions import TruncDate
 
 
-def fillZeroDates(items):
+def fiil_zero_dates(items):
     items = list(items)
-
     dates = [x.get('date') for x in items]
     counts = [x.get('count') for x in items]
     
@@ -13,7 +12,6 @@ def fillZeroDates(items):
 
     for d in (datetime.datetime.today() - datetime.timedelta(days=x) for x in range(0,30)):
         fd = datetime.datetime.date(d)
-
         if fd not in dates:
             new_items.append({'date': fd, 'count': 0})
         else:
@@ -21,3 +19,6 @@ def fillZeroDates(items):
             y += 1
 
     return new_items
+
+def generate_id_code():
+    pass

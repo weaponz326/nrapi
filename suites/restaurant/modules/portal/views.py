@@ -11,7 +11,7 @@ from rest_framework.decorators import api_view
 
 from .models import Rink
 from .serializers import RinkSerializer
-from suites.personal.users.services import fillZeroDates
+from suites.personal.users.services import fiil_zero_dates
 
 
 # Create your views here.
@@ -94,14 +94,14 @@ def rink_share_annotate(request):
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Count('id')).order_by('-date')
-    filled_rink_in_items = fillZeroDates(rink_in_items)
+    filled_rink_in_items = fiil_zero_dates(rink_in_items)
 
     rink_out_items = Rink.objects\
         .filter(sender__id=request.query_params.get('account', None))\
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Count('id')).order_by('-date')
-    filled_rink_out_items = fillZeroDates(rink_out_items)
+    filled_rink_out_items = fiil_zero_dates(rink_out_items)
 
     content = {'rink_in': filled_rink_in_items, 'rink_out': filled_rink_out_items}
     return Response(content)

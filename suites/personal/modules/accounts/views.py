@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view
 from .models import Account, Transaction
 from .serializers import AccountSerializer, TransactionSerializer
 from suites.personal.users.paginations import TablePagination
-from suites.personal.users.services import fillZeroDates
+from suites.personal.users.services import fiil_zero_dates
 
 
 # Create your views here.
@@ -147,14 +147,14 @@ def transaction_annotate(request):
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Sum('amount')).order_by('-date')
-    filled_credit_items = fillZeroDates(credit_items)
+    filled_credit_items = fiil_zero_dates(credit_items)
 
     debit_items = Transaction.objects\
         .filter(account__user__id=request.query_params.get('user', None), transaction_type = "Debit")\
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Sum('amount')).order_by('-date')
-    filled_debit_items = fillZeroDates(debit_items)
+    filled_debit_items = fiil_zero_dates(debit_items)
 
     content = {'credit': filled_credit_items, 'debit': filled_debit_items}
     return Response(content)
