@@ -27,7 +27,7 @@ class TaskGroupView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        task_group = TaskGroup.objects.filter(user=user)
+        task_group = TaskGroup.objects.filter(user=user).order_by('-created_at')
         results = self.paginate_queryset(task_group, request, view=self)
         serializer = TaskGroupSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -71,7 +71,7 @@ class AllTaskItemView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        task_item = TaskItem.objects.filter(task_group__user=user)
+        task_item = TaskItem.objects.filter(task_group__user=user).order_by('-created_at')
         results = self.paginate_queryset(task_item, request, view=self)
         serializer = TaskItemSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -81,7 +81,7 @@ class TaskItemView(APIView):
 
     def get(self, request, format=None):
         task_group = self.request.query_params.get('task_group', None)
-        task_item = TaskItem.objects.filter(task_group=task_group)
+        task_item = TaskItem.objects.filter(task_group=task_group).order_by('-created_at')
         serializer = TaskItemSerializer(task_item, many=True)
         return Response(serializer.data)
 

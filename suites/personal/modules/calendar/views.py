@@ -27,7 +27,7 @@ class CalendarView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        calendar = Calendar.objects.filter(user=user)
+        calendar = Calendar.objects.filter(user=user).order_by('-created_at')
         results = self.paginate_queryset(calendar, request, view=self)
         serializer = CalendarSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -74,7 +74,7 @@ class AllScheduleView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        schedule = Schedule.objects.filter(calendar__user=user)
+        schedule = Schedule.objects.filter(calendar__user=user).order_by('-created_at')
         results = self.paginate_queryset(schedule, request, view=self)
         serializer = ScheduleSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)

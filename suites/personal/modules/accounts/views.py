@@ -27,7 +27,7 @@ class AccountView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        account = Account.objects.filter(user=user)
+        account = Account.objects.filter(user=user).order_by('-created_at')
         results = self.paginate_queryset(account, request, view=self)
         serializer = AccountSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -68,7 +68,7 @@ class TransactionView(APIView):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        transaction = Transaction.objects.filter(account=account)
+        transaction = Transaction.objects.filter(account=account).order_by('-created_at')
         serializer = TransactionSerializer(transaction, many=True)
         return Response(serializer.data)
 
