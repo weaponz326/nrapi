@@ -39,7 +39,7 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "") != "False"
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
     'localhost',
-    'personal.netrink.com'
+    'api.netrink.com'
 ]
 
 
@@ -239,8 +239,8 @@ REST_FRAMEWORK = {
 
 # Djoser config
 
-# DOMAIN = 'www.netrink.com'
-DOMAIN = 'localhost:4200'
+DOMAIN = 'www.netrink.com'
+# DOMAIN = 'localhost:4200'
 SITENAME = 'netRink'
 
 DJOSER = {
