@@ -20,5 +20,9 @@ def fiil_zero_dates(items):
 
     return new_items
 
-def generate_id_code():
-    pass
+def generate_id_code(prefix, suffix, last_code):
+    code_length = len(last_code)
+    increment = int(last_code) + 1
+    new_code = str(increment).zfill(code_length)
+    
+    return '{}{}{}'.format(prefix, new_code, suffix)

@@ -43,21 +43,21 @@ urlpatterns = [
     path('payments/', include('suites.personal.payments.urls')),
     path('support/', include('suites.personal.support.urls')),
  
-    # restaurant
-    path('restaurant-accounts/', include('suites.restaurant.accounts.urls')),
-    path('restaurant-modules/admin/', include('suites.restaurant.modules.admin.urls')),
-    path('restaurant-modules/portal/', include('suites.restaurant.modules.portal.urls')),
-    path('restaurant-modules/settings/', include('suites.restaurant.modules.settings.urls')),
-    path('restaurant-modules/menu/', include('suites.restaurant.modules.menu.urls')),
-    path('restaurant-modules/staff/', include('suites.restaurant.modules.staff.urls')),
-    path('restaurant-modules/payments/', include('suites.restaurant.modules.payments.urls')),
-    path('restaurant-modules/orders/', include('suites.restaurant.modules.orders.urls')),
-    path('restaurant-modules/kitchen-stock/', include('suites.restaurant.modules.kitchen_stock.urls')),
-    path('restaurant-modules/roster/', include('suites.restaurant.modules.roster.urls')),
-    path('restaurant-modules/tables/', include('suites.restaurant.modules.tables.urls')),
-    path('restaurant-modules/deliveries/', include('suites.restaurant.modules.deliveries.urls')),
-    path('restaurant-modules/reservations/', include('suites.restaurant.modules.reservations.urls')),
-    path('restaurant-modules/customers/', include('suites.restaurant.modules.customers.urls')),
+    # # restaurant
+    # path('restaurant-accounts/', include('suites.restaurant.accounts.urls')),
+    # path('restaurant-modules/admin/', include('suites.restaurant.modules.admin.urls')),
+    # path('restaurant-modules/portal/', include('suites.restaurant.modules.portal.urls')),
+    # path('restaurant-modules/settings/', include('suites.restaurant.modules.settings.urls')),
+    # path('restaurant-modules/menu/', include('suites.restaurant.modules.menu.urls')),
+    # path('restaurant-modules/staff/', include('suites.restaurant.modules.staff.urls')),
+    # path('restaurant-modules/payments/', include('suites.restaurant.modules.payments.urls')),
+    # path('restaurant-modules/orders/', include('suites.restaurant.modules.orders.urls')),
+    # path('restaurant-modules/kitchen-stock/', include('suites.restaurant.modules.kitchen_stock.urls')),
+    # path('restaurant-modules/roster/', include('suites.restaurant.modules.roster.urls')),
+    # path('restaurant-modules/tables/', include('suites.restaurant.modules.tables.urls')),
+    # path('restaurant-modules/deliveries/', include('suites.restaurant.modules.deliveries.urls')),
+    # path('restaurant-modules/reservations/', include('suites.restaurant.modules.reservations.urls')),
+    # path('restaurant-modules/customers/', include('suites.restaurant.modules.customers.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
