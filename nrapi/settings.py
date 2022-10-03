@@ -39,7 +39,7 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "") != "False"
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
     'localhost',
-    'personal.netrink.com'
+    'api.netrink.com'
 ]
 
 
@@ -68,22 +68,24 @@ INSTALLED_APPS = [
     'suites.personal.modules.notes',
     'suites.personal.modules.accounts',
     'suites.personal.modules.tasks',
+    'suites.personal.payments',
+    'suites.personal.support',
 
-    # restaurant
-    'suites.restaurant.accounts',
-    'suites.restaurant.modules.admin',
-    'suites.restaurant.modules.portal',
-    'suites.restaurant.modules.settings',
-    'suites.restaurant.modules.menu',
-    'suites.restaurant.modules.staff',
-    'suites.restaurant.modules.payments',
-    'suites.restaurant.modules.orders',
-    'suites.restaurant.modules.kitchen_stock',
-    'suites.restaurant.modules.roster',
-    'suites.restaurant.modules.tables',
-    'suites.restaurant.modules.deliveries',
-    'suites.restaurant.modules.reservations',
-    'suites.restaurant.modules.customers',
+    # # restaurant
+    # 'suites.restaurant.accounts',
+    # 'suites.restaurant.modules.admin',
+    # 'suites.restaurant.modules.portal',
+    # 'suites.restaurant.modules.settings',
+    # 'suites.restaurant.modules.menu',
+    # 'suites.restaurant.modules.staff',
+    # 'suites.restaurant.modules.payments',
+    # 'suites.restaurant.modules.orders',
+    # 'suites.restaurant.modules.kitchen_stock',
+    # 'suites.restaurant.modules.roster',
+    # 'suites.restaurant.modules.tables',
+    # 'suites.restaurant.modules.deliveries',
+    # 'suites.restaurant.modules.reservations',
+    # 'suites.restaurant.modules.customers',
 ]
 
 MIDDLEWARE = [
@@ -212,13 +214,13 @@ DATETIME_FORMAT = 'Y-m-d H:M:S'
 
 # Email config
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIL_HOST = "localhost"
-# EMAIL_PORT = "1025"
-# EMAIL_HOST_USER = ""
-# EMAIL_HOST_PASSWORD = ""
-# EMAIL_USE_TLS = False
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = "587"
+EMAIL_HOST_USER = "netrink18@gmail.com"
+EMAIL_HOST_PASSWORD = "lawvkzjdeaadaosa"
 
 
 # CORS HEADERS
@@ -237,15 +239,21 @@ REST_FRAMEWORK = {
 
 # Djoser config
 
+DOMAIN = 'www.netrink.com'
+# DOMAIN = 'localhost:4200'
+SITENAME = 'netRink'
+
 DJOSER = {
     "LOGIN_FIELD": "email",
     "USER_CREATE_PASSWORD_RETYPE": True,
-    "SERIALIZERS": { 'current_user': 'suites.personal.users.serializers.UserSerializer' },
+    "SET_PASSWORD_RETYPE": True,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
-    "SEND_CONFIRMATION_EMAIL": True,
     "SET_USERNAME_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
-    "PASSWORD_RESET_CONFIRM_URL": "email/reset/confirm/{uid}/{token}",
-    "ACTIVATION_URL": "activate/{uid}/{token}",
     "SEND_ACTIVATION_EMAIL": True,
+    "ACTIVATION_URL": "auth/activate?uid={uid}&token={token}",
+    "PASSWORD_RESET_CONFIRM_URL": "auth/reset?uid={uid}&token={token}",
+    "SERIALIZERS": { 
+        'current_user': 'suites.personal.users.serializers.UserSerializer' 
+    },
 }

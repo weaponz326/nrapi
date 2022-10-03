@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view
 from .models import Note
 from .serializers import NoteSerializer
 from suites.personal.users.paginations import TablePagination
-from suites.personal.users.services import fillZeroDates
+from suites.personal.users.services import fiil_zero_dates
 
 
 # Create your views here.
@@ -27,7 +27,7 @@ class NoteView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        note = Note.objects.filter(user=user)
+        note = Note.objects.filter(user=user).order_by('-created_at')
         results = self.paginate_queryset(note, request, view=self)
         serializer = NoteSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -87,6 +87,6 @@ def note_annotate(request):
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Count('id')).order_by('-date')
-    filled_items = fillZeroDates(items)
+    filled_items = fiil_zero_dates(items)
     return Response(filled_items)
 

@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view
 from .models import TaskGroup, TaskItem
 from .serializers import TaskGroupSerializer, TaskItemSerializer
 from suites.personal.users.paginations import TablePagination
-from suites.personal.users.services import fillZeroDates
+from suites.personal.users.services import fiil_zero_dates
 
 
 # Create your views here.
@@ -27,7 +27,7 @@ class TaskGroupView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        task_group = TaskGroup.objects.filter(user=user)
+        task_group = TaskGroup.objects.filter(user=user).order_by('-created_at')
         results = self.paginate_queryset(task_group, request, view=self)
         serializer = TaskGroupSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -71,7 +71,7 @@ class AllTaskItemView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        task_item = TaskItem.objects.filter(task_group__user=user)
+        task_item = TaskItem.objects.filter(task_group__user=user).order_by('-created_at')
         results = self.paginate_queryset(task_item, request, view=self)
         serializer = TaskItemSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -81,7 +81,7 @@ class TaskItemView(APIView):
 
     def get(self, request, format=None):
         task_group = self.request.query_params.get('task_group', None)
-        task_item = TaskItem.objects.filter(task_group=task_group)
+        task_item = TaskItem.objects.filter(task_group=task_group).order_by('-created_at')
         serializer = TaskItemSerializer(task_item, many=True)
         return Response(serializer.data)
 
@@ -149,7 +149,7 @@ def task_group_annotate(request):
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Count('id')).order_by('-date')
-    filled_items = fillZeroDates(items)
+    filled_items = fiil_zero_dates(items)
     return Response(filled_items)
 
 @api_view()
@@ -159,5 +159,5 @@ def task_item_annotate(request):
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Count('id')).order_by('-date')
-    filled_items = fillZeroDates(items)
+    filled_items = fiil_zero_dates(items)
     return Response(filled_items)

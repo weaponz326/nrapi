@@ -14,7 +14,7 @@ from rest_framework.decorators import api_view
 from .models import Calendar, Schedule
 from .serializers import CalendarSerializer, ScheduleSerializer
 from suites.personal.users.paginations import TablePagination
-from suites.personal.users.services import fillZeroDates
+from suites.personal.users.services import fiil_zero_dates
 
 
 # Create your views here.
@@ -27,7 +27,7 @@ class CalendarView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        calendar = Calendar.objects.filter(user=user)
+        calendar = Calendar.objects.filter(user=user).order_by('-created_at')
         results = self.paginate_queryset(calendar, request, view=self)
         serializer = CalendarSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -74,7 +74,7 @@ class AllScheduleView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        schedule = Schedule.objects.filter(calendar__user=user)
+        schedule = Schedule.objects.filter(calendar__user=user).order_by('-created_at')
         results = self.paginate_queryset(schedule, request, view=self)
         serializer = ScheduleSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -145,7 +145,7 @@ def calendar_annotate(request):
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Count('id')).order_by('-date')
-    filled_items = fillZeroDates(items)
+    filled_items = fiil_zero_dates(items)
     return Response(filled_items)
 
 @api_view()
@@ -155,6 +155,6 @@ def schedule_annotate(request):
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
         .values('date').annotate(count=Count('id')).order_by('-date')
-    filled_items = fillZeroDates(items)
+    filled_items = fiil_zero_dates(items)
     return Response(filled_items)
 
