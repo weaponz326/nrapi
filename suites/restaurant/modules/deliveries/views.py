@@ -28,7 +28,7 @@ class DeliveryView(APIView, TablePagination):
     
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        delivery = Delivery.objects.filter(account=account)
+        delivery = Delivery.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(delivery, request, view=self)
         serializer = DeliverySerializer(results, many=True)        
         return self.get_paginated_response(serializer.data)

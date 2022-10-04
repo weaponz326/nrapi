@@ -28,7 +28,7 @@ class PaymentView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        payment = Payment.objects.filter(account=account)
+        payment = Payment.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(payment, request, view=self)
         serializer = PaymentSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)

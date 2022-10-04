@@ -24,7 +24,7 @@ class StockItemView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        item = StockItem.objects.filter(account=account)
+        item = StockItem.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(item, request, view=self)
         serializer = StockItemSerializer(results, many=True)        
         return self.get_paginated_response(serializer.data)

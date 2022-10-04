@@ -23,7 +23,7 @@ class CustomerView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        customer = Customer.objects.filter(account=account)
+        customer = Customer.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(customer, request, view=self)
         serializer = CustomerSerializer(results, many=True)        
         return self.get_paginated_response(serializer.data)

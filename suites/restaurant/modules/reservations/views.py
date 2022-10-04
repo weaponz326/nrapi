@@ -27,7 +27,7 @@ class ReservationView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        reservation = Reservation.objects.filter(account=account)
+        reservation = Reservation.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(reservation, request, view=self)
         serializer = ReservationSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -68,7 +68,7 @@ class ReservationTableView(APIView):
 
     def get(self, request, format=None):
         reservation = self.request.query_params.get('account', None)
-        reservation_table = ReservationTable.objects.filter(reservation=reservation)
+        reservation_table = ReservationTable.objects.filter(reservation=reservation).order_by('-created_at')
         serializer = ReservationTableSerializer(reservation_table, many=True)
         return Response(serializer.data)
 

@@ -41,7 +41,7 @@ class RosterView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        roster = Roster.objects.filter(account=account)
+        roster = Roster.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(roster, request, view=self)
         serializer = RosterSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)

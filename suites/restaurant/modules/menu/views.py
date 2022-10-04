@@ -26,7 +26,7 @@ class MenuGroupView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        menu_group = MenuGroup.objects.filter(account=account)
+        menu_group = MenuGroup.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(menu_group, request, view=self)
         serializer = MenuGroupSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -72,7 +72,7 @@ class AllMenuItemView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        menu_item = MenuItem.objects.filter(menu_group__account=account)
+        menu_item = MenuItem.objects.filter(menu_group__account=account).order_by('-created_at')
         results = self.paginate_queryset(menu_item, request, view=self)
         serializer = MenuItemSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)

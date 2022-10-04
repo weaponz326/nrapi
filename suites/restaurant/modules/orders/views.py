@@ -27,7 +27,7 @@ class OrderView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        order = Order.objects.filter(account=account)
+        order = Order.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(order, request, view=self)
         serializer = OrderSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -68,7 +68,7 @@ class OrderItemView(APIView):
 
     def get(self, request, format=None):
         order = self.request.query_params.get('order', None)
-        item = OrderItem.objects.filter(order=order)
+        item = OrderItem.objects.filter(order=order).order_by('created_at')
         serializer = OrderItemSerializer(item, many=True)
         return Response(serializer.data)
 

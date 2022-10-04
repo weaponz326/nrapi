@@ -23,7 +23,7 @@ class TableView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        table = Table.objects.filter(account=account)
+        table = Table.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(table, request, view=self)
         serializer = TableSerializer(results, many=True)        
         return self.get_paginated_response(serializer.data)
