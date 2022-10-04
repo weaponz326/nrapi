@@ -142,12 +142,11 @@ class NewMenuItemCodeConfigView(APIView):
 
     def get(self, request, id, format=None):
         code_set = MenuItemCodeConfig.objects.get(id=id)
-        new_code = generate_code(code_set.last_code)        
-
-        code = MenuItemCodeConfig.objects.filter(id=id)
-        code.update(last_code=new_code)
+        new_code = generate_code(code_set.last_code)                
 
         if code_set.entry_mode == 'Auto':
+            code = MenuItemCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
             content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
             return Response(content)
         return Response(status.HTTP_204_NO_CONTENT)
