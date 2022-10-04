@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Order, OrderItem
+from .models import Order, OrderCodeConfig, OrderItem
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -28,3 +28,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class OrderCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderCodeConfig
+        fields = '__all__'            
