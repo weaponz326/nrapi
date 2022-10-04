@@ -20,9 +20,15 @@ def fiil_zero_dates(items):
 
     return new_items
 
-def generate_id_code(prefix, suffix, last_code):
+def generate_code(last_code):
     code_length = len(last_code)
     increment = int(last_code) + 1
-    new_code = str(increment).zfill(code_length)
-    
-    return '{}{}{}'.format(prefix, new_code, suffix)
+    new_code = str(increment).zfill(code_length)    
+    return new_code
+
+def get_initials(full_name):
+    name_list = full_name.split()
+    initials = ""
+    for name in name_list:
+        initials += name[0].upper()
+    return initials
