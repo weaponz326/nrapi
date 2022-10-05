@@ -14,19 +14,19 @@ from .paginations import TablePagination
 
 # user search
 
-class UserSearchView(APIView, TablePagination):
+class UserSearchView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
-    pagination_class = TablePagination
+    serializer_class = UserSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['first_name', 'last_name']
+    pagination_class = TablePagination
 
-    def get(self, request, format=None):
-        user = self.request.query_params.get('user', None)
-        user = User.objects.all().exclude(id=user)
-        results = self.paginate_queryset(user, request, view=self)
-        serializer = UserSerializer(results, many=True)        
-        return self.get_paginated_response(serializer.data)
-      
+    def get_queryset(self):
+        query_params = self.request.query_params
+        user = query_params.get('user', None)
+        queryset = User.objects.all().exclude(id=user)
+        return queryset
+
 class UserDetailView(APIView):
     permission_classes = (IsAuthenticated,)
 

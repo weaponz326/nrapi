@@ -55,17 +55,16 @@ class AccountDetailView(APIView):
 # --------------------------------------------------------------------------------------------------------
 
 # restaurant search
-
-class AccountSearchView(APIView, TablePagination):
+        
+class AccountSearchView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
-    pagination_class = TablePagination
+    serializer_class = AccountSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
+    pagination_class = TablePagination
 
-    def get(self, request, format=None):
-        account = self.request.query_params.get('account', None)
-        account = Account.objects.all().exclude(id=account)
-        results = self.paginate_queryset(account, request, view=self)
-        serializer = AccountSerializer(results, many=True)        
-        return self.get_paginated_response(serializer.data)
-        
+    def get_queryset(self):
+        query_params = self.request.query_params
+        account = query_params.get('account', None)
+        queryset = Account.objects.all().exclude(id=account)
+        return queryset
