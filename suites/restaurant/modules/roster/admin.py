@@ -1,7 +1,8 @@
 from django.contrib import admin
 
 from .models import (
-    Roster, 
+    Roster,
+    RosterCodeConfig, 
     Shift, 
     Batch, 
     StaffPersonnel, 
@@ -26,8 +27,12 @@ class StaffPersonnelAdmin(admin.ModelAdmin):
 class RosterDayAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'roster', 'day')
 
+class RosterCodeConfigAdmin(admin.ModelAdmin):
+    list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')
+
 admin.site.register(Roster, RosterAdmin)
 admin.site.register(Shift, ShiftAdmin)
 admin.site.register(Batch, BatchAdmin)
 admin.site.register(StaffPersonnel, StaffPersonnelAdmin)
 admin.site.register(RosterDay, RosterDayAdmin)
+admin.site.register(RosterCodeConfig, RosterCodeConfigAdmin)

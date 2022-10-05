@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Payment
+from .models import Payment, PaymentCodeConfig
 
 
 class PaymentSerializer(serializers.ModelSerializer):
@@ -15,3 +15,8 @@ class PaymentSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class PaymentCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PaymentCodeConfig
+        fields = '__all__'

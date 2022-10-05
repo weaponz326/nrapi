@@ -15,5 +15,7 @@ urlpatterns = [
     path('roster-day/', views.RosterDayView.as_view()),
     path('roster-day/<id>', views.RosterDayDetailView.as_view()),
 
+    path('config/roster-code/<id>', views.RosterCodeConfigDetailView.as_view()),
+    path('config/new-roster-code/<id>', views.NewRosterCodeConfigView.as_view()),
     path('dashboard/roster-count', views.roster_count),
 ]

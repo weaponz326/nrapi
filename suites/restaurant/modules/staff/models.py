@@ -36,3 +36,16 @@ class Staff(CustomBaseModel):
 
     def __str__(self):
         return str(self.id)
+
+class StaffCodeConfig(CustomBaseModel):
+    entry_mode = models.CharField(max_length=32, blank=True, null=True)
+    prefix = models.CharField(max_length=32, blank=True, null=True)
+    suffix = models.CharField(max_length=32, blank=True, null=True)
+    last_code = models.CharField(max_length=64, blank=True, null=True)
+    year_code = models.CharField(max_length=16, blank=True, null=True)
+
+    class Meta:
+        db_table = 'restaurant_module_staff_code_config'
+
+    def __str__(self):
+        return str(self.id)

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Reservation, ReservationTable
+from .models import Reservation, ReservationCodeConfig, ReservationTable
 
 
 class ReservationSerializer(serializers.ModelSerializer):
@@ -28,3 +28,8 @@ class ReservationTableSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class ReservationCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ReservationCodeConfig
+        fields = '__all__'            
