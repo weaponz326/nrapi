@@ -13,12 +13,14 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
+
 from .models import (
     Roster,
     Shift,
     Batch,
     StaffPersonnel,
     RosterDay,
+    RosterCodeConfig,
 )
 from .serializers import (
     RosterSerializer,
@@ -26,9 +28,11 @@ from .serializers import (
     BatchSerializer,
     StaffPersonnelSerializer,
     RosterDaySerializer,
+    RosterCodeConfigSerializer,
 )
-from suites.restaurant.modules.staff.models import Staff
+from suites.restaurant.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
+from suites.personal.users.services import generate_code, get_initials
 
 
 # Create your views here.
@@ -222,6 +226,50 @@ class RosterDayDetailView(APIView):
         roster_day.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+# --------------------------------------------------------------------------------------
+# config
+
+class RosterCodeConfigDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code = RosterCodeConfig.objects.get(id=id)
+        serializer = RosterCodeConfigSerializer(code)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        code = RosterCodeConfig.objects.get(id=id)
+        serializer = RosterCodeConfigSerializer(code, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class NewRosterCodeConfigView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code_set = RosterCodeConfig.objects.get(id=id)
+        new_code = generate_code(code_set.last_code)                
+
+        if code_set.entry_mode == 'Auto':
+            code = RosterCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
+            content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
+            return Response(content)
+        return Response(status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=Account)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        RosterCodeConfig.objects.create(
+            id=instance.id,
+            entry_mode="Auto",
+            prefix=get_initials(instance.name),
+            suffix="RT",
+            last_code="000"
+        )
+
 # --------------------------------------------------------------------------------------
 # dashboard
 
