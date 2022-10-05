@@ -25,7 +25,7 @@ class BudgetView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        budget = Budget.objects.filter(user=user)
+        budget = Budget.objects.filter(user=user).order_by('-created_at')
         results = self.paginate_queryset(budget, request, view=self)
         serializer = BudgetSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -66,7 +66,7 @@ class IncomeView(APIView):
     
     def get(self, request, format=None):
         budget = self.request.query_params.get('budget', None)
-        income = Income.objects.filter(budget=budget)
+        income = Income.objects.filter(budget=budget).order_by('created_at')
         serializer = IncomeSerializer(income, many=True)
         return Response(serializer.data)
 
@@ -106,7 +106,7 @@ class ExpenditureView(APIView):
 
     def get(self, request, format=None):
         budget = self.request.query_params.get('budget', None)
-        expenditure = Expenditure.objects.filter(budget=budget)
+        expenditure = Expenditure.objects.filter(budget=budget).order_by('created_at')
         serializer = ExpenditureSerializer(expenditure, many=True)
         return Response(serializer.data)
 

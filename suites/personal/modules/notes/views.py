@@ -27,7 +27,7 @@ class NoteView(APIView, TablePagination):
 
     def get(self, request, format=None):
         user = self.request.query_params.get('user', None)
-        note = Note.objects.filter(user=user)
+        note = Note.objects.filter(user=user).order_by('-created_at')
         results = self.paginate_queryset(note, request, view=self)
         serializer = NoteSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
