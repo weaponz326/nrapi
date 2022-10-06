@@ -57,15 +57,6 @@ class ExtendedProfileDetailView(APIView):
 # ---------------------------------------------------------------------------------------------------
 # subscriptions
 
-class SubscriptionView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, format=None):
-        account = self.request.query_params.get('account', None)
-        subscription = Subscription.objects.filter(account=account)
-        serializer = SubscriptionSerializer(subscription, many=True)
-        return Response(serializer.data)
-
 class SubscriptionDetailView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -105,7 +96,7 @@ class SubscriptionEventView(APIView):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        subscription = SubscriptionEvent.objects.filter(account=account)
+        subscription = SubscriptionEvent.objects.filter(account=account).order_by('-created_at')
         serializer = SubscriptionEventSerializer(subscription, many=True)
         return Response(serializer.data)
 

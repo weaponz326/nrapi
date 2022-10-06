@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.db.models import Count
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -10,9 +12,11 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.parsers import MultiPartParser, FileUploadParser
 from rest_framework.decorators import api_view
 
-from .models import MenuGroup, MenuItem
-from .serializers import  MenuGroupSerializer, MenuItemSerializer
+from .models import MenuGroup, MenuItem, MenuItemCodeConfig
+from .serializers import  MenuGroupSerializer, MenuItemSerializer, MenuItemCodeConfigSerializer
 from suites.personal.users.paginations import TablePagination
+from suites.personal.users.services import generate_code, get_initials
+from suites.restaurant.accounts.models import Account
 
 
 # Create your views here.
@@ -26,7 +30,7 @@ class MenuGroupView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        menu_group = MenuGroup.objects.filter(account=account)
+        menu_group = MenuGroup.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(menu_group, request, view=self)
         serializer = MenuGroupSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -72,7 +76,7 @@ class AllMenuItemView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        menu_item = MenuItem.objects.filter(menu_group__account=account)
+        menu_item = MenuItem.objects.filter(menu_group__account=account).order_by('-created_at')
         results = self.paginate_queryset(menu_item, request, view=self)
         serializer = MenuItemSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -113,6 +117,50 @@ class MenuItemDetailView(APIView):
         item = MenuItem.objects.get(id=id)
         item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# --------------------------------------------------------------------------------------
+# config
+
+class MenuItemCodeConfigDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code = MenuItemCodeConfig.objects.get(id=id)
+        serializer = MenuItemCodeConfigSerializer(code)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        code = MenuItemCodeConfig.objects.get(id=id)
+        serializer = MenuItemCodeConfigSerializer(code, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class NewMenuItemCodeConfigView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code_set = MenuItemCodeConfig.objects.get(id=id)
+        new_code = generate_code(code_set.last_code)                
+
+        if code_set.entry_mode == 'Auto':
+            code = MenuItemCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
+            content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
+            return Response(content)
+        return Response(status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=Account)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        MenuItemCodeConfig.objects.create(
+            id=instance.id,
+            entry_mode="Auto",
+            prefix=get_initials(instance.name),
+            suffix="MN",
+            last_code="000"
+        )
 
 # --------------------------------------------------------------------------------------
 # dashboard

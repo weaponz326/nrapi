@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from .models import (
     Roster,
+    RosterCodeConfig,
     Shift,
     Batch,
     StaffPersonnel,
@@ -40,3 +41,8 @@ class RosterDaySerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class RosterCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RosterCodeConfig
+        fields = '__all__'

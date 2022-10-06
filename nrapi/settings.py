@@ -71,21 +71,21 @@ INSTALLED_APPS = [
     'suites.personal.payments',
     'suites.personal.support',
 
-    # # restaurant
-    # 'suites.restaurant.accounts',
-    # 'suites.restaurant.modules.admin',
-    # 'suites.restaurant.modules.portal',
-    # 'suites.restaurant.modules.settings',
-    # 'suites.restaurant.modules.menu',
-    # 'suites.restaurant.modules.staff',
-    # 'suites.restaurant.modules.payments',
-    # 'suites.restaurant.modules.orders',
-    # 'suites.restaurant.modules.kitchen_stock',
-    # 'suites.restaurant.modules.roster',
-    # 'suites.restaurant.modules.tables',
-    # 'suites.restaurant.modules.deliveries',
-    # 'suites.restaurant.modules.reservations',
-    # 'suites.restaurant.modules.customers',
+    # restaurant
+    'suites.restaurant.accounts',
+    'suites.restaurant.modules.admin',
+    'suites.restaurant.modules.portal',
+    'suites.restaurant.modules.settings',
+    'suites.restaurant.modules.menu',
+    'suites.restaurant.modules.staff',
+    'suites.restaurant.modules.payments',
+    'suites.restaurant.modules.orders',
+    'suites.restaurant.modules.kitchen_stock',
+    'suites.restaurant.modules.roster',
+    'suites.restaurant.modules.tables',
+    'suites.restaurant.modules.deliveries',
+    'suites.restaurant.modules.reservations',
+    'suites.restaurant.modules.customers',
 ]
 
 MIDDLEWARE = [
@@ -239,7 +239,7 @@ REST_FRAMEWORK = {
 
 # Djoser config
 
-DOMAIN = 'www.netrink.com'
+DOMAIN = 'www.netrink.com/#'
 # DOMAIN = 'localhost:4200'
 SITENAME = 'netRink'
 
