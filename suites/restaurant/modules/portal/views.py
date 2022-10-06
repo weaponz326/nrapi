@@ -22,7 +22,7 @@ class RinkView(APIView):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        rink = Rink.objects.filter(account=account)
+        rink = Rink.objects.filter(account=account).order_by('-created_at')
         serializer = RinkSerializer(rink, many=True)
         return Response(serializer.data)
 
