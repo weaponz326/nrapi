@@ -43,7 +43,7 @@ class AccountUserDetailView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, id, format=None):
-        user = AccountUser.objects.get(id=id).order_by('-created_at')
+        user = AccountUser.objects.get(id=id)
         serializer = AccountUserSerializer(user)
         return Response(serializer.data)
 
