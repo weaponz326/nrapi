@@ -217,10 +217,10 @@ DATETIME_FORMAT = 'Y-m-d H:M:S'
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = True
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = "587"
-EMAIL_HOST_USER = "netrink18@gmail.com"
-EMAIL_HOST_PASSWORD = "lawvkzjdeaadaosa"
+EMAIL_HOST = "smtp.titan.email"
+EMAIL_PORT = "465"
+EMAIL_HOST_USER = "support@netrink.com"
+EMAIL_HOST_PASSWORD = "netrinkSupport66"
 
 
 # CORS HEADERS
