@@ -273,7 +273,7 @@ REST_FRAMEWORK = {
 # Djoser config
 
 # DOMAIN = 'www.netrink.com/#'
-DOMAIN = 'localhost:4200'
+DOMAIN = 'localhost:4200/#'
 SITENAME = 'netRink'
 
 DJOSER = {
