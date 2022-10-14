@@ -88,10 +88,10 @@ INSTALLED_APPS = [
     'suites.restaurant.modules.customers',
 
     # school
-    # 'suites.school.accounts',
-    # 'suites.school.modules.admin',
-    # 'suites.school.modules.portal',
-    # 'suites.school.modules.settings',
+    'suites.school.accounts',
+    'suites.school.modules.admin',
+    'suites.school.modules.portal',
+    'suites.school.modules.settings',
 ]
 
 MIDDLEWARE = [

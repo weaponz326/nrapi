@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('logo', models.FileField(blank=True, null=True, upload_to=suites.restaurant.accounts.models.accounts_upload_path)),
             ],
             options={
-                'db_table': 'restauarant_account',
+                'db_table': 'restaurant_account',
             },
         ),
     ]

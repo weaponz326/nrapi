@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('invitation_status', models.CharField(max_length=64, null=True)),
                 ('date_confirmed', models.DateTimeField(blank=True, null=True)),
                 ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='restaurant_account.account', to_field='id')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='restauarant_invitee', to=settings.AUTH_USER_MODEL, to_field='id')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='restaurant_invitee', to=settings.AUTH_USER_MODEL, to_field='id')),
             ],
             options={
                 'db_table': 'restaurant_module_admin_invitation',

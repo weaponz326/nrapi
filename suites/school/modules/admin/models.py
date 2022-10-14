@@ -9,7 +9,7 @@ from suites.school.accounts.models import Account
 # TODO: change account_user field to personal_user
 class AccountUser(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    personal_user = models.ForeignKey(User, to_field='id', on_delete=models.DO_NOTHING)
+    personal_user = models.ForeignKey(User, to_field='id', related_name='school_account_user', on_delete=models.DO_NOTHING)
     is_creator = models.BooleanField(default=False)
     access_level = models.CharField(null=True, max_length=32)
 
@@ -47,7 +47,7 @@ class Access(CustomBaseModel):
 
 class Invitation(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    user = models.ForeignKey(User, to_field='id', related_name='restauarant_invitee', on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, to_field='id', related_name='school_invitee', on_delete=models.DO_NOTHING)
     account_type = models.CharField(null=True, max_length=64)
     invitation_status = models.CharField(null=True, max_length=64)
     date_confirmed = models.DateTimeField(null=True, blank=True)
