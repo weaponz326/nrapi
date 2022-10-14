@@ -92,6 +92,19 @@ INSTALLED_APPS = [
     'suites.school.modules.admin',
     'suites.school.modules.portal',
     'suites.school.modules.settings',
+    'suites.school.modules.parents',
+    'suites.school.modules.assessment',
+    'suites.school.modules.subjects',
+    'suites.school.modules.attendance',
+    'suites.school.modules.students',
+    'suites.school.modules.lesson_plan',
+    'suites.school.modules.reports',
+    'suites.school.modules.teachers',
+    'suites.school.modules.payments',
+    'suites.school.modules.classes',
+    'suites.school.modules.timetable',
+    'suites.school.modules.fees',
+    'suites.school.modules.sections',
 ]
 
 MIDDLEWARE = [
