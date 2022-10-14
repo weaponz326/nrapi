@@ -58,6 +58,12 @@ urlpatterns = [
     path('restaurant-modules/deliveries/', include('suites.restaurant.modules.deliveries.urls')),
     path('restaurant-modules/reservations/', include('suites.restaurant.modules.reservations.urls')),
     path('restaurant-modules/customers/', include('suites.restaurant.modules.customers.urls')),
+
+    # school
+    path('school-accounts/', include('suites.school.accounts.urls')),
+    path('school-modules/admin/', include('suites.school.modules.admin.urls')),
+    path('school-modules/portal/', include('suites.school.modules.portal.urls')),
+    path('school-modules/settings/', include('suites.school.modules.settings.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

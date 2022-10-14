@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('restaurant_account', '0001_initial'),
+        ('_account', '0001_initial'),
     ]
 
     operations = [
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('address', models.TextField(blank=True, null=True)),
             ],
             options={
-                'db_table': 'restaurant_module_settings_extended_profile',
+                'db_table': 'school_module_settings_extended_profile',
             },
         ),
         migrations.CreateModel(
@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                 ('quantity', models.IntegerField(blank=True, null=True)),
             ],
             options={
-                'db_table': 'restaurant_module_settings_subscription',
+                'db_table': 'school_module_settings_subscription',
             },
         ),
         migrations.CreateModel(
@@ -65,10 +65,10 @@ class Migration(migrations.Migration):
                 ('deleted_at', models.DateTimeField(blank=True, null=True)),
                 ('event', models.CharField(blank=True, max_length=128, null=True)),
                 ('amount', models.IntegerField(blank=True, null=True)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='restaurant_account.account', to_field='id')),
+                ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='_account.account', to_field='id')),
             ],
             options={
-                'db_table': 'restaurant_module_settings_subscription_event',
+                'db_table': 'school_module_settings_subscription_event',
             },
         ),
     ]

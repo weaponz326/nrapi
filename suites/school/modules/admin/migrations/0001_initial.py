@@ -11,8 +11,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('_account', '0001_initial'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('restaurant_account', '0001_initial'),
     ]
 
     operations = [
@@ -27,11 +27,11 @@ class Migration(migrations.Migration):
                 ('account_type', models.CharField(max_length=64, null=True)),
                 ('invitation_status', models.CharField(max_length=64, null=True)),
                 ('date_confirmed', models.DateTimeField(blank=True, null=True)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='restaurant_account.account', to_field='id')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='restaurant_invitee', to=settings.AUTH_USER_MODEL, to_field='id')),
+                ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='_account.account', to_field='id')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='school_invitee', to=settings.AUTH_USER_MODEL, to_field='id')),
             ],
             options={
-                'db_table': 'restaurant_module_admin_invitation',
+                'db_table': 'school_module_admin_invitation',
             },
         ),
         migrations.CreateModel(
@@ -44,11 +44,11 @@ class Migration(migrations.Migration):
                 ('deleted_at', models.DateTimeField(blank=True, null=True)),
                 ('is_creator', models.BooleanField(default=False)),
                 ('access_level', models.CharField(max_length=32, null=True)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='restaurant_account.account', to_field='id')),
-                ('personal_user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='restaurant_account_user', to=settings.AUTH_USER_MODEL, to_field='id')),
+                ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='_account.account', to_field='id')),
+                ('personal_user', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, related_name='school_account_user', to=settings.AUTH_USER_MODEL, to_field='id')),
             ],
             options={
-                'db_table': 'restaurant_module_admin_account_user',
+                'db_table': 'school_module_admin_account_user',
             },
         ),
         migrations.CreateModel(
@@ -62,20 +62,23 @@ class Migration(migrations.Migration):
                 ('admin_access', models.BooleanField(default=False)),
                 ('portal_access', models.BooleanField(default=False)),
                 ('settings_access', models.BooleanField(default=False)),
-                ('menu_access', models.BooleanField(default=False)),
-                ('staff_access', models.BooleanField(default=False)),
-                ('tables_access', models.BooleanField(default=False)),
-                ('customers_access', models.BooleanField(default=False)),
-                ('deliveries_access', models.BooleanField(default=False)),
+                ('parents_access', models.BooleanField(default=False)),
+                ('assessment_access', models.BooleanField(default=False)),
+                ('subjects_access', models.BooleanField(default=False)),
+                ('attendance_access', models.BooleanField(default=False)),
+                ('students_access', models.BooleanField(default=False)),
+                ('lesson_plan_access', models.BooleanField(default=False)),
+                ('reports_access', models.BooleanField(default=False)),
+                ('teachers_access', models.BooleanField(default=False)),
                 ('payments_access', models.BooleanField(default=False)),
-                ('roster_access', models.BooleanField(default=False)),
-                ('reservations_access', models.BooleanField(default=False)),
-                ('orders_access', models.BooleanField(default=False)),
-                ('kitchen_stock_access', models.BooleanField(default=False)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='restaurant_account.account', to_field='id')),
+                ('classes_access', models.BooleanField(default=False)),
+                ('timetable_access', models.BooleanField(default=False)),
+                ('fees_access', models.BooleanField(default=False)),
+                ('sections_access', models.BooleanField(default=False)),
+                ('account', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='_account.account', to_field='id')),
             ],
             options={
-                'db_table': 'restaurant_module_admin_access',
+                'db_table': 'school_module_admin_access',
             },
         ),
     ]
