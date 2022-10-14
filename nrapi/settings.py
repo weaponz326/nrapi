@@ -214,13 +214,26 @@ DATETIME_FORMAT = 'Y-m-d H:M:S'
 
 # Email config
 
+# # django dev console smtp server
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# # gmail smtp server
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = "587"
+# EMAIL_HOST_USER = "netrink18@gmail.com"
+# EMAIL_HOST_PASSWORD = "lawvkzjdeaadaosa"
+
+# titan mail smtp server
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_USE_TLS = True
+EMAIL_USE_SSL = True
 EMAIL_HOST = "smtp.titan.email"
 EMAIL_PORT = "465"
 EMAIL_HOST_USER = "support@netrink.com"
 EMAIL_HOST_PASSWORD = "netrinkSupport66"
+DEFAULT_FROM_EMAIL = 'support@netrink.com'
+SERVER_EMAIL = 'support@netrink.com'
 
 
 # CORS HEADERS
