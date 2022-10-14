@@ -272,8 +272,8 @@ REST_FRAMEWORK = {
 
 # Djoser config
 
-DOMAIN = 'www.netrink.com/#'
-# DOMAIN = 'localhost:4200'
+# DOMAIN = 'www.netrink.com/#'
+DOMAIN = 'localhost:4200'
 SITENAME = 'netRink'
 
 DJOSER = {
@@ -281,8 +281,6 @@ DJOSER = {
     "USER_CREATE_PASSWORD_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
-    "SET_USERNAME_RETYPE": True,
-    "SET_PASSWORD_RETYPE": True,
     "SEND_ACTIVATION_EMAIL": True,
     "ACTIVATION_URL": "auth/activate?uid={uid}&token={token}",
     "PASSWORD_RESET_CONFIRM_URL": "auth/reset?uid={uid}&token={token}",
