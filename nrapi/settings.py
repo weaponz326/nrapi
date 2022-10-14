@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'suites.personal.modules.notes',
     'suites.personal.modules.accounts',
     'suites.personal.modules.tasks',
+    
     'suites.personal.payments',
     'suites.personal.support',
 
