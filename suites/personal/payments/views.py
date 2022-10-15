@@ -26,7 +26,7 @@ def payments_webhook(request):
 def process_webhook_payload(payload):
     print(payload)
 
-    email = payload.customer.email
+    email = payload['data']['customer']['email']
     # customer_code = payload['customer']['cusotmer_code']
     # subscription_code = payload['subscription_code']
     # amount = payload['plan']['amount'] / 100
