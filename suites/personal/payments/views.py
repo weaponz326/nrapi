@@ -25,8 +25,8 @@ def payments_webhook(request):
 @atomic
 def process_webhook_payload(payload):
     print(payload)
-    email = payload.data.customer.email
-    # email = payload['data']['customer']['email']
+
+    email = payload['data']['customer']['email']
     # customer_code = payload['customer']['cusotmer_code']
     # subscription_code = payload['subscription_code']
     # amount = payload['plan']['amount'] / 100
