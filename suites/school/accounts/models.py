@@ -14,14 +14,14 @@ def accounts_upload_path(instance, filename):
 # Create your models here.
 
 class Account(CustomBaseModel):
-    creator = models.ForeignKey(User, to_field='id', related_name='_account', on_delete=models.DO_NOTHING)
+    creator = models.ForeignKey(User, to_field='id', related_name='school_account', on_delete=models.DO_NOTHING)
     name = models.CharField(max_length=256)
     location = models.CharField(max_length=256)
     about = models.TextField()
     logo = models.FileField(null=True, blank=True, upload_to=accounts_upload_path)
 
     class Meta:
-        db_table = '_account'
+        db_table = 'school_account'
 
     def __str__(self):
         return str(self.id)
