@@ -103,6 +103,7 @@ INSTALLED_APPS = [
     'suites.school.modules.teachers',
     'suites.school.modules.payments',
     'suites.school.modules.classes',
+    'suites.school.modules.terms',
     'suites.school.modules.timetable',
     'suites.school.modules.fees',
     'suites.school.modules.sections',

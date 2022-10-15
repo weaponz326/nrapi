@@ -73,6 +73,7 @@ urlpatterns = [
     path('school-modules/reports/', include('suites.school.modules.reports.urls')),
     path('school-modules/teachers/', include('suites.school.modules.teachers.urls')),
     path('school-modules/payments/', include('suites.school.modules.payments.urls')),
+    path('school-modules/terms/', include('suites.school.modules.terms.urls')),
     path('school-modules/classes/', include('suites.school.modules.classes.urls')),
     path('school-modules/timetable/', include('suites.school.modules.timetable.urls')),
     path('school-modules/fees/', include('suites.school.modules.fees.urls')),
