@@ -28,15 +28,15 @@ def process_webhook_payload(payload):
 
     email = payload['data']['customer']['email']
     customer_code = payload['data']['customer']['customer_code']
-    subscription_code = payload['data']['subscription_code']
-    amount = payload['data']['plan']['amount'] / 100
+    amount = payload['data']['amount'] / 100
 
     # subscription created
     if payload['event'] == 'subscription.create':
         subscription = Subscription.objects.filter(email=email, status='Pending')
+
         subscription.update(
             customer_code = customer_code,
-            subscription_code = subscription_code,
+            subscription_code = payload['data']['subscription_code']
         )
 
         SubscriptionEvent.objects.create(
@@ -47,7 +47,7 @@ def process_webhook_payload(payload):
         
     # subscription cancelled
     elif payload['event'] == 'subscription.disable':
-        subscription = Subscription.objects.filter(subscription_code=subscription_code)
+        subscription = Subscription.objects.filter(customer_code=customer_code)
         subscription.objects.update(status='Cancelled')
 
         SubscriptionEvent.objects.create(
@@ -58,7 +58,7 @@ def process_webhook_payload(payload):
 
     # subscription charged
     elif payload['event'] == 'charge.success':
-        subscription = Subscription.objects.filter(subscription_code=subscription_code)
+        subscription = Subscription.objects.filter(customer_code=customer_code)
         subscription.objects.update(status='Active')
 
         SubscriptionEvent.objects.create(
