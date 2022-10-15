@@ -38,7 +38,7 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "") != "False"
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
-    'localhost',
+    # 'localhost',
     'api.netrink.com'
 ]
 
@@ -202,8 +202,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_URL = 'static/'
-
 STATIC_URL = '/static/'
 STATIC_ROOT   = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
@@ -273,8 +271,8 @@ REST_FRAMEWORK = {
 
 # Djoser config
 
-# DOMAIN = 'www.netrink.com/#'
-DOMAIN = 'localhost:4200/#'
+DOMAIN = 'www.netrink.com/#'
+# DOMAIN = 'localhost:4200/#'
 SITENAME = 'netRink'
 
 DJOSER = {
