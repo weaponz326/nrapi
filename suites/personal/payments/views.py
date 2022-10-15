@@ -27,47 +27,42 @@ def process_webhook_payload(payload):
     print(payload)
 
     email = payload['data']['customer']['email']
-    # customer_code = payload['customer']['cusotmer_code']
-    # subscription_code = payload['subscription_code']
-    # amount = payload['plan']['amount'] / 100
+    customer_code = payload['data']['customer']['cusotmer_code']
+    subscription_code = payload['data']['subscription_code']
+    amount = payload['data']['plan']['amount'] / 100
 
-    print(email)
-    # print(customer_code)
-    # print(subscription_code)
-    # print(amount)
+    # subscription created
+    if payload['event'] == 'subscription.create':
+        subscription = Subscription.objects.filter(email=email, status='Pending')
+        subscription.update(
+            customer_code = customer_code,
+            subscription_code = subscription_code,
+        )
 
-    # # subscription created
-    # if payload['event'] == 'subscription.create':
-    #     subscription = Subscription.objects.filter(email=email, status='Pending')
-    #     subscription.update(
-    #         customer_code = customer_code,
-    #         subscription_code = subscription_code,
-    #     )
-
-    #     SubscriptionEvent.objects.create(
-    #         account = subscription.account,
-    #         event = 'Subscription Created',
-    #         amount = amount,
-    #     )
+        SubscriptionEvent.objects.create(
+            account = subscription.account,
+            event = 'Subscription Created',
+            amount = amount,
+        )
         
-    # # subscription cancelled
-    # elif payload['event'] == 'subscription.disable':
-    #     subscription = Subscription.objects.filter(subscription_code=subscription_code)
-    #     subscription.objects.update(status='Cancelled')
+    # subscription cancelled
+    elif payload['event'] == 'subscription.disable':
+        subscription = Subscription.objects.filter(subscription_code=subscription_code)
+        subscription.objects.update(status='Cancelled')
 
-    #     SubscriptionEvent.objects.create(
-    #         account = subscription.account,
-    #         event = 'Subscription Cancelled',
-    #         amount = amount,
-    #     )
+        SubscriptionEvent.objects.create(
+            account = subscription.account,
+            event = 'Subscription Cancelled',
+            amount = amount,
+        )
 
-    # # subscription charged
-    # elif payload['event'] == 'charge.success':
-    #     subscription = Subscription.objects.filter(subscription_code=subscription_code)
-    #     subscription.objects.update(status='Active')
+    # subscription charged
+    elif payload['event'] == 'charge.success':
+        subscription = Subscription.objects.filter(subscription_code=subscription_code)
+        subscription.objects.update(status='Active')
 
-    #     SubscriptionEvent.objects.create(
-    #         account = subscription.account,
-    #         event = 'Subscription Successful',
-    #         amount = amount,
-    #     )
+        SubscriptionEvent.objects.create(
+            account = subscription.account,
+            event = 'Subscription Successful',
+            amount = amount,
+        )
