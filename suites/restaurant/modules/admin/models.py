@@ -6,7 +6,6 @@ from suites.restaurant.accounts.models import Account
 
 # Create your models here.
 
-# TODO: change account_user field to personal_user
 class AccountUser(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
     personal_user = models.ForeignKey(User, to_field='id', related_name='restaurant_account_user', on_delete=models.DO_NOTHING)

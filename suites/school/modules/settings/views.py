@@ -71,7 +71,6 @@ class SubscriptionDetailView(APIView):
         
         if serializer.is_valid():
             result = PaystackPayments.innitialize_transaction(request.data)
-            print(result)
 
             if result['status'] == True:
                 subscription.update(
