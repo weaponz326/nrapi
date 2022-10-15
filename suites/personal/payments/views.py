@@ -27,7 +27,7 @@ def process_webhook_payload(payload):
     print(payload)
 
     email = payload['data']['customer']['email']
-    customer_code = payload['data']['customer']['cusotmer_code']
+    customer_code = payload['data']['customer']['customer_code']
     subscription_code = payload['data']['subscription_code']
     amount = payload['data']['plan']['amount'] / 100
 
