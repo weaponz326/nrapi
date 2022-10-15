@@ -24,8 +24,26 @@
 			+ roster (A)
 			+ reservations (A)
 			+ orders (A)
-			+ kitchen stock (A)
+			+ kitchen stock (A)			
     + school
+		+ accounts (A)
+		+ modules
+			+ admin (A)
+			+ portal (A)
+			+ settings (A)
+			+ parents (A)
+			+ assessment (A)
+			+ subjects (A)
+			+ attendance (A)
+			+ students (A)
+			+ lesson plan (A)
+			+ reports (A)
+			+ teachers (A)
+			+ payments (A)
+			+ classes (A)
+			+ timetable (A)
+			+ fees (A)
+			+ sections (A)
     + association
     + enterprise
     + hotel

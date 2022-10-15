@@ -21,7 +21,7 @@ class Account(CustomBaseModel):
     logo = models.FileField(null=True, blank=True, upload_to=accounts_upload_path)
 
     class Meta:
-        db_table = 'restauarant_account'
+        db_table = 'restaurant_account'
 
     def __str__(self):
         return str(self.id)

@@ -38,7 +38,7 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "") != "False"
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
-    'localhost',
+    # 'localhost',
     'api.netrink.com'
 ]
 
@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'suites.personal.modules.notes',
     'suites.personal.modules.accounts',
     'suites.personal.modules.tasks',
+    
     'suites.personal.payments',
     'suites.personal.support',
 
@@ -86,6 +87,26 @@ INSTALLED_APPS = [
     'suites.restaurant.modules.deliveries',
     'suites.restaurant.modules.reservations',
     'suites.restaurant.modules.customers',
+
+    # # school
+    # 'suites.school.accounts',
+    # 'suites.school.modules.admin',
+    # 'suites.school.modules.portal',
+    # 'suites.school.modules.settings',
+    # 'suites.school.modules.parents',
+    # 'suites.school.modules.assessment',
+    # 'suites.school.modules.subjects',
+    # 'suites.school.modules.attendance',
+    # 'suites.school.modules.students',
+    # 'suites.school.modules.lesson_plan',
+    # 'suites.school.modules.reports',
+    # 'suites.school.modules.teachers',
+    # 'suites.school.modules.payments',
+    # 'suites.school.modules.classes',
+    # 'suites.school.modules.terms',
+    # 'suites.school.modules.timetable',
+    # 'suites.school.modules.fees',
+    # 'suites.school.modules.sections',
 ]
 
 MIDDLEWARE = [
@@ -181,8 +202,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# STATIC_URL = 'static/'
-
 STATIC_URL = '/static/'
 STATIC_ROOT   = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
@@ -214,13 +233,26 @@ DATETIME_FORMAT = 'Y-m-d H:M:S'
 
 # Email config
 
+# # django dev console smtp server
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# # gmail smtp server
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = "587"
+# EMAIL_HOST_USER = "netrink18@gmail.com"
+# EMAIL_HOST_PASSWORD = "lawvkzjdeaadaosa"
+
+# titan mail smtp server
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_USE_TLS = True
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = "587"
-EMAIL_HOST_USER = "netrink18@gmail.com"
-EMAIL_HOST_PASSWORD = "lawvkzjdeaadaosa"
+EMAIL_USE_SSL = True
+EMAIL_HOST = "smtp.titan.email"
+EMAIL_PORT = "465"
+EMAIL_HOST_USER = "support@netrink.com"
+EMAIL_HOST_PASSWORD = "netrinkSupport66"
+DEFAULT_FROM_EMAIL = 'support@netrink.com'
+SERVER_EMAIL = 'support@netrink.com'
 
 
 # CORS HEADERS
@@ -240,7 +272,7 @@ REST_FRAMEWORK = {
 # Djoser config
 
 DOMAIN = 'www.netrink.com/#'
-# DOMAIN = 'localhost:4200'
+# DOMAIN = 'localhost:4200/#'
 SITENAME = 'netRink'
 
 DJOSER = {
@@ -248,8 +280,6 @@ DJOSER = {
     "USER_CREATE_PASSWORD_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
     "PASSWORD_CHANGED_EMAIL_CONFIRMATION": True,
-    "SET_USERNAME_RETYPE": True,
-    "SET_PASSWORD_RETYPE": True,
     "SEND_ACTIVATION_EMAIL": True,
     "ACTIVATION_URL": "auth/activate?uid={uid}&token={token}",
     "PASSWORD_RESET_CONFIRM_URL": "auth/reset?uid={uid}&token={token}",
