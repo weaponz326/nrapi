@@ -10,5 +10,4 @@ urlpatterns = [
 
     path('config/parent-code/<id>', views.ParentCodeConfigDetailView.as_view()),
     path('config/new-parent-code/<id>', views.NewParentCodeConfigView.as_view()),
-    path('dashboard/parent-count/', views.parent_count),
 ]

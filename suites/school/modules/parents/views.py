@@ -152,10 +152,3 @@ def save_extended_profile(sender, instance, created, **kwargs):
 # --------------------------------------------------------------------------------------
 # dashboard
 
-@api_view()
-def parent_count(request):
-    count = Parent.objects\
-        .filter(account=request.query_params.get('account', None))\
-        .count()            
-    content = {'count': count}
-    return Response(content)
