@@ -24,16 +24,17 @@ def payments_webhook(request):
 
 @atomic
 def process_webhook_payload(payload):
-    email = payload['customer']['email']
-    customer_code = payload['customer']['cusotmer_code']
-    subscription_code = payload['subscription_code']
-    amount = payload['plan']['amount'] / 100
-
     print(payload)
-    print(email)
-    print(customer_code)
-    print(subscription_code)
-    print(amount)
+
+    # email = payload['customer']['email']
+    # customer_code = payload['customer']['cusotmer_code']
+    # subscription_code = payload['subscription_code']
+    # amount = payload['plan']['amount'] / 100
+
+    # print(email)
+    # print(customer_code)
+    # print(subscription_code)
+    # print(amount)
 
     # # subscription created
     # if payload['event'] == 'subscription.create':
