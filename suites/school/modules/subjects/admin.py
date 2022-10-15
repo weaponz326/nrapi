@@ -6,10 +6,10 @@ from .models import Subject, SubjectCodeConfig, SubjectTeacher
 # Register your models here.
 
 class SubjectAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'subject_code', 'subject_name')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'subject_code', 'subject_name', 'department')
 
 class SubjectTeacherAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'subject')
+    list_display = ('pkid', 'id', 'created_at', 'subject', 'teacher')
 
 class SubjectCodeConfigAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')

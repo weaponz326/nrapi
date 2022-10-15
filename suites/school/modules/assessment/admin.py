@@ -6,10 +6,10 @@ from .models import Assessment, AssessmentClass, AssessmentCodeConfig, Assessmen
 # Register your models here.
 
 class AssessmentAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'assessment_code', 'assessment_name', 'assessment_date')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'assessment_code', 'assessment_name', 'assessment_date', 'subject')
 
 class AssessmentClassAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'assessment')
+    list_display = ('pkid', 'id', 'created_at', 'assessment', 'clase')
 
 class AssessmentSheetAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'assessment')

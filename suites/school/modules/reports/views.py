@@ -34,7 +34,7 @@ class ReportView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ReportSerializer(data=request.data)
+        serializer = ReportSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -50,7 +50,7 @@ class ReportDetailView(APIView):
 
     def put(self, request, id, format=None):
         report = Report.objects.get(id=id)
-        serializer = ReportSerializer(report, data=request.data)
+        serializer = ReportSerializer(report, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -78,7 +78,7 @@ class ReportAssessmentView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ReportAssessmentSerializer(data=request.data)
+        serializer = ReportAssessmentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -94,7 +94,7 @@ class ReportAssessmentDetailView(APIView):
 
     def put(self, request, id, format=None):
         report_assessment = ReportAssessment.objects.get(id=id)
-        serializer = ReportAssessmentSerializer(report_assessment, data=request.data)
+        serializer = ReportAssessmentSerializer(report_assessment, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

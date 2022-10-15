@@ -78,7 +78,7 @@ class SectionStudentView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = SectionStudentSerializer(data=request.data)
+        serializer = SectionStudentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -94,7 +94,7 @@ class SectionStudentDetailView(APIView):
 
     def put(self, request, id, format=None):
         section_student = SectionStudent.objects.get(id=id)
-        serializer = SectionStudentSerializer(section_student, data=request.data)
+        serializer = SectionStudentSerializer(section_student, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

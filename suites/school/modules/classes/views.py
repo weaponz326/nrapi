@@ -34,7 +34,7 @@ class ClassView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ClassSerializer(data=request.data)
+        serializer = ClassSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -50,7 +50,7 @@ class ClassDetailView(APIView):
 
     def put(self, request, id, format=None):
         clase = Clase.objects.get(id=id)
-        serializer = ClassSerializer(clase, data=request.data)
+        serializer = ClassSerializer(clase, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -78,7 +78,7 @@ class ClassStudentView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ClassStudentSerializer(data=request.data)
+        serializer = ClassStudentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -94,7 +94,7 @@ class ClassStudentDetailView(APIView):
 
     def put(self, request, id, format=None):
         class_student = ClassStudent.objects.get(id=id)
-        serializer = ClassStudentSerializer(class_student, data=request.data)
+        serializer = ClassStudentSerializer(class_student, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -122,7 +122,7 @@ class DepartmentView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = DepartmentSerializer(data=request.data)
+        serializer = DepartmentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -138,7 +138,7 @@ class DepartmentDetailView(APIView):
 
     def put(self, request, id, format=None):
         department = Department.objects.get(id=id)
-        serializer = DepartmentSerializer(department, data=request.data)
+        serializer = DepartmentSerializer(department, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

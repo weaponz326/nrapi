@@ -12,6 +12,14 @@ class SectionStudentSerializer(serializers.ModelSerializer):
         model = SectionStudent
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super(SectionStudentSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1
+
 class SectionCodeConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = SectionCodeConfig

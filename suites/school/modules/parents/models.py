@@ -3,6 +3,7 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.school.accounts.models import Account
+from suites.school.modules.students.models import Student
 
 
 def parent_upload_path(instance, filename):
@@ -36,7 +37,7 @@ class Parent(CustomBaseModel):
 
 class ParentWard(CustomBaseModel):
     parent = models.ForeignKey(Parent, to_field='id', on_delete=models.DO_NOTHING)
-    # ward = models.ForeignKey(Student, to_field='id', on_delete=models.DO_NOTHING)
+    ward = models.ForeignKey(Student, to_field='id', on_delete=models.DO_NOTHING)
     
     class Meta:
         db_table = 'school_module_parent_ward'

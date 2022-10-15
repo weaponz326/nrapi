@@ -6,7 +6,7 @@ from .models import AttendanceCodeConfig, StudentAttendance, StudentAttendanceSh
 # Register your models here.
 
 class StudentAttendanceAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'attendance_code', 'attendance_name', 'attendance_date')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'attendance_code', 'attendance_name', 'attendance_date', 'clase')
 
 class StudentAttendanceSheetAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'attendance')

@@ -2,13 +2,15 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.school.accounts.models import Account
+from suites.school.modules.classes.models import Clase
+from suites.school.modules.subjects.models import Subject
 
 
 # Create your models here.
 
 class Assessment(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    # subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING)
+    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING)
     assessment_code = models.CharField(max_length=32, null=True, blank=True)
     assessment_name = models.CharField(max_length=256, null=True, blank=True)
     assessment_date = models.DateField(null=True, blank=True)
@@ -21,7 +23,7 @@ class Assessment(CustomBaseModel):
 
 class AssessmentClass(CustomBaseModel):
     assessment = models.ForeignKey(Assessment, to_field='id', on_delete=models.DO_NOTHING)
-    # class = models.ForeignKey(Class, to_field='id', on_delete=models.DO_NOTHING)
+    clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = 'school_module_assessment_class'

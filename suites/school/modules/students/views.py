@@ -26,7 +26,7 @@ class StudentView(APIView, TablePagination):
     permission_classes = (IsAuthenticated,)
     parser_class = (FileUploadParser,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ['created_at', 'student_code', 'first_name', 'last_name', 'clase']
+    ordering_fields = ['created_at', 'student_code', 'first_name', 'last_name']
     ordering = ['-created_at']
 
     def get(self, request, format=None):

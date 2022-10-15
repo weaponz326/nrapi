@@ -34,7 +34,7 @@ class LessonPlanView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = LessonPlanSerializer(data=request.data)
+        serializer = LessonPlanSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -50,7 +50,7 @@ class LessonPlanDetailView(APIView):
 
     def put(self, request, id, format=None):
         plan = LessonPlan.objects.get(id=id)
-        serializer = LessonPlanSerializer(plan, data=request.data)
+        serializer = LessonPlanSerializer(plan, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

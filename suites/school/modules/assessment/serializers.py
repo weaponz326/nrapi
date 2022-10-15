@@ -7,10 +7,26 @@ class AssessmentSerializer(serializers.ModelSerializer):
         model = Assessment
         fields = '__all__'
 
+    def __init__(self, *args, **kwargs):
+        super(AssessmentSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1
+
 class AssessmentClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = AssessmentClass
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(AssessmentClassSerializer, self).__init__(*args, **kwargs)
+        request = self.context.get('request')
+        if request and (request.method == 'POST' or request.method == 'PUT'):
+            self.Meta.depth = 0
+        else:
+            self.Meta.depth = 1
 
 class AssessmentSheetSerializer(serializers.ModelSerializer):
     class Meta:

@@ -14,7 +14,6 @@ def student_upload_path(instance, filename):
 
 class Student(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    # clase = models.ForeignKey(Class, to_field='id', on_delete=models.DO_NOTHING)
     first_name = models.CharField(max_length=128, null=True, blank=True)
     last_name = models.CharField(max_length=128, null=True, blank=True)
     sex = models.CharField(max_length=16, null=True, blank=True)

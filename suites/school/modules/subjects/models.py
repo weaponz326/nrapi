@@ -2,13 +2,15 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.school.accounts.models import Account
+from suites.school.modules.classes.models import Department
+from suites.school.modules.teachers.models import Teacher
 
 
 # Create your models here.
 
 class Subject(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    # department = models.ForeignKey(Department, to_field='id', on_delete=models.DO_NOTHING)
+    department = models.ForeignKey(Department, to_field='id', on_delete=models.DO_NOTHING)
     subject_code = models.CharField(max_length=32, null=True, blank=True)
     subject_name = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
@@ -21,7 +23,7 @@ class Subject(CustomBaseModel):
 
 class SubjectTeacher(CustomBaseModel):
     subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING)
-    # teacher = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING)
+    teacher = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING)
     
     class Meta:
         db_table = 'school_module_subject_teacher'

@@ -3,13 +3,14 @@ from django.db import models
 from suites.personal.users.models import CustomBaseModel
 from suites.school.accounts.models import Account
 from suites.school.modules.assessment.models import Assessment
+from suites.school.modules.classes.models import Clase
 
 
 # Create your models here.
 
 class Report(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    # clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING)
+    clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING)
     report_code = models.CharField(max_length=32, null=True, blank=True)
     report_name = models.CharField(max_length=256, null=True, blank=True)
     report_date = models.DateField(null=True, blank=True)

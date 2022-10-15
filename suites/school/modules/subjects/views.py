@@ -34,7 +34,7 @@ class SubjectView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = SubjectSerializer(data=request.data)
+        serializer = SubjectSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -50,7 +50,7 @@ class SubjectDetailView(APIView):
 
     def put(self, request, id, format=None):
         subject = Subject.objects.get(id=id)
-        serializer = SubjectSerializer(subject, data=request.data)
+        serializer = SubjectSerializer(subject, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -78,7 +78,7 @@ class SubjectTeacherView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = SubjectTeacherSerializer(data=request.data)
+        serializer = SubjectTeacherSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -94,7 +94,7 @@ class SubjectTeacherDetailView(APIView):
 
     def put(self, request, id, format=None):
         subject_teacher = SubjectTeacher.objects.get(id=id)
-        serializer = SubjectTeacherSerializer(subject_teacher, data=request.data)
+        serializer = SubjectTeacherSerializer(subject_teacher, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

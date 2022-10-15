@@ -9,7 +9,7 @@ class ParentAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'account', 'parent_code', 'first_name', 'last_name', 'phone')
 
 class ParentWardAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'parent')
+    list_display = ('pkid', 'id', 'created_at', 'parent', 'ward')
 
 class ParentCodeConfigAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')

@@ -78,7 +78,7 @@ class ParentWardView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ParentWardSerializer(data=request.data)
+        serializer = ParentWardSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -94,7 +94,7 @@ class ParentWardDetailView(APIView):
 
     def put(self, request, id, format=None):
         parent_ward = ParentWard.objects.get(id=id)
-        serializer = ParentWardSerializer(parent_ward, data=request.data)
+        serializer = ParentWardSerializer(parent_ward, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

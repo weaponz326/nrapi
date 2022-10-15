@@ -34,7 +34,7 @@ class AssessmentView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = AssessmentSerializer(data=request.data)
+        serializer = AssessmentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -50,7 +50,7 @@ class AssessmentDetailView(APIView):
 
     def put(self, request, id, format=None):
         assessment = Assessment.objects.get(id=id)
-        serializer = AssessmentSerializer(assessment, data=request.data)
+        serializer = AssessmentSerializer(assessment, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -78,7 +78,7 @@ class AssessmentClassView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = AssessmentClassSerializer(data=request.data)
+        serializer = AssessmentClassSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -94,7 +94,7 @@ class AssessmentClassDetailView(APIView):
 
     def put(self, request, id, format=None):
         assessment_class = AssessmentClass.objects.get(id=id)
-        serializer = AssessmentClassSerializer(assessment_class, data=request.data)
+        serializer = AssessmentClassSerializer(assessment_class, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

@@ -36,7 +36,7 @@ class StudentAttendanceView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = StudentAttendanceSerializer(data=request.data)
+        serializer = StudentAttendanceSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -52,7 +52,7 @@ class StudentAttendanceDetailView(APIView):
 
     def put(self, request, id, format=None):
         attendance = StudentAttendance.objects.get(id=id)
-        serializer = StudentAttendanceSerializer(attendance, data=request.data)
+        serializer = StudentAttendanceSerializer(attendance, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

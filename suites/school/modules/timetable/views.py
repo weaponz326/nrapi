@@ -78,7 +78,7 @@ class TimetableClassView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = TimetableClassSerializer(data=request.data)
+        serializer = TimetableClassSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -94,7 +94,7 @@ class TimetableClassDetailView(APIView):
 
     def put(self, request, id, format=None):
         timetable_class = TimetableClass.objects.get(id=id)
-        serializer = TimetableClassSerializer(timetable_class, data=request.data)
+        serializer = TimetableClassSerializer(timetable_class, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

@@ -12,7 +12,7 @@ class ClassStudentAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'clase', 'student')
 
 class DepartmentAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'department_name')
+    list_display = ('pkid', 'id', 'created_at', 'department_name', 'department_head')
 
 admin.site.register(Clase, ClassAdmin)
 admin.site.register(ClassStudent, ClassStudentAdmin)
