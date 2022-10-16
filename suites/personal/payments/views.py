@@ -57,13 +57,13 @@ def process_webhook_payload(payload):
     # subscription charged
     elif payload['event'] == 'charge.success':
         subscription = Subscription.objects.get(email=email, status='Pending')
-        subscription.update(
-            customer_code=customer_code,
-            status='Active', 
-        )
-        # subscription.customer_code = customer_code
-        # subscription.status = 'Active'
-        # subscription.save()
+        # subscription.update(
+        #     customer_code=customer_code,
+        #     status='Active', 
+        # )
+        subscription.customer_code = customer_code
+        subscription.status = 'Active'
+        subscription.save()
 
         SubscriptionEvent.objects.create(
             account = subscription.id,
