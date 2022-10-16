@@ -10,6 +10,7 @@ from django.views.decorators.http import require_POST
 from django.utils import timezone
 
 from suites.restaurant.modules.settings.models import Subscription, SubscriptionEvent
+from suites.restaurant.accounts.models import Account
 
 
 # Create your views here.
@@ -66,7 +67,8 @@ def process_webhook_payload(payload):
         subscription.save()
 
         SubscriptionEvent.objects.create(
-            account = subscription.id,
+            # account = subscription.id,
+            account = Account.objects.get(id=subscription.id),
             event = 'Subscription Successful',
             amount = amount,
         )
