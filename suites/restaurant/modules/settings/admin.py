@@ -9,7 +9,7 @@ class ExtendedProfileAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'email', 'phone', 'country')
 
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'subscription_type', 'billing_frequency', 'number_users')
+    list_display = ('pkid', 'id', 'created_at', 'subscription_type', 'billing_frequency', 'number_users', 'status')
 
 class SubscriptionEventAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'account', 'event', 'amount')
