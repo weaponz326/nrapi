@@ -56,7 +56,7 @@ def process_webhook_payload(payload):
 
     # subscription charged
     elif payload['event'] == 'charge.success':
-        subscription = Subscription.objects.filter(email=email, status='Pending')
+        subscription = Subscription.objects.filter(email=email, status='Pending').last()
         subscription.update(
             customer_code=customer_code,
             status='Active', 
