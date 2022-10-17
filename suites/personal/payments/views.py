@@ -31,44 +31,40 @@ def process_webhook_payload(payload):
     customer_code = payload['data']['customer']['customer_code']
     amount = payload['data']['amount'] / 100
 
-    # subscription created
-    if payload['event'] == 'subscription.create':
-        subscription = Subscription.objects.filter(customer_code=customer_code)
-        subscription.update(
-            subscription_code = payload['data']['subscription_code']
-        )
-
-        SubscriptionEvent.objects.create(
-            account = subscription.id,
-            event = 'Subscription Created',
-            amount = amount,
-        )
-        
-    # subscription cancelled
-    elif payload['event'] == 'subscription.disable':
-        subscription = Subscription.objects.filter(customer_code=customer_code)
-        subscription.update(status='Cancelled')
-
-        SubscriptionEvent.objects.create(
-            account = subscription.id,
-            event = 'Subscription Cancelled',
-            amount = amount,
-        )
-
     # subscription charged
-    elif payload['event'] == 'charge.success':
+    if payload['event'] == 'charge.success':
         subscription = Subscription.objects.get(email=email, status='Pending')
-        # subscription.update(
-        #     customer_code=customer_code,
-        #     status='Active', 
-        # )
         subscription.customer_code = customer_code
         subscription.status = 'Active'
         subscription.save()
 
         SubscriptionEvent.objects.create(
-            # account = subscription.id,
             account = Account.objects.get(id=subscription.id),
-            event = 'Subscription Successful',
+            event = 'Subscription Charge Successful',
             amount = amount,
         )
+
+    # subscription created
+    elif payload['event'] == 'subscription.create':
+        subscription = Subscription.objects.filter(email=email, customer_code=customer_code)
+        subscription.subscription_code = payload['data']['subscription_code']
+        subscription.status = 'Cancelled'
+
+        SubscriptionEvent.objects.create(
+            account = Account.objects.get(id=subscription.id),
+            event = 'Subscription Created',
+            amount = amount,
+        )
+        
+    # subscription cancelled
+    elif payload['event'] == 'subscription.not_renew':
+        subscription = Subscription.objects.filter(email=email, customer_code=customer_code)
+        subscription.status = 'Cancelled'
+        subscription.save()
+
+        SubscriptionEvent.objects.create(
+            account = Account.objects.get(id=subscription.id),
+            event = 'Subscription Cancelled',
+            amount = amount,
+        )
+
