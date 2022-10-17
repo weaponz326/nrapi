@@ -46,7 +46,7 @@ def process_webhook_payload(payload):
 
     # subscription created
     elif payload['event'] == 'subscription.create':
-        subscription = Subscription.objects.filter(email=email, customer_code=customer_code)
+        subscription = Subscription.objects.get(email=email, customer_code=customer_code)
         subscription.subscription_code = payload['data']['subscription_code']
         subscription.status = 'Cancelled'
 
@@ -58,7 +58,7 @@ def process_webhook_payload(payload):
         
     # subscription cancelled
     elif payload['event'] == 'subscription.not_renew':
-        subscription = Subscription.objects.filter(email=email, customer_code=customer_code)
+        subscription = Subscription.objects.get(email=email, customer_code=customer_code)
         subscription.status = 'Cancelled'
         subscription.save()
 
