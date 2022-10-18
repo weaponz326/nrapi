@@ -31,9 +31,19 @@ def process_webhook_payload(payload):
     customer_code = payload['data']['customer']['customer_code']
     amount = payload['data']['amount'] / 100
 
-    # subscription charged
-    if payload['event'] == 'charge.success':
+    # subscription created
+    if payload['event'] == 'subscription.create':
         subscription = Subscription.objects.get(email=email, status='Pending')
+
+        SubscriptionEvent.objects.create(
+            account = Account.objects.get(id=subscription.id),
+            event = 'Subscription Created',
+            amount = amount,
+        )
+
+    # subscription charged
+    elif payload['event'] == 'charge.success':
+        subscription = Subscription.objects.get(email=email, status='Pending') | Subscription.objects.get(email=email, customer_code=customer_code)
         subscription.customer_code = customer_code
         subscription.status = 'Active'
         subscription.save()
@@ -42,18 +52,12 @@ def process_webhook_payload(payload):
             account = Account.objects.get(id=subscription.id),
             event = 'Payment Successful',
             amount = amount,
-        )
-
-    # subscription created
-    elif payload['event'] == 'subscription.create':
-        SubscriptionEvent.objects.create(
-            account = Account.objects.get(id=subscription.id),
-            event = 'Subscription Created',
-            amount = amount,
-        )
+        )    
         
     # subscription cancelled
     elif payload['event'] == 'subscription.not_renew':
+        subscription = Subscription.objects.get(email=email, customer_code=customer_code)
+        
         SubscriptionEvent.objects.create(
             account = Account.objects.get(id=subscription.id),
             event = 'Subscription Cancelled',
@@ -74,6 +78,8 @@ def process_webhook_payload(payload):
 
     # subscription cancelled
     elif payload['event'] == 'invoice.payment_failed':
+        subscription = Subscription.objects.get(email=email, customer_code=customer_code)
+
         SubscriptionEvent.objects.create(
             account = Account.objects.get(id=subscription.id),
             event = 'Payment',
