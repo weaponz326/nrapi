@@ -34,6 +34,8 @@ def process_webhook_payload(payload):
     # subscription created
     if payload['event'] == 'subscription.create':
         subscription = Subscription.objects.get(email=email, status='Pending')
+        subscription.customer_code = customer_code
+        subscription.save()
 
         SubscriptionEvent.objects.create(
             account = Account.objects.get(id=subscription.id),
@@ -43,7 +45,7 @@ def process_webhook_payload(payload):
 
     # subscription charged
     elif payload['event'] == 'charge.success':
-        subscription = Subscription.objects.get(email=email, status='Pending') | Subscription.objects.get(email=email, customer_code=customer_code)
+        subscription = Subscription.objects.get(email=email, customer_code=customer_code)
         subscription.customer_code = customer_code
         subscription.status = 'Active'
         subscription.save()
@@ -76,7 +78,7 @@ def process_webhook_payload(payload):
             amount = amount,
         )
 
-    # subscription cancelled
+    # payment invoice failed
     elif payload['event'] == 'invoice.payment_failed':
         subscription = Subscription.objects.get(email=email, customer_code=customer_code)
 
