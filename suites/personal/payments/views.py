@@ -40,16 +40,12 @@ def process_webhook_payload(payload):
 
         SubscriptionEvent.objects.create(
             account = Account.objects.get(id=subscription.id),
-            event = 'Subscription Charge Successful',
+            event = 'Payment Successful',
             amount = amount,
         )
 
     # subscription created
     elif payload['event'] == 'subscription.create':
-        subscription = Subscription.objects.get(email=email, customer_code=customer_code)
-        subscription.subscription_code = payload['data']['subscription_code']
-        subscription.status = 'Cancelled'
-
         SubscriptionEvent.objects.create(
             account = Account.objects.get(id=subscription.id),
             event = 'Subscription Created',
@@ -58,8 +54,16 @@ def process_webhook_payload(payload):
         
     # subscription cancelled
     elif payload['event'] == 'subscription.not_renew':
+        SubscriptionEvent.objects.create(
+            account = Account.objects.get(id=subscription.id),
+            event = 'Subscription Cancelled',
+            amount = amount,
+        )
+
+    # subscription disabled
+    elif payload['event'] == 'subscription.disable':
         subscription = Subscription.objects.get(email=email, customer_code=customer_code)
-        subscription.status = 'Cancelled'
+        subscription.status = 'Disabled'
         subscription.save()
 
         SubscriptionEvent.objects.create(
@@ -68,3 +72,10 @@ def process_webhook_payload(payload):
             amount = amount,
         )
 
+    # subscription cancelled
+    elif payload['event'] == 'invoice.payment_failed':
+        SubscriptionEvent.objects.create(
+            account = Account.objects.get(id=subscription.id),
+            event = 'Payment',
+            amount = amount,
+        )
