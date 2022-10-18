@@ -13,7 +13,7 @@ from rest_framework.decorators import api_view
 
 from .models import Parent, ParentCodeConfig, ParentWard
 from .serializers import ParentCodeConfigSerializer, ParentSerializer, ParentWardSerializer
-from suites.restaurant.accounts.models import Account
+from suites.school.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
@@ -73,9 +73,8 @@ class ParentWardView(APIView, TablePagination):
     def get(self, request, format=None):
         parent = self.request.query_params.get('parent', None)
         parent_ward = ParentWard.objects.filter(parent=parent).order_by('-created_at')
-        results = self.paginate_queryset(parent_ward, request, view=self)
-        serializer = ParentWardSerializer(results, many=True)        
-        return self.get_paginated_response(serializer.data)
+        serializer = ParentWardSerializer(parent_ward, many=True)        
+        return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = ParentWardSerializer(data=request.data, context={'request': request})
