@@ -13,7 +13,7 @@ from rest_framework.decorators import api_view
 
 from .models import Timetable, TimetableCodeConfig, TimetableClass, TimetablePeriod
 from .serializers import TimetableCodeConfigSerializer, TimetablePeriodSerializer, TimetableSerializer, TimetableClassSerializer
-from suites.restaurant.accounts.models import Account
+from suites.school.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
