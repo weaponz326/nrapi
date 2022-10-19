@@ -3,6 +3,7 @@ from django.db import models
 from suites.personal.users.models import CustomBaseModel
 from suites.school.accounts.models import Account
 from suites.school.modules.classes.models import Clase
+from suites.school.modules.students.models import Student
 from suites.school.modules.subjects.models import Subject
 
 
@@ -10,7 +11,8 @@ from suites.school.modules.subjects.models import Subject
 
 class Assessment(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING)
+    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING, null=True)
+    clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING, null=True)
     assessment_code = models.CharField(max_length=32, null=True, blank=True)
     assessment_name = models.CharField(max_length=256, null=True, blank=True)
     assessment_date = models.DateField(null=True, blank=True)
@@ -21,18 +23,12 @@ class Assessment(CustomBaseModel):
     def __str__(self):
         return str(self.id)
 
-class AssessmentClass(CustomBaseModel):
-    assessment = models.ForeignKey(Assessment, to_field='id', on_delete=models.DO_NOTHING)
-    clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'school_module_assessment_class'
-
-    def __str__(self):
-        return str(self.id)
-
 class AssessmentSheet(CustomBaseModel):
     assessment = models.ForeignKey(Assessment, to_field='id', on_delete=models.DO_NOTHING)
+    student = models.ForeignKey(Student, to_field='id', on_delete=models.DO_NOTHING)
+    score = models.CharField(max_length=16, blank=True, null=True)
+    grade = models.CharField(max_length=8, blank=True, null=True)
+    remarks = models.CharField(max_length=256, blank=True, null=True)
 
     class Meta:
         db_table = 'school_module_assessment_sheet'

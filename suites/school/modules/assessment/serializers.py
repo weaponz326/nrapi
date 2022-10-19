@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Assessment, AssessmentSheet, AssessmentClass, AssessmentCodeConfig
+from .models import Assessment, AssessmentSheet, AssessmentCodeConfig
 
 class AssessmentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,23 +15,18 @@ class AssessmentSerializer(serializers.ModelSerializer):
         else:
             self.Meta.depth = 1
 
-class AssessmentClassSerializer(serializers.ModelSerializer):
+class AssessmentSheetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = AssessmentClass
+        model = AssessmentSheet
         fields = '__all__'
-
+    
     def __init__(self, *args, **kwargs):
-        super(AssessmentClassSerializer, self).__init__(*args, **kwargs)
+        super(AssessmentSerializer, self).__init__(*args, **kwargs)
         request = self.context.get('request')
         if request and (request.method == 'POST' or request.method == 'PUT'):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
-
-class AssessmentSheetSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = AssessmentSheet
-        fields = '__all__'
 
 class AssessmentCodeConfigSerializer(serializers.ModelSerializer):
     class Meta:

@@ -11,9 +11,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import Assessment, AssessmentCodeConfig, AssessmentClass
-from .serializers import AssessmentCodeConfigSerializer, AssessmentSerializer, AssessmentClassSerializer
-from suites.restaurant.accounts.models import Account
+from .models import Assessment, AssessmentCodeConfig, AssessmentSheet
+from .serializers import AssessmentCodeConfigSerializer, AssessmentSerializer, AssessmentSheetSerializer
+from suites.school.accounts.models import Account
+from suites.school.modules.students.models import Student
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
@@ -62,53 +63,40 @@ class AssessmentDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # --------------------------------------------------------------------------------------
-# assessment classs
+# sheet
 
-class AssessmentClassView(APIView, TablePagination):
+class AssessmentSheetView(APIView, TablePagination):
     permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter,]
-    ordering_fields = ('created_at', 'assessment', 'class')
-    ordering = ('-created_at',)
+    ordering_fields = ('student')
+    ordering = ('student.last_name',)
 
     def get(self, request, format=None):
         assessment = self.request.query_params.get('assessment', None)
-        assessment_class = AssessmentClass.objects.filter(assessment=assessment).order_by('-created_at')
-        results = self.paginate_queryset(assessment_class, request, view=self)
-        serializer = AssessmentClassSerializer(results, many=True)        
-        return self.get_paginated_response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = AssessmentClassSerializer(data=request.data, context={'request': request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors)
-
-class AssessmentClassDetailView(APIView):
-    permission_classes = (IsAuthenticated,)
-    
-    def get(self, request, id, format=None):
-        assessment_class = AssessmentClass.objects.get(id=id)
-        serializer = AssessmentClassSerializer(assessment_class)
+        sheet = AssessmentSheet.objects.filter(assessment=assessment).order_by('student.last_name')
+        serializer = AssessmentSheetSerializer(sheet, many=True)        
         return Response(serializer.data)
 
+class AssessmentSheetDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
     def put(self, request, id, format=None):
-        assessment_class = AssessmentClass.objects.get(id=id)
-        serializer = AssessmentClassSerializer(assessment_class, data=request.data, context={'request': request})
+        assessment = AssessmentSheet.objects.get(id=id)
+        serializer = AssessmentSheetSerializer(assessment, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
 
-    def delete(self, request, id, format=None):
-        assessment_class = AssessmentClass.objects.get(id=id)
-        assessment_class.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+@receiver(post_save, sender=Student)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        student_list = Student.objects.filter(account=instance.account, clase=instance.clase)
 
-# --------------------------------------------------------------------------------------
-# sheet
-
-# TODO:
+        for student in student_list:
+            AssessmentCodeConfig.objects.create(
+                student=Student.objects.get(student.id),
+            )
 
 # --------------------------------------------------------------------------------------
 # config
