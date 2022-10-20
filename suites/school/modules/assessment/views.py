@@ -88,13 +88,14 @@ class AssessmentSheetDetailView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors)
 
-@receiver(post_save, sender=Student)
+@receiver(post_save, sender=Assessment)
 def save_extended_profile(sender, instance, created, **kwargs):
     if created:
         student_list = Student.objects.filter(account=instance.account, clase=instance.clase)
 
         for student in student_list:
             AssessmentCodeConfig.objects.create(
+                assessment=instance.id,
                 student=Student.objects.get(student.id),
             )
 
