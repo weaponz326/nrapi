@@ -11,8 +11,8 @@ from suites.school.modules.subjects.models import Subject
 
 class Assessment(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING, null=True)
-    clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING, null=True)
+    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
+    clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     assessment_code = models.CharField(max_length=32, null=True, blank=True)
     assessment_name = models.CharField(max_length=256, null=True, blank=True)
     assessment_date = models.DateField(null=True, blank=True)

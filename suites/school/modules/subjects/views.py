@@ -73,9 +73,8 @@ class SubjectTeacherView(APIView, TablePagination):
     def get(self, request, format=None):
         subject = self.request.query_params.get('subject', None)
         subject_teacher = SubjectTeacher.objects.filter(subject=subject).order_by('-created_at')
-        results = self.paginate_queryset(subject_teacher, request, view=self)
-        serializer = SubjectTeacherSerializer(results, many=True)        
-        return self.get_paginated_response(serializer.data)
+        serializer = SubjectTeacherSerializer(subject_teacher, many=True)        
+        return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = SubjectTeacherSerializer(data=request.data, context={'request': request})
