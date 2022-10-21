@@ -11,8 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import Clase, ClassStudent, Department
-from .serializers import ClassSerializer, ClassStudentSerializer, DepartmentSerializer
+from .models import Clase, ClassStudent, Department, DepartmentClass
+from .serializers import ClassSerializer, ClassStudentSerializer, DepartmentClassSerializer, DepartmentSerializer
 from suites.school.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
@@ -147,6 +147,50 @@ class DepartmentDetailView(APIView):
     def delete(self, request, id, format=None):
         department = Department.objects.get(id=id)
         department.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+# --------------------------------------------------------------------------------------
+# department_class
+
+class DepartmentClassView(APIView, TablePagination):
+    permission_classes = (IsAuthenticated,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter,]
+    ordering_fields = ('created_at', 'department_name', 'class_name')
+    ordering = ('-created_at',)
+
+    def get(self, request, format=None):
+        department = self.request.query_params.get('department', None)
+        department_class = DepartmentClass.objects.filter(department=department).order_by('-created_at')
+        results = self.paginate_queryset(department_class, request, view=self)
+        serializer = DepartmentClassSerializer(results, many=True)        
+        return self.get_paginated_response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = DepartmentClassSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class DepartmentClassDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
+    def get(self, request, id, format=None):
+        department_class = DepartmentClass.objects.get(id=id)
+        serializer = DepartmentClassSerializer(department_class)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        department_class = DepartmentClass.objects.get(id=id)
+        serializer = DepartmentClassSerializer(department_class, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+    def delete(self, request, id, format=None):
+        department_class = DepartmentClass.objects.get(id=id)
+        department_class.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # --------------------------------------------------------------------------------------

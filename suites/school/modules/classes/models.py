@@ -10,7 +10,7 @@ from suites.school.modules.teachers.models import Teacher
 
 class Department(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    department_head = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING)
+    department_head = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     department_name = models.CharField(max_length=256, null=True, blank=True)
     department_description = models.TextField(null=True, blank=True)
 
@@ -22,9 +22,10 @@ class Department(CustomBaseModel):
 
 class Clase(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    department = models.ForeignKey(Department, to_field='id', on_delete=models.DO_NOTHING)
-    class_teacher = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING)
+    department = models.ForeignKey(Department, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
+    class_teacher = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     class_name = models.CharField(max_length=256, null=True, blank=True)
+    class_abbreviation = models.CharField(max_length=64, null=True, blank=True)
     grade = models.CharField(max_length=128, null=True, blank=True)
     location = models.CharField(max_length=256, null=True, blank=True)
 
@@ -40,6 +41,16 @@ class ClassStudent(CustomBaseModel):
     
     class Meta:
         db_table = 'school_module_class_student'
+
+    def __str__(self):
+        return str(self.id)
+
+class DepartmentClass(CustomBaseModel):
+    department = models.ForeignKey(Department, to_field='id', on_delete=models.DO_NOTHING)
+    clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING)
+
+    class Meta:
+        db_table = 'school_module_department_class'
 
     def __str__(self):
         return str(self.id)
