@@ -73,9 +73,8 @@ class SectionStudentView(APIView, TablePagination):
     def get(self, request, format=None):
         section = self.request.query_params.get('section', None)
         section_student = SectionStudent.objects.filter(section=section).order_by('-created_at')
-        results = self.paginate_queryset(section_student, request, view=self)
-        serializer = SectionStudentSerializer(results, many=True)        
-        return self.get_paginated_response(serializer.data)
+        serializer = SectionStudentSerializer(section_student, many=True)        
+        return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = SectionStudentSerializer(data=request.data, context={'request': request})

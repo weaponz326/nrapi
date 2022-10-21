@@ -106,7 +106,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
             entry_mode="Auto",
             prefix=get_initials(instance.name),
             suffix="ST",
-            last_code="00000",
+            last_code="0000",
             year_code=datetime.datetime.now().strftime("%y")
         )
 
