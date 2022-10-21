@@ -64,7 +64,28 @@ class TermDetailView(APIView):
 # --------------------------------------------------------------------------------------
 # active term
 
-# TODO:
+class ActiveTermDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
+    def get(self, request, id, format=None):
+        active_term = Term.objects.get(id=id)
+        serializer = TermSerializer(active_term)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        active_term = Term.objects.get(id=id)
+        serializer = TermSerializer(active_term, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+@receiver(post_save, sender=Account)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        TermCodeConfig.objects.create(
+            id=instance.id,
+        )
 
 # --------------------------------------------------------------------------------------
 # config

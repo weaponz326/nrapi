@@ -70,7 +70,7 @@ urlpatterns = [
     path('school-modules/subjects/', include('suites.school.modules.subjects.urls')),
     path('school-modules/attendance/', include('suites.school.modules.attendance.urls')),
     path('school-modules/students/', include('suites.school.modules.students.urls')),
-    path('school-modules/lesson_plan/', include('suites.school.modules.lesson_plan.urls')),
+    path('school-modules/lesson-plan/', include('suites.school.modules.lesson_plan.urls')),
     path('school-modules/reports/', include('suites.school.modules.reports.urls')),
     path('school-modules/teachers/', include('suites.school.modules.teachers.urls')),
     path('school-modules/payments/', include('suites.school.modules.payments.urls')),

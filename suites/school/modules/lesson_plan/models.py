@@ -10,8 +10,8 @@ from suites.school.modules.teachers.models import Teacher
 
 class LessonPlan(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING)
-    teacher = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING)
+    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
+    teacher = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     plan_code = models.CharField(max_length=32, null=True, blank=True)
     plan_name = models.CharField(max_length=256, null=True, blank=True)
     plan_date = models.DateField(null=True, blank=True)
