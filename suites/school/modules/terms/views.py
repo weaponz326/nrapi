@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import Term, TermCodeConfig
+from .models import ActiveTerm, Term, TermCodeConfig
 from .serializers import TermCodeConfigSerializer, TermSerializer
 from suites.school.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
@@ -83,7 +83,7 @@ class ActiveTermDetailView(APIView):
 @receiver(post_save, sender=Account)
 def save_extended_profile(sender, instance, created, **kwargs):
     if created:
-        TermCodeConfig.objects.create(
+        ActiveTerm.objects.create(
             id=instance.id,
         )
 
