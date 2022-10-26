@@ -5,12 +5,14 @@ from suites.school.accounts.models import Account
 from suites.school.modules.classes.models import Clase
 from suites.school.modules.students.models import Student
 from suites.school.modules.subjects.models import Subject
+from suites.school.modules.terms.models import Term
 
 
 # Create your models here.
 
 class Assessment(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
+    term = models.ForeignKey(Term, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     clase = models.ForeignKey(Clase, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     assessment_code = models.CharField(max_length=32, null=True, blank=True)
