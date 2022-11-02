@@ -3,6 +3,7 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.school.accounts.models import Account
+from suites.school.modules.terms.models import Term
 
 
 def student_upload_path(instance, filename):
@@ -14,6 +15,7 @@ def student_upload_path(instance, filename):
 
 class Student(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
+    term = models.ForeignKey(Term, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     first_name = models.CharField(max_length=128, null=True, blank=True)
     last_name = models.CharField(max_length=128, null=True, blank=True)
     sex = models.CharField(max_length=16, null=True, blank=True)
