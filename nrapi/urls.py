@@ -79,6 +79,22 @@ urlpatterns = [
     path('school-modules/timetable/', include('suites.school.modules.timetable.urls')),
     path('school-modules/fees/', include('suites.school.modules.fees.urls')),
     path('school-modules/sections/', include('suites.school.modules.sections.urls')),
+
+    # association
+    path('association-accounts/', include('suites.association.accounts.urls')),
+    path('association-modules/admin/', include('suites.association.modules.admin.urls')),
+    path('association-modules/portal/', include('suites.association.modules.portal.urls')),
+    path('association-modules/settings/', include('suites.association.modules.settings.urls')),
+    # path('association-modules/accounts', include('suites.association.modules.accounts.urls')),
+    # path('association-modules/members', include('suites.association.modules.members.urls')),
+    # path('association-modules/committees', include('suites.association.modules.committees.urls')),
+    # path('association-modules/dues', include('suites.association.modules.dues.urls')),
+    # path('association-modules/executives', include('suites.association.modules.executives.urls')),
+    # path('association-modules/action_plan', include('suites.association.modules.action-plan.urls')),
+    # path('association-modules/attendance', include('suites.association.modules.attendance.urls')),
+    # path('association-modules/meetings', include('suites.association.modules.meetings.urls')),
+    # path('association-modules/groups', include('suites.association.modules.groups.urls')),
+    # path('association-modules/fiscal_year', include('suites.association.modules.fiscal-year.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

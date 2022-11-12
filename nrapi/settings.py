@@ -107,6 +107,22 @@ INSTALLED_APPS = [
     'suites.school.modules.timetable',
     'suites.school.modules.fees',
     'suites.school.modules.sections',
+
+    # association
+    'suites.association.accounts',
+    'suites.association.modules.admin',
+    'suites.association.modules.portal',
+    'suites.association.modules.settings',
+    # 'suites.association.modules.accounts',
+    # 'suites.association.modules.members',
+    # 'suites.association.modules.committees',
+    # 'suites.association.modules.dues',
+    # 'suites.association.modules.executives',
+    # 'suites.association.modules.action_plan',
+    # 'suites.association.modules.attendance',
+    # 'suites.association.modules.meetings',
+    # 'suites.association.modules.groups',
+    # 'suites.association.modules.fiscal_year',
 ]
 
 MIDDLEWARE = [

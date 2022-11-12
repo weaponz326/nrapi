@@ -45,6 +45,21 @@
 			+ fees (A)
 			+ sections (A)
     + association
+		+ accounts (A)
+		+ modules
+			+ admin (A)
+			+ portal (A)
+			+ settings (A)
+			+ accounts (A)
+			+ members (A)
+			+ committees (A)
+			+ dues (A)
+			+ executives (A)
+			+ action plan (A)
+			+ attendance (A)
+			+ meetings (A)
+			+ groups (A)
+			+ fiscal year (A)
     + enterprise
     + hotel
     + hospital
