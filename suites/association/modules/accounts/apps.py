@@ -3,4 +3,6 @@ from django.apps import AppConfig
 
 class AccountsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'accounts'
+    name = 'suites.association.modules.accounts'
+    label = 'association_module_accounts'
+    verbose_name = 'association module accounts'
