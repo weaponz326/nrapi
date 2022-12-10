@@ -108,8 +108,8 @@ class AllTransactionsView(APIView, TablePagination):
     ordering = ['-created_at']
 
     def get(self, request, format=None):
-        user = self.request.query_params.get('user', None)
-        account = Transaction.objects.filter(account__user=user)
+        account = self.request.query_params.get('account', None)
+        account = Transaction.objects.filter(account__account=account)
         results = self.paginate_queryset(account, request, view=self)
         serializer = TransactionSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
