@@ -54,7 +54,7 @@ class AccountDetailView(APIView):
 
 # --------------------------------------------------------------------------------------------------------
 
-# restaurant search
+# enterprise search
         
 class AccountSearchView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
