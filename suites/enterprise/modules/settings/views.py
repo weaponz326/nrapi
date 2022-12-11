@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import ExtendedProfile, Subscription, SubscriptionEvent
 from .serializers import ExtendedProfileSerializer, SubscriptionEventSerializer, SubscriptionSerializer
-from suites.restaurant.accounts.models import Account
+from suites.enterprise.accounts.models import Account
 import suites.personal.payments.services as PaystackPayments
 
 

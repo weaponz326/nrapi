@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 
 from suites.personal.users.models import CustomBaseModel
-from suites.restaurant.accounts.models import Account
+from suites.enterprise.accounts.models import Account
 
 
 # Create your models here.
@@ -16,7 +16,7 @@ class ExtendedProfile(CustomBaseModel):
     address = models.TextField(null=True, blank=True)
 
     class Meta:
-        db_table = 'restaurant_module_settings_extended_profile'
+        db_table = 'enterprise_module_settings_extended_profile'
 
     def __str__(self):
         return str(self.id)
@@ -33,7 +33,7 @@ class Subscription(CustomBaseModel):
     quantity = models.IntegerField(null=True, blank=True)
 
     class Meta:
-        db_table = 'restaurant_module_settings_subscription'
+        db_table = 'enterprise_module_settings_subscription'
 
     def __str__(self):
         return str(self.id)
@@ -44,7 +44,7 @@ class SubscriptionEvent(CustomBaseModel):
     amount = models.IntegerField(null=True, blank=True)
     
     class Meta:
-        db_table = 'restaurant_module_settings_subscription_event'
+        db_table = 'enterprise_module_settings_subscription_event'
 
     def __str__(self):
         return str(self.id)

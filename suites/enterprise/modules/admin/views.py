@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view
 
 from .models import AccountUser, Access, Invitation
 from .serializers import AccountUserSerializer, AccessSerializer, InvitationSerializer
-from suites.restaurant.accounts.models import Account
+from suites.enterprise.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 
 
@@ -200,16 +200,20 @@ def save_access(sender, instance, created, **kwargs):
                 admin_access=True,
                 portal_access=True,
                 settings_access=True,
-                menu_access=True,
-                staff_access=True,
-                tables_access=True,
-                customers_access=True,
-                deliveries_access=True,
-                payments_access=True,
-                roster_access=True,
-                reservations_access=True,
-                orders_access=True,
-                kitchen_stock_access=True,
+                accounts_access=True,
+                appraisal_access=True,
+                assets_access=True,
+                attendance_access=True,
+                budget_access=True,
+                employees_access=True,
+                files_access=True,
+                leave_access=True,
+                fiscal_year_access=True,
+                ledger_access=True,
+                letters_access=True,
+                payroll_access=True,
+                procurement_access=True,
+                reception_access=True,
             )
         else:
             Access.objects.create(
@@ -218,14 +222,18 @@ def save_access(sender, instance, created, **kwargs):
                 admin_access=False,
                 portal_access=False,
                 settings_access=False,
-                menu_access=False,
-                staff_access=False,
-                tables_access=False,
-                customers_access=False,
-                deliveries_access=False,
-                payments_access=False,
-                roster_access=False,
-                reservations_access=False,
-                orders_access=False,
-                kitchen_stock_access=False,
+                accounts_access=False,
+                appraisal_access=False,
+                assets_access=False,
+                attendance_access=False,
+                budget_access=False,
+                employees_access=False,
+                files_access=False,
+                leave_access=False,
+                fiscal_year_access=False,
+                ledger_access=False,
+                letters_access=False,
+                payroll_access=False,
+                procurement_access=False,
+                reception_access=False,
             )
