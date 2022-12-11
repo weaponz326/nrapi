@@ -123,6 +123,26 @@ INSTALLED_APPS = [
     'suites.association.modules.meetings',
     'suites.association.modules.groups',
     'suites.association.modules.fiscal_year',
+
+    # enterprise
+    'suites.enterprise.accounts',
+    'suites.enterprise.modules.admin',
+    'suites.enterprise.modules.portal',
+    'suites.enterprise.modules.settings',
+    # 'suites.enterprise.modules.accounts',
+    # 'suites.enterprise.modules.appraisal',
+    # 'suites.enterprise.modules.assets',
+    # 'suites.enterprise.modules.attendance',
+    # 'suites.enterprise.modules.budget',
+    # 'suites.enterprise.modules.employees',
+    # 'suites.enterprise.modules.files',
+    # 'suites.enterprise.modules.fiscal_year',
+    # 'suites.enterprise.modules.leave',
+    # 'suites.enterprise.modules.ledger',
+    # 'suites.enterprise.modules.letters',
+    # 'suites.enterprise.modules.payroll',
+    # 'suites.enterprise.modules.procurement',
+    # 'suites.enterprise.modules.reception',
 ]
 
 MIDDLEWARE = [
