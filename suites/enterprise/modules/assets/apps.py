@@ -3,4 +3,6 @@ from django.apps import AppConfig
 
 class AssetsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'assets'
+    name = 'suites.enterprise.modules.assets'
+    label = 'enterprise_module_assets'
+    verbose_name = 'enterprise module assets'
