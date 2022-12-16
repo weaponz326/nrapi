@@ -10,7 +10,7 @@ class SentLetter(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
     date_sent = models.DateField(null=True, blank=True)
     reference_number = models.CharField(max_length=64, null=True, blank=True)
-    recepient = models.CharField(max_length=126, null=True, blank=True)
+    recepient = models.CharField(max_length=128, null=True, blank=True)
     subject = models.CharField(max_length=256, null=True, blank=True)
 
     class Meta:
@@ -23,7 +23,7 @@ class ReceivedLetter(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
     date_received = models.DateField(null=True, blank=True)
     reference_number = models.CharField(max_length=64, null=True, blank=True)
-    sender = models.CharField(max_length=126, null=True, blank=True)
+    sender = models.CharField(max_length=128, null=True, blank=True)
     subject = models.CharField(max_length=256, null=True, blank=True)
 
     class Meta:
