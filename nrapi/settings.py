@@ -38,7 +38,7 @@ DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "") != "False"
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = [
-    # 'localhost',
+    'localhost',
     'api.netrink.com'
 ]
 
@@ -88,25 +88,61 @@ INSTALLED_APPS = [
     'suites.restaurant.modules.reservations',
     'suites.restaurant.modules.customers',
 
-    # # school
-    # 'suites.school.accounts',
-    # 'suites.school.modules.admin',
-    # 'suites.school.modules.portal',
-    # 'suites.school.modules.settings',
-    # 'suites.school.modules.parents',
-    # 'suites.school.modules.assessment',
-    # 'suites.school.modules.subjects',
-    # 'suites.school.modules.attendance',
-    # 'suites.school.modules.students',
-    # 'suites.school.modules.lesson_plan',
-    # 'suites.school.modules.reports',
-    # 'suites.school.modules.teachers',
-    # 'suites.school.modules.payments',
-    # 'suites.school.modules.classes',
-    # 'suites.school.modules.terms',
-    # 'suites.school.modules.timetable',
-    # 'suites.school.modules.fees',
-    # 'suites.school.modules.sections',
+    # school
+    'suites.school.accounts',
+    'suites.school.modules.admin',
+    'suites.school.modules.portal',
+    'suites.school.modules.settings',
+    'suites.school.modules.parents',
+    'suites.school.modules.assessment',
+    'suites.school.modules.subjects',
+    'suites.school.modules.attendance',
+    'suites.school.modules.students',
+    'suites.school.modules.lesson_plan',
+    'suites.school.modules.reports',
+    'suites.school.modules.teachers',
+    'suites.school.modules.payments',
+    'suites.school.modules.classes',
+    'suites.school.modules.terms',
+    'suites.school.modules.timetable',
+    'suites.school.modules.fees',
+    'suites.school.modules.sections',
+
+    # association
+    'suites.association.accounts',
+    'suites.association.modules.admin',
+    'suites.association.modules.portal',
+    'suites.association.modules.settings',
+    'suites.association.modules.accounts',
+    'suites.association.modules.members',
+    'suites.association.modules.committees',
+    'suites.association.modules.dues',
+    'suites.association.modules.executives',
+    'suites.association.modules.action_plan',
+    'suites.association.modules.attendance',
+    'suites.association.modules.meetings',
+    'suites.association.modules.groups',
+    'suites.association.modules.fiscal_year',
+
+    # enterprise
+    'suites.enterprise.accounts',
+    'suites.enterprise.modules.admin',
+    'suites.enterprise.modules.portal',
+    'suites.enterprise.modules.settings',
+    'suites.enterprise.modules.accounts',
+    'suites.enterprise.modules.appraisal',
+    'suites.enterprise.modules.assets',
+    'suites.enterprise.modules.attendance',
+    'suites.enterprise.modules.budget',
+    'suites.enterprise.modules.employees',
+    'suites.enterprise.modules.files',
+    'suites.enterprise.modules.fiscal_year',
+    'suites.enterprise.modules.leave',
+    'suites.enterprise.modules.ledger',
+    'suites.enterprise.modules.letters',
+    'suites.enterprise.modules.payroll',
+    'suites.enterprise.modules.procurement',
+    'suites.enterprise.modules.reception',
 ]
 
 MIDDLEWARE = [
@@ -271,8 +307,8 @@ REST_FRAMEWORK = {
 
 # Djoser config
 
-DOMAIN = 'www.netrink.com/#'
-# DOMAIN = 'localhost:4200/#'
+# DOMAIN = 'www.netrink.com/#'
+DOMAIN = 'localhost:4200/#'
 SITENAME = 'netRink'
 
 DJOSER = {

@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view
 
 from .models import Student, StudentCodeConfig
 from .serializers import StudentCodeConfigSerializer, StudentSerializer
-from suites.restaurant.accounts.models import Account
+from suites.school.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
@@ -37,7 +37,7 @@ class StudentView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = StudentSerializer(data=request.data)
+        serializer = StudentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -54,7 +54,7 @@ class StudentDetailView(APIView):
 
     def put(self, request, id, format=None):
         student = Student.objects.get(id=id)
-        serializer = StudentSerializer(student, data=request.data)
+        serializer = StudentSerializer(student, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view
 
 from .models import Teacher, TeacherCodeConfig
 from .serializers import TeacherCodeConfigSerializer, TeacherSerializer
-from suites.restaurant.accounts.models import Account
+from suites.school.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
@@ -105,8 +105,8 @@ def save_extended_profile(sender, instance, created, **kwargs):
             id=instance.id,
             entry_mode="Auto",
             prefix=get_initials(instance.name),
-            suffix="ST",
-            last_code="00000",
+            suffix="TC",
+            last_code="0000",
             year_code=datetime.datetime.now().strftime("%y")
         )
 

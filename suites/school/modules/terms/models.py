@@ -22,7 +22,7 @@ class Term(CustomBaseModel):
         return str(self.id)
 
 class ActiveTerm(CustomBaseModel):
-    term = models.ForeignKey(Term, to_field='id', on_delete=models.DO_NOTHING)
+    term = models.ForeignKey(Term, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
 
     class Meta:
         db_table = 'school_module_active_term'

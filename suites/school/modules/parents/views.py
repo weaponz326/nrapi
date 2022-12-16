@@ -34,7 +34,7 @@ class ParentView(APIView, TablePagination):
         return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = ParentSerializer(data=request.data)
+        serializer = ParentSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -50,7 +50,7 @@ class ParentDetailView(APIView):
 
     def put(self, request, id, format=None):
         parent = Parent.objects.get(id=id)
-        serializer = ParentSerializer(parent, data=request.data)
+        serializer = ParentSerializer(parent, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

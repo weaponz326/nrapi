@@ -4,14 +4,16 @@ from suites.personal.users.models import CustomBaseModel
 from suites.school.accounts.models import Account
 from suites.school.modules.subjects.models import Subject
 from suites.school.modules.teachers.models import Teacher
+from suites.school.modules.terms.models import Term
 
 
 # Create your models here.
 
 class LessonPlan(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING)
-    teacher = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING)
+    term = models.ForeignKey(Term, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
+    subject = models.ForeignKey(Subject, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
+    teacher = models.ForeignKey(Teacher, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     plan_code = models.CharField(max_length=32, null=True, blank=True)
     plan_name = models.CharField(max_length=256, null=True, blank=True)
     plan_date = models.DateField(null=True, blank=True)

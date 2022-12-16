@@ -13,7 +13,7 @@ from rest_framework.decorators import api_view
 
 from .models import Subject, SubjectCodeConfig, SubjectTeacher
 from .serializers import SubjectCodeConfigSerializer, SubjectSerializer, SubjectTeacherSerializer
-from suites.restaurant.accounts.models import Account
+from suites.school.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
@@ -73,9 +73,8 @@ class SubjectTeacherView(APIView, TablePagination):
     def get(self, request, format=None):
         subject = self.request.query_params.get('subject', None)
         subject_teacher = SubjectTeacher.objects.filter(subject=subject).order_by('-created_at')
-        results = self.paginate_queryset(subject_teacher, request, view=self)
-        serializer = SubjectTeacherSerializer(results, many=True)        
-        return self.get_paginated_response(serializer.data)
+        serializer = SubjectTeacherSerializer(subject_teacher, many=True)        
+        return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = SubjectTeacherSerializer(data=request.data, context={'request': request})

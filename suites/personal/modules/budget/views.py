@@ -98,7 +98,7 @@ class IncomeDetailView(APIView):
         income.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# income
+# expenditure
 # --------------------------------------------------------------------------------------------------
 
 class ExpenditureView(APIView):

@@ -10,7 +10,7 @@ from suites.school.modules.teachers.models import Teacher
 
 class Subject(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    department = models.ForeignKey(Department, to_field='id', on_delete=models.DO_NOTHING)
+    department = models.ForeignKey(Department, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     subject_code = models.CharField(max_length=32, null=True, blank=True)
     subject_name = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField(null=True, blank=True)

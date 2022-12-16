@@ -9,4 +9,6 @@ urlpatterns = [
     path('class-student/<id>', views.ClassStudentDetailView.as_view()),
     path('department/', views.DepartmentView.as_view()),
     path('department/<id>', views.DepartmentDetailView.as_view()),
+    path('department-class/', views.DepartmentClassView.as_view()),
+    path('department-class/<id>', views.DepartmentClassDetailView.as_view()),
 ]

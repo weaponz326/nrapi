@@ -11,9 +11,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import Term, TermCodeConfig
-from .serializers import TermCodeConfigSerializer, TermSerializer
-from suites.restaurant.accounts.models import Account
+from .models import ActiveTerm, Term, TermCodeConfig
+from .serializers import ActiveTermSerializer, TermCodeConfigSerializer, TermSerializer
+from suites.school.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
@@ -64,7 +64,28 @@ class TermDetailView(APIView):
 # --------------------------------------------------------------------------------------
 # active term
 
-# TODO:
+class ActiveTermDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+    
+    def get(self, request, id, format=None):
+        active_term = ActiveTerm.objects.get(id=id)
+        serializer = ActiveTermSerializer(active_term)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        active_term = ActiveTerm.objects.get(id=id)
+        serializer = ActiveTermSerializer(active_term, data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+@receiver(post_save, sender=Account)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        ActiveTerm.objects.create(
+            id=instance.id,
+        )
 
 # --------------------------------------------------------------------------------------
 # config
