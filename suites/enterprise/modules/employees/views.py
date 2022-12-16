@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view
 
 from .models import Employee, EmployeeCodeConfig
 from .serializers import EmployeeCodeConfigSerializer, EmployeeSerializer
-from suites.school.accounts.models import Account
+from suites.enterprise.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
