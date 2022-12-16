@@ -18,7 +18,7 @@ class Asset(CustomBaseModel):
     status = models.CharField(max_length=128, null=True, blank=True)
 
     class Meta:
-        db_table = 'enterprise_module_assets'
+        db_table = 'enterprise_module_asset'
 
     def __str__(self):
         return str(self.id)
