@@ -6,7 +6,7 @@ from .models import Appraisal, AppraisalSheet
 # Register your models here.
 
 class AppraisalAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'appraisal_code', 'appraisal_name')
+    list_display = ('pkid', 'id', 'created_at', 'appraisal_code', 'appraisal_name', 'employee')
 
 class AppraisalSheetAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at')

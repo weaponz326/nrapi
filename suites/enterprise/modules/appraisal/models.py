@@ -1,4 +1,5 @@
 from django.db import models
+from suites.enterprise.modules.employees.models import Employee
 
 from suites.personal.users.models import CustomBaseModel
 from suites.enterprise.accounts.models import Account
@@ -8,7 +9,7 @@ from suites.enterprise.accounts.models import Account
 
 class Appraisal(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    # employee = models.ForeignKey(Employee, to_field='id', on_delete=models.DO_NOTHING)
+    employee = models.ForeignKey(Employee, to_field='id', on_delete=models.DO_NOTHING)
     appraisal_code = models.CharField(max_length=64, null=True, blank=True)
     appraisal_name = models.CharField(max_length=256, null=True, blank=True)
     start_date = models.DateField(null=True, blank=True)
