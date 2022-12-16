@@ -26,9 +26,9 @@ class ProcurementView(APIView, TablePagination):
     ordering = ['-created_at']
 
     def get(self, request, format=None):
-        procurement = self.request.query_params.get('procurement', None)
-        account = Procurement.objects.filter(account=procurement).order_by('-created_at')
-        results = self.paginate_queryset(account, request, view=self)
+        account = self.request.query_params.get('account', None)
+        procurement = Procurement.objects.filter(account=account).order_by('-created_at')
+        results = self.paginate_queryset(procurement, request, view=self)
         serializer = ProcurementSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
@@ -65,9 +65,9 @@ class ProcurementDetailView(APIView):
 
 class OrderReviewView(APIView, TablePagination):
     def get(self, request, format=None):
-        order_review = self.request.query_params.get('order_review', None)
-        account = OrderReview.objects.filter(account=order_review).order_by('-created_at')
-        results = self.paginate_queryset(account, request, view=self)
+        account = self.request.query_params.get('account', None)
+        order_review = OrderReview.objects.filter(account=account).order_by('-created_at')
+        results = self.paginate_queryset(order_review, request, view=self)
         serializer = OrderReviewSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 

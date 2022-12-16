@@ -26,9 +26,9 @@ class LeaveView(APIView, TablePagination):
     ordering = ['-created_at']
 
     def get(self, request, format=None):
-        leave = self.request.query_params.get('leave', None)
-        account = Leave.objects.filter(account=leave).order_by('-created_at')
-        results = self.paginate_queryset(account, request, view=self)
+        account = self.request.query_params.get('account', None)
+        leave = Leave.objects.filter(account=account).order_by('-created_at')
+        results = self.paginate_queryset(leave, request, view=self)
         serializer = LeaveSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 

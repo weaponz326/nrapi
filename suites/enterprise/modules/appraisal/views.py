@@ -26,9 +26,9 @@ class AppraisalView(APIView, TablePagination):
     ordering = ['-created_at']
 
     def get(self, request, format=None):
-        appraisal = self.request.query_params.get('appraisal', None)
-        account = Appraisal.objects.filter(account=appraisal).order_by('-created_at')
-        results = self.paginate_queryset(account, request, view=self)
+        account = self.request.query_params.get('account', None)
+        appraisal = Appraisal.objects.filter(account=account).order_by('-created_at')
+        results = self.paginate_queryset(appraisal, request, view=self)
         serializer = AppraisalSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
@@ -66,8 +66,8 @@ class AppraisalDetailView(APIView):
 class AppraisalSheetView(APIView, TablePagination):
     def get(self, request, format=None):
         appraisal = self.request.query_params.get('appraisal', None)
-        account = AppraisalSheet.objects.filter(account=appraisal).order_by('-created_at')
-        results = self.paginate_queryset(account, request, view=self)
+        sheet = AppraisalSheet.objects.filter(account=appraisal).order_by('-created_at')
+        results = self.paginate_queryset(sheet, request, view=self)
         serializer = AppraisalSheetSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 

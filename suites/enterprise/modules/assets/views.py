@@ -26,9 +26,9 @@ class AssetView(APIView, TablePagination):
     ordering = ['-created_at']
 
     def get(self, request, format=None):
-        asset = self.request.query_params.get('asset', None)
-        account = Asset.objects.filter(account=asset).order_by('-created_at')
-        results = self.paginate_queryset(account, request, view=self)
+        account = self.request.query_params.get('account', None)
+        asset = Asset.objects.filter(account=account).order_by('-created_at')
+        results = self.paginate_queryset(asset, request, view=self)
         serializer = AssetSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 

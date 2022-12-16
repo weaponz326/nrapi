@@ -28,9 +28,9 @@ class SentLetterView(APIView, TablePagination):
     ordering = ['-created_at']
 
     def get(self, request, format=None):
-        sent_letter = self.request.query_params.get('sent_letter', None)
-        account = SentLetter.objects.filter(account=sent_letter).order_by('-created_at')
-        results = self.paginate_queryset(account, request, view=self)
+        account = self.request.query_params.get('account', None)
+        sent_letter = SentLetter.objects.filter(account=account).order_by('-created_at')
+        results = self.paginate_queryset(sent_letter, request, view=self)
         serializer = SentLetterSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
@@ -71,9 +71,9 @@ class ReceivedLetterView(APIView, TablePagination):
     ordering = ['-created_at']
 
     def get(self, request, format=None):
-        received_letter = self.request.query_params.get('received_letter', None)
-        account = ReceivedLetter.objects.filter(account=received_letter).order_by('-created_at')
-        results = self.paginate_queryset(account, request, view=self)
+        account = self.request.query_params.get('account', None)
+        received_letter = ReceivedLetter.objects.filter(account=account).order_by('-created_at')
+        results = self.paginate_queryset(received_letter, request, view=self)
         serializer = ReceivedLetterSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
 
