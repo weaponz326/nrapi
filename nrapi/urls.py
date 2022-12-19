@@ -108,7 +108,7 @@ urlpatterns = [
     path('enterprise-modules/budget/', include('suites.enterprise.modules.budget.urls')),
     path('enterprise-modules/employees/', include('suites.enterprise.modules.employees.urls')),
     path('enterprise-modules/files/', include('suites.enterprise.modules.files.urls')),
-    path('enterprise-modules/fiscal_year/', include('suites.enterprise.modules.fiscal_year.urls')),
+    path('enterprise-modules/fiscal-year/', include('suites.enterprise.modules.fiscal_year.urls')),
     path('enterprise-modules/leave/', include('suites.enterprise.modules.leave.urls')),
     path('enterprise-modules/ledger/', include('suites.enterprise.modules.ledger.urls')),
     path('enterprise-modules/letters/', include('suites.enterprise.modules.letters.urls')),
