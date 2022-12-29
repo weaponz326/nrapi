@@ -24,8 +24,8 @@ class ActionPlanView(APIView, TablePagination):
     ordering = ['-created_at']
 
     def get(self, request, format=None):
-        user = self.request.query_params.get('user', None)
-        action_plan = ActionPlan.objects.filter(user=user).order_by('-created_at')
+        account = self.request.query_params.get('account', None)
+        action_plan = ActionPlan.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(action_plan, request, view=self)
         serializer = ActionPlanSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
