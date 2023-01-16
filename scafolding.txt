@@ -81,6 +81,22 @@
 			+ reception (A)
 			+ fiscal year (A)
     + hotel
+		+ accounts (A)
+		+ modules
+			+ admin (A)
+			+ portal (A)
+			+ settings (A)
+			+ bills (A)
+			+ staff (A)
+			+ roster (A)
+			+ guests (A)
+			+ payments (A)
+			+ services (A)
+			+ checkin (A)
+			+ bookings (A)
+			+ rooms (A)
+			+ assets (A)
+			+ housekeeping (A)
     + hospital
     + shop
     + production
