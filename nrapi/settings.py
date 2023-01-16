@@ -143,6 +143,23 @@ INSTALLED_APPS = [
     'suites.enterprise.modules.payroll',
     'suites.enterprise.modules.procurement',
     'suites.enterprise.modules.reception',
+
+    # hotel
+    'suites.hotel.accounts',
+    'suites.hotel.modules.admin',
+    'suites.hotel.modules.portal',
+    'suites.hotel.modules.settings',
+    'suites.hotel.modules.bills',
+    'suites.hotel.modules.staff',
+    'suites.hotel.modules.roster',
+    'suites.hotel.modules.guests',
+    'suites.hotel.modules.payments',
+    'suites.hotel.modules.services',
+    'suites.hotel.modules.checkin',
+    'suites.hotel.modules.bookings',
+    'suites.hotel.modules.rooms',
+    'suites.hotel.modules.assets',
+    'suites.hotel.modules.housekeeping'
 ]
 
 MIDDLEWARE = [

@@ -115,6 +115,23 @@ urlpatterns = [
     path('enterprise-modules/payroll/', include('suites.enterprise.modules.payroll.urls')),
     path('enterprise-modules/procurement/', include('suites.enterprise.modules.procurement.urls')),
     path('enterprise-modules/reception/', include('suites.enterprise.modules.reception.urls')),
+
+    # hotel
+    path('hotel-accounts/', include('suites.hotel.accounts.urls')),
+    path('hotel-modules/admin/', include('suites.hotel.modules.admin.urls')),
+    path('hotel-modules/portal/', include('suites.hotel.modules.portal.urls')),
+    path('hotel-modules/settings/', include('suites.hotel.modules.settings.urls')),
+    path('hotel-modules/bills/', include('suites.hotel.modules.bills.urls')),
+    path('hotel-modules/staff/', include('suites.hotel.modules.staff.urls')),
+    path('hotel-modules/roster/', include('suites.hotel.modules.roster.urls')),
+    path('hotel-modules/guests/', include('suites.hotel.modules.guests.urls')),
+    path('hotel-modules/payments/', include('suites.hotel.modules.payments.urls')),
+    path('hotel-modules/services/', include('suites.hotel.modules.services.urls')),
+    path('hotel-modules/checkin/', include('suites.hotel.modules.checkin.urls')),
+    path('hotel-modules/bookings/', include('suites.hotel.modules.bookings.urls')),
+    path('hotel-modules/rooms/', include('suites.hotel.modules.rooms.urls')),
+    path('hotel-modules/assets/', include('suites.hotel.modules.assets.urls')),
+    path('hotel-modules/housekeeping/', include('suites.hotel.modules.housekeeping.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
