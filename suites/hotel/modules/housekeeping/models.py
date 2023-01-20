@@ -20,8 +20,8 @@ class Housekeeping(CustomBaseModel):
         return str(self.id)
 
 class Checklist(CustomBaseModel):
-    item_number = models.IntegerField(null=True, blank=True)
     housekeeping = models.ForeignKey(Housekeeping, to_field='id', on_delete=models.DO_NOTHING)
+    item_number = models.IntegerField(null=True, blank=True)
     item_description = models.CharField(max_length=256, null=True, blank=True)
     item_status = models.CharField(max_length=64, null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
