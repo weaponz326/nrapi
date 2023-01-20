@@ -21,8 +21,8 @@ class Service(CustomBaseModel):
         return str(self.id)
 
 class ServiceItem(CustomBaseModel):
-    item_number = models.IntegerField(null=True, blank=True)
     service = models.ForeignKey(Service, to_field='id', on_delete=models.DO_NOTHING)
+    item_number = models.IntegerField(null=True, blank=True)
     item_date = models.DateField(null=True, blank=True)
     description = models.CharField(max_length=256, null=True, blank=True)
     amount = models.DecimalField(max_digits=16, decimal_places=2, null=True)

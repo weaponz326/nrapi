@@ -20,8 +20,8 @@ class Bill(CustomBaseModel):
         return str(self.id)
 
 class CheckinCharge(CustomBaseModel):
-    item_number = models.IntegerField(null=True, blank=True)
     bill = models.ForeignKey(Bill, to_field='id', on_delete=models.DO_NOTHING)
+    item_number = models.IntegerField(null=True, blank=True)
     # checkin = models.ForeignKey(Checkin, to_field='id', on_delete=models.DO_NOTHING)
 
     class Meta:
@@ -31,9 +31,9 @@ class CheckinCharge(CustomBaseModel):
         return str(self.id)
 
 class ServiceCharge(CustomBaseModel):
+    # service = models.ForeignKey(Service, to_field='id', on_delete=models.DO_NOTHING)
     item_number = models.IntegerField(null=True, blank=True)
     bill = models.ForeignKey(Bill, to_field='id', on_delete=models.DO_NOTHING)
-    # service = models.ForeignKey(Service, to_field='id', on_delete=models.DO_NOTHING)
 
     class Meta:
         db_table = 'hotel_module_bill_service_charge'

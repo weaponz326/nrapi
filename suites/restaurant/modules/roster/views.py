@@ -30,7 +30,7 @@ from .serializers import (
     RosterDaySerializer,
     RosterCodeConfigSerializer,
 )
-from suites.restaurant.accounts.models import Account
+from suites.hotel.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 
