@@ -131,7 +131,13 @@ urlpatterns = [
     path('hotel-modules/bookings/', include('suites.hotel.modules.bookings.urls')),
     path('hotel-modules/rooms/', include('suites.hotel.modules.rooms.urls')),
     path('hotel-modules/assets/', include('suites.hotel.modules.assets.urls')),
-    path('hotel-modules/housekeeping/', include('suites.hotel.modules.housekeeping.urls'))
+    path('hotel-modules/housekeeping/', include('suites.hotel.modules.housekeeping.urls')),
+
+    # hotel
+    path('hotel-accounts/', include('suites.hotel.accounts.urls')),
+    path('hotel-modules/admin/', include('suites.hotel.modules.admin.urls')),
+    path('hotel-modules/portal/', include('suites.hotel.modules.portal.urls')),
+    path('hotel-modules/settings/', include('suites.hotel.modules.settings.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

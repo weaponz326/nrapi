@@ -159,7 +159,13 @@ INSTALLED_APPS = [
     'suites.hotel.modules.bookings',
     'suites.hotel.modules.rooms',
     'suites.hotel.modules.assets',
-    'suites.hotel.modules.housekeeping'
+    'suites.hotel.modules.housekeeping',
+
+    # hospital
+    'suites.hospital.accounts',
+    'suites.hospital.modules.admin',
+    'suites.hospital.modules.portal',
+    'suites.hospital.modules.settings',
 ]
 
 MIDDLEWARE = [
