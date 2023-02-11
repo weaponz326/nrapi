@@ -31,6 +31,9 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
+    path('payments/', include('suites.personal.payments.urls')),
+    path('support/', include('suites.personal.support.urls')),
+
     # personal
     path('personal-users/', include('suites.personal.users.urls')),
     path('personal-modules/portal/', include('suites.personal.modules.portal.urls')),
@@ -40,10 +43,7 @@ urlpatterns = [
     path('personal-modules/notes/', include('suites.personal.modules.notes.urls')),
     path('personal-modules/accounts/', include('suites.personal.modules.accounts.urls')),
     path('personal-modules/tasks/', include('suites.personal.modules.tasks.urls')),
-    
-    path('payments/', include('suites.personal.payments.urls')),
-    path('support/', include('suites.personal.support.urls')),
- 
+     
     # restaurant
     path('restaurant-accounts/', include('suites.restaurant.accounts.urls')),
     path('restaurant-modules/admin/', include('suites.restaurant.modules.admin.urls')),
@@ -133,11 +133,26 @@ urlpatterns = [
     path('hotel-modules/assets/', include('suites.hotel.modules.assets.urls')),
     path('hotel-modules/housekeeping/', include('suites.hotel.modules.housekeeping.urls')),
 
-    # hotel
-    path('hotel-accounts/', include('suites.hotel.accounts.urls')),
-    path('hotel-modules/admin/', include('suites.hotel.modules.admin.urls')),
-    path('hotel-modules/portal/', include('suites.hotel.modules.portal.urls')),
-    path('hotel-modules/settings/', include('suites.hotel.modules.settings.urls')),
+    # hospital
+    path('hospital-accounts/', include('suites.hospital.accounts.urls')),
+    path('hospital-modules/admin/', include('suites.hospital.modules.admin.urls')),
+    path('hospital-modules/portal/', include('suites.hospital.modules.portal.urls')),
+    path('hospital-modules/settings/', include('suites.hospital.modules.settings.urls')),
+    path('hospital-modules/patients/', include('suites.hospital.modules.patients.urls')),
+    path('hospital-modules/appointments/', include('suites.hospital.modules.appointments.urls')),
+    path('hospital-modules/staff/', include('suites.hospital.modules.staff.urls')),
+    path('hospital-modules/bills/', include('suites.hospital.modules.bills.urls')),
+    path('hospital-modules/doctors/', include('suites.hospital.modules.doctors.urls')),
+    path('hospital-modules/laboratory/', include('suites.hospital.modules.laboratory.urls')),
+    path('hospital-modules/payments/', include('suites.hospital.modules.payments.urls')),
+    path('hospital-modules/nurses/', include('suites.hospital.modules.nurses.urls')),
+    path('hospital-modules/prescriptions/', include('suites.hospital.modules.prescriptions.urls')),
+    path('hospital-modules/diagnosis/', include('suites.hospital.modules.diagnosis.urls')),
+    path('hospital-modules/drugs/', include('suites.hospital.modules.drugs.urls')),
+    path('hospital-modules/wards/', include('suites.hospital.modules.wards.urls')),
+    path('hospital-modules/admissions/', include('suites.hospital.modules.admissions.urls')),
+    path('hospital-modules/dispensary/', include('suites.hospital.modules.dispensary.urls')),
+    path('hospital-modules/roster/', include('suites.hospital.modules.roster.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

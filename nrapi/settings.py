@@ -59,6 +59,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
 
+    'suites.personal.payments',
+    'suites.personal.support',
+
     # personal
     'suites.personal.users',
     'suites.personal.modules.portal',
@@ -69,9 +72,6 @@ INSTALLED_APPS = [
     'suites.personal.modules.accounts',
     'suites.personal.modules.tasks',
     
-    'suites.personal.payments',
-    'suites.personal.support',
-
     # restaurant
     'suites.restaurant.accounts',
     'suites.restaurant.modules.admin',
@@ -166,6 +166,21 @@ INSTALLED_APPS = [
     'suites.hospital.modules.admin',
     'suites.hospital.modules.portal',
     'suites.hospital.modules.settings',
+    'suites.hospital.modules.patients',
+    'suites.hospital.modules.appointments',
+    'suites.hospital.modules.staff',
+    'suites.hospital.modules.bills',
+    'suites.hospital.modules.doctors',
+    'suites.hospital.modules.laboratory',
+    'suites.hospital.modules.payments',
+    'suites.hospital.modules.nurses',
+    'suites.hospital.modules.prescriptions',
+    'suites.hospital.modules.diagnosis',
+    'suites.hospital.modules.drugs',
+    'suites.hospital.modules.wards',
+    'suites.hospital.modules.admissions',
+    'suites.hospital.modules.dispensary',
+    'suites.hospital.modules.roster',
 ]
 
 MIDDLEWARE = [
