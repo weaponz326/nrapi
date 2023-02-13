@@ -5,7 +5,7 @@ from .models import Bill, BillCodeConfig
 # Register your models here.
 
 class BillAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'bill_code')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'bill_code', 'admission')
 
 class BillCodeConfigAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')

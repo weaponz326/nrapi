@@ -8,7 +8,7 @@ class DispenseAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'account', 'patient', 'dispense_code')
 
 class DispenseItemAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'item_number', 'dispense')
+    list_display = ('pkid', 'id', 'created_at', 'item_number', 'dispense', 'drug')
 
 class DispenseCodeConfigAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')

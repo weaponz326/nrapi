@@ -3,6 +3,7 @@ from django.db import models
 from suites.personal.users.models import CustomBaseModel
 from suites.hospital.accounts.models import Account
 from suites.hospital.modules.patients.models import Patient
+from suites.hospital.modules.drugs.models import Drug
 
 
 # Create your models here.
@@ -23,7 +24,7 @@ class Dispense(CustomBaseModel):
 class DispenseItem(CustomBaseModel):
     item_number = models.IntegerField(null=True, blank=True)
     dispense = models.ForeignKey(Dispense, to_field='id', on_delete=models.DO_NOTHING)
-    # drug = models.ForeignKey(Drug, to_field='id', on_delete=models.DO_NOTHING)
+    drug = models.ForeignKey(Drug, to_field='id', on_delete=models.DO_NOTHING)
     remarks = models.TextField(null=True, blank=True)
 
     class Meta:
