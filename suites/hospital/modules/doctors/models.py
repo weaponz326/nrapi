@@ -45,7 +45,7 @@ class DoctorCodeConfig(CustomBaseModel):
     year_code = models.CharField(max_length=16, blank=True, null=True)
 
     class Meta:
-        db_table = 'hospital_module_docotor_code_config'
+        db_table = 'hospital_module_doctor_code_config'
 
     def __str__(self):
         return str(self.id)

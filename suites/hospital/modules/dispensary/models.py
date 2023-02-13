@@ -15,7 +15,7 @@ class Dispense(CustomBaseModel):
     dispense_status = models.CharField(max_length=128, null=True, blank=True)
 
     class Meta:
-        db_table = 'hospital_module_dispense'
+        db_table = 'hospital_module_dispensary'
         
     def __str__(self):
         return str(self.id)
@@ -27,7 +27,7 @@ class DispenseItem(CustomBaseModel):
     remarks = models.TextField(null=True, blank=True)
 
     class Meta:
-        db_table = 'hospital_module_dispense_item'
+        db_table = 'hospital_module_dispensary_dispense_item'
 
     def __str__(self):
         return str(self.id)
@@ -39,7 +39,7 @@ class DispenseCodeConfig(CustomBaseModel):
     last_code = models.CharField(max_length=64, blank=True, null=True)
 
     class Meta:
-        db_table = 'hospital_module_dispense_code_config'
+        db_table = 'hospital_module_dispensary_dispense_code_config'
 
     def __str__(self):
         return str(self.id)
