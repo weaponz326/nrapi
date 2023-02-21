@@ -10,7 +10,7 @@ from suites.hospital.modules.patients.models import Patient
 class Drug(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
     ndc_number = models.CharField(max_length=64, null=True, blank=True)
-    drug_name = models.DateTimeField(null=True, blank=True)
+    drug_name = models.CharField(max_length=256, null=True, blank=True)
     generic_name = models.CharField(max_length=256, null=True, blank=True)
     drug_type = models.CharField(max_length=256, null=True, blank=True)
     unit_dose = models.CharField(max_length=32, null=True, blank=True)
