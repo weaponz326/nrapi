@@ -159,6 +159,20 @@ urlpatterns = [
     path('shop-modules/admin/', include('suites.shop.modules.admin.urls')),
     path('shop-modules/portal/', include('suites.shop.modules.portal.urls')),
     path('shop-modules/settings/', include('suites.shop.modules.settings.urls')),
+    path('shop-modules/receivables/', include('suites.shop.modules.receivables.urls')),
+    path('shop-modules/products/', include('suites.shop.modules.products.urls')),
+    path('shop-modules/invoice/', include('suites.shop.modules.invoice.urls')),
+    path('shop-modules/marketting/', include('suites.shop.modules.marketting.urls')),
+    path('shop-modules/payables/', include('suites.shop.modules.payables.urls')),
+    path('shop-modules/sales/', include('suites.shop.modules.sales.urls')),
+    path('shop-modules/customers/', include('suites.shop.modules.customers.urls')),
+    path('shop-modules/payments/', include('suites.shop.modules.payments.urls')),
+    path('shop-modules/orders/', include('suites.shop.modules.orders.urls')),
+    path('shop-modules/inventory/', include('suites.shop.modules.inventory.urls')),
+    path('shop-modules/suppliers/', include('suites.shop.modules.suppliers.urls')),
+    path('shop-modules/purchasing/', include('suites.shop.modules.purchasing.urls')),
+    path('shop-modules/cashflow/', include('suites.shop.modules.cashflow.urls')),
+    path('shop-modules/staff/', include('suites.shop.modules.staff.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

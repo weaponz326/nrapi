@@ -187,6 +187,20 @@ INSTALLED_APPS = [
     'suites.shop.modules.admin',
     'suites.shop.modules.portal',
     'suites.shop.modules.settings',
+    'suites.shop.modules.receivables',
+    'suites.shop.modules.products',
+    'suites.shop.modules.invoice',
+    'suites.shop.modules.marketting',
+    'suites.shop.modules.payables',
+    'suites.shop.modules.sales',
+    'suites.shop.modules.customers',
+    'suites.shop.modules.payments',
+    'suites.shop.modules.orders',
+    'suites.shop.modules.inventory',
+    'suites.shop.modules.suppliers',
+    'suites.shop.modules.purchasing',
+    'suites.shop.modules.cashflow',
+    'suites.shop.modules.staff',
 ]
 
 MIDDLEWARE = [
