@@ -153,6 +153,12 @@ urlpatterns = [
     path('hospital-modules/admissions/', include('suites.hospital.modules.admissions.urls')),
     path('hospital-modules/dispensary/', include('suites.hospital.modules.dispensary.urls')),
     path('hospital-modules/roster/', include('suites.hospital.modules.roster.urls')),
+
+    # shop
+    path('shop-accounts/', include('suites.shop.accounts.urls')),
+    path('shop-modules/admin/', include('suites.shop.modules.admin.urls')),
+    path('shop-modules/portal/', include('suites.shop.modules.portal.urls')),
+    path('shop-modules/settings/', include('suites.shop.modules.settings.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

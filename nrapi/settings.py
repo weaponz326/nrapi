@@ -181,6 +181,12 @@ INSTALLED_APPS = [
     'suites.hospital.modules.admissions',
     'suites.hospital.modules.dispensary',
     'suites.hospital.modules.roster',
+
+    # shop
+    'suites.shop.accounts',
+    'suites.shop.modules.admin',
+    'suites.shop.modules.portal',
+    'suites.shop.modules.settings',
 ]
 
 MIDDLEWARE = [
