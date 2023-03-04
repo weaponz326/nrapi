@@ -15,7 +15,7 @@ class Visitor(CustomBaseModel):
     arrival = models.TimeField(null=True, blank=True)
     departure = models.TimeField(null=True, blank=True)
     purpose = models.CharField(max_length=128, null=True, blank=True)
-    tag_umber = models.CharField(max_length=32, null=True, blank=True)
+    tag_number = models.CharField(max_length=32, null=True, blank=True)
 
     class Meta:
         db_table = 'enterprise_module_reception_visitor'

@@ -31,6 +31,9 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
+    path('payments/', include('suites.personal.payments.urls')),
+    path('support/', include('suites.personal.support.urls')),
+
     # personal
     path('personal-users/', include('suites.personal.users.urls')),
     path('personal-modules/portal/', include('suites.personal.modules.portal.urls')),
@@ -40,10 +43,7 @@ urlpatterns = [
     path('personal-modules/notes/', include('suites.personal.modules.notes.urls')),
     path('personal-modules/accounts/', include('suites.personal.modules.accounts.urls')),
     path('personal-modules/tasks/', include('suites.personal.modules.tasks.urls')),
-    
-    path('payments/', include('suites.personal.payments.urls')),
-    path('support/', include('suites.personal.support.urls')),
- 
+     
     # restaurant
     path('restaurant-accounts/', include('suites.restaurant.accounts.urls')),
     path('restaurant-modules/admin/', include('suites.restaurant.modules.admin.urls')),
@@ -108,13 +108,71 @@ urlpatterns = [
     path('enterprise-modules/budget/', include('suites.enterprise.modules.budget.urls')),
     path('enterprise-modules/employees/', include('suites.enterprise.modules.employees.urls')),
     path('enterprise-modules/files/', include('suites.enterprise.modules.files.urls')),
-    path('enterprise-modules/fiscal_year/', include('suites.enterprise.modules.fiscal_year.urls')),
+    path('enterprise-modules/fiscal-year/', include('suites.enterprise.modules.fiscal_year.urls')),
     path('enterprise-modules/leave/', include('suites.enterprise.modules.leave.urls')),
     path('enterprise-modules/ledger/', include('suites.enterprise.modules.ledger.urls')),
     path('enterprise-modules/letters/', include('suites.enterprise.modules.letters.urls')),
     path('enterprise-modules/payroll/', include('suites.enterprise.modules.payroll.urls')),
     path('enterprise-modules/procurement/', include('suites.enterprise.modules.procurement.urls')),
     path('enterprise-modules/reception/', include('suites.enterprise.modules.reception.urls')),
+
+    # hotel
+    path('hotel-accounts/', include('suites.hotel.accounts.urls')),
+    path('hotel-modules/admin/', include('suites.hotel.modules.admin.urls')),
+    path('hotel-modules/portal/', include('suites.hotel.modules.portal.urls')),
+    path('hotel-modules/settings/', include('suites.hotel.modules.settings.urls')),
+    path('hotel-modules/bills/', include('suites.hotel.modules.bills.urls')),
+    path('hotel-modules/staff/', include('suites.hotel.modules.staff.urls')),
+    path('hotel-modules/roster/', include('suites.hotel.modules.roster.urls')),
+    path('hotel-modules/guests/', include('suites.hotel.modules.guests.urls')),
+    path('hotel-modules/payments/', include('suites.hotel.modules.payments.urls')),
+    path('hotel-modules/services/', include('suites.hotel.modules.services.urls')),
+    path('hotel-modules/checkin/', include('suites.hotel.modules.checkin.urls')),
+    path('hotel-modules/bookings/', include('suites.hotel.modules.bookings.urls')),
+    path('hotel-modules/rooms/', include('suites.hotel.modules.rooms.urls')),
+    path('hotel-modules/assets/', include('suites.hotel.modules.assets.urls')),
+    path('hotel-modules/housekeeping/', include('suites.hotel.modules.housekeeping.urls')),
+
+    # hospital
+    path('hospital-accounts/', include('suites.hospital.accounts.urls')),
+    path('hospital-modules/admin/', include('suites.hospital.modules.admin.urls')),
+    path('hospital-modules/portal/', include('suites.hospital.modules.portal.urls')),
+    path('hospital-modules/settings/', include('suites.hospital.modules.settings.urls')),
+    path('hospital-modules/patients/', include('suites.hospital.modules.patients.urls')),
+    path('hospital-modules/appointments/', include('suites.hospital.modules.appointments.urls')),
+    path('hospital-modules/staff/', include('suites.hospital.modules.staff.urls')),
+    path('hospital-modules/bills/', include('suites.hospital.modules.bills.urls')),
+    path('hospital-modules/doctors/', include('suites.hospital.modules.doctors.urls')),
+    path('hospital-modules/laboratory/', include('suites.hospital.modules.laboratory.urls')),
+    path('hospital-modules/payments/', include('suites.hospital.modules.payments.urls')),
+    path('hospital-modules/nurses/', include('suites.hospital.modules.nurses.urls')),
+    path('hospital-modules/prescriptions/', include('suites.hospital.modules.prescriptions.urls')),
+    path('hospital-modules/diagnosis/', include('suites.hospital.modules.diagnosis.urls')),
+    path('hospital-modules/drugs/', include('suites.hospital.modules.drugs.urls')),
+    path('hospital-modules/wards/', include('suites.hospital.modules.wards.urls')),
+    path('hospital-modules/admissions/', include('suites.hospital.modules.admissions.urls')),
+    path('hospital-modules/dispensary/', include('suites.hospital.modules.dispensary.urls')),
+    path('hospital-modules/roster/', include('suites.hospital.modules.roster.urls')),
+
+    # shop
+    path('shop-accounts/', include('suites.shop.accounts.urls')),
+    path('shop-modules/admin/', include('suites.shop.modules.admin.urls')),
+    path('shop-modules/portal/', include('suites.shop.modules.portal.urls')),
+    path('shop-modules/settings/', include('suites.shop.modules.settings.urls')),
+    path('shop-modules/receivables/', include('suites.shop.modules.receivables.urls')),
+    path('shop-modules/products/', include('suites.shop.modules.products.urls')),
+    path('shop-modules/invoice/', include('suites.shop.modules.invoice.urls')),
+    path('shop-modules/marketting/', include('suites.shop.modules.marketting.urls')),
+    path('shop-modules/payables/', include('suites.shop.modules.payables.urls')),
+    path('shop-modules/sales/', include('suites.shop.modules.sales.urls')),
+    path('shop-modules/customers/', include('suites.shop.modules.customers.urls')),
+    path('shop-modules/payments/', include('suites.shop.modules.payments.urls')),
+    path('shop-modules/orders/', include('suites.shop.modules.orders.urls')),
+    path('shop-modules/inventory/', include('suites.shop.modules.inventory.urls')),
+    path('shop-modules/suppliers/', include('suites.shop.modules.suppliers.urls')),
+    path('shop-modules/purchasing/', include('suites.shop.modules.purchasing.urls')),
+    path('shop-modules/cashflow/', include('suites.shop.modules.cashflow.urls')),
+    path('shop-modules/staff/', include('suites.shop.modules.staff.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

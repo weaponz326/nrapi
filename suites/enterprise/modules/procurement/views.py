@@ -1,7 +1,10 @@
 import datetime
+
 from django.db.models.functions import TruncDate
 from django.db.models import Count
 from django.db.models import Sum
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -98,3 +101,10 @@ class OrderReviewDetailView(APIView):
         order_review = OrderReview.objects.get(id=id)
         order_review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=Procurement)
+def save_order_review(sender, instance, created, **kwargs):
+    if created:
+        OrderReview.objects.create(
+            id=instance.id,
+        )

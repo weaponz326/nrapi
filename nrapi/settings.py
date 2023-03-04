@@ -59,6 +59,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
 
+    'suites.personal.payments',
+    'suites.personal.support',
+
     # personal
     'suites.personal.users',
     'suites.personal.modules.portal',
@@ -69,9 +72,6 @@ INSTALLED_APPS = [
     'suites.personal.modules.accounts',
     'suites.personal.modules.tasks',
     
-    'suites.personal.payments',
-    'suites.personal.support',
-
     # restaurant
     'suites.restaurant.accounts',
     'suites.restaurant.modules.admin',
@@ -143,6 +143,64 @@ INSTALLED_APPS = [
     'suites.enterprise.modules.payroll',
     'suites.enterprise.modules.procurement',
     'suites.enterprise.modules.reception',
+
+    # hotel
+    'suites.hotel.accounts',
+    'suites.hotel.modules.admin',
+    'suites.hotel.modules.portal',
+    'suites.hotel.modules.settings',
+    'suites.hotel.modules.bills',
+    'suites.hotel.modules.staff',
+    'suites.hotel.modules.roster',
+    'suites.hotel.modules.guests',
+    'suites.hotel.modules.payments',
+    'suites.hotel.modules.services',
+    'suites.hotel.modules.checkin',
+    'suites.hotel.modules.bookings',
+    'suites.hotel.modules.rooms',
+    'suites.hotel.modules.assets',
+    'suites.hotel.modules.housekeeping',
+
+    # hospital
+    'suites.hospital.accounts',
+    'suites.hospital.modules.admin',
+    'suites.hospital.modules.portal',
+    'suites.hospital.modules.settings',
+    'suites.hospital.modules.patients',
+    'suites.hospital.modules.appointments',
+    'suites.hospital.modules.staff',
+    'suites.hospital.modules.bills',
+    'suites.hospital.modules.doctors',
+    'suites.hospital.modules.laboratory',
+    'suites.hospital.modules.payments',
+    'suites.hospital.modules.nurses',
+    'suites.hospital.modules.prescriptions',
+    'suites.hospital.modules.diagnosis',
+    'suites.hospital.modules.drugs',
+    'suites.hospital.modules.wards',
+    'suites.hospital.modules.admissions',
+    'suites.hospital.modules.dispensary',
+    'suites.hospital.modules.roster',
+
+    # shop
+    'suites.shop.accounts',
+    'suites.shop.modules.admin',
+    'suites.shop.modules.portal',
+    'suites.shop.modules.settings',
+    'suites.shop.modules.receivables',
+    'suites.shop.modules.products',
+    'suites.shop.modules.invoice',
+    'suites.shop.modules.marketting',
+    'suites.shop.modules.payables',
+    'suites.shop.modules.sales',
+    'suites.shop.modules.customers',
+    'suites.shop.modules.payments',
+    'suites.shop.modules.orders',
+    'suites.shop.modules.inventory',
+    'suites.shop.modules.suppliers',
+    'suites.shop.modules.purchasing',
+    'suites.shop.modules.cashflow',
+    'suites.shop.modules.staff',
 ]
 
 MIDDLEWARE = [

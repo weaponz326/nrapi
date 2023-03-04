@@ -2,6 +2,8 @@ import datetime
 from django.db.models.functions import TruncDate
 from django.db.models import Count
 from django.db.models import Sum
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -98,3 +100,10 @@ class AppraisalSheetDetailView(APIView):
         appraisal = AppraisalSheet.objects.get(id=id)
         appraisal.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=Appraisal)
+def save_appraisal_sheet(sender, instance, created, **kwargs):
+    if created:
+        AppraisalSheet.objects.create(
+            id=instance.id,
+        )

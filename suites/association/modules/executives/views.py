@@ -29,8 +29,9 @@ class ExecutiveView(APIView, TablePagination):
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
         executive = Executive.objects.filter(account=account).order_by('-created_at')
-        serializer = ExecutiveSerializer(executive, many=True)        
-        return Response(serializer.data)
+        results = self.paginate_queryset(executive, request, view=self)
+        serializer = ExecutiveSerializer(results, many=True)        
+        return self.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
         serializer = ExecutiveSerializer(data=request.data, context={'request': request})

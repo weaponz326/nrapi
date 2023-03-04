@@ -9,7 +9,7 @@ from suites.enterprise.accounts.models import Account
 
 class Leave(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    employee = models.ForeignKey(Employee, to_field='id', on_delete=models.DO_NOTHING)
+    employee = models.ForeignKey(Employee, to_field='id', null=True, blank=True, on_delete=models.DO_NOTHING)
     leave_code = models.CharField(max_length=64, null=True, blank=True)
     leave_type = models.CharField(max_length=256, null=True, blank=True)
     leave_start = models.DateField(null=True, blank=True)
