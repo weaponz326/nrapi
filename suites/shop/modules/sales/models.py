@@ -12,7 +12,7 @@ class Sales(CustomBaseModel):
     product = models.ForeignKey(Product, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     sales_code = models.CharField(max_length=32, null=True, blank=True)
     sales_date = models.DateField(null=True, blank=True)
-    quantity = models.IntegerField(max_length=16, null=True)
+    quantity = models.IntegerField(null=True, blank=True)
     invoice_number = models.CharField(max_length=64, null=True, blank=True)
 
     class Meta:
