@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Supplier, SupplierCodeConfig, SupplierItem
+from .models import Supplier, SupplierCodeConfig, SupplierProduct
 
 
 class SupplierSerializer(serializers.ModelSerializer):
@@ -9,13 +9,13 @@ class SupplierSerializer(serializers.ModelSerializer):
         model = Supplier
         fields = '__all__'
 
-class SupplierItemSerializer(serializers.ModelSerializer):
+class SupplierProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = SupplierItem
+        model = SupplierProduct
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(SupplierItemSerializer, self).__init__(*args, **kwargs)
+        super(SupplierProductSerializer, self).__init__(*args, **kwargs)
         request = self.context.get('request')
         if request and (request.method == 'POST' or request.method == 'PUT'):
             self.Meta.depth = 0

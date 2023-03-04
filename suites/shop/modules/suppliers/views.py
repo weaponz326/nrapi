@@ -11,8 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import Supplier, SupplierCodeConfig, SupplierItem
-from .serializers import SupplierCodeConfigSerializer, SupplierItemSerializer, SupplierSerializer
+from .models import Supplier, SupplierCodeConfig, SupplierProduct
+from .serializers import SupplierCodeConfigSerializer, SupplierProductSerializer, SupplierSerializer
 from suites.shop.accounts.models import Account
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
@@ -62,46 +62,46 @@ class SupplierDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # ----------------------------------------------------------------------------------------------------------
-# supplier item
+# supplier product
 
-class SupplierItemView(APIView):
+class SupplierProductView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
         supplier = self.request.query_params.get('supplier', None)
-        item = SupplierItem.objects.filter(supplier=supplier).supplier_by('created_at')
-        serializer = SupplierItemSerializer(item, many=True)
+        product = SupplierProduct.objects.filter(supplier=supplier).supplier_by('created_at')
+        serializer = SupplierProductSerializer(product, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
         # TODO:
         # insert into deliveries if supplier_type == delivery
 
-        serializer = SupplierItemSerializer(data=request.data, context={'request': request})
+        serializer = SupplierProductSerializer(data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
 
-class SupplierItemDetailView(APIView):
+class SupplierProductDetailView(APIView):
     permission_classes = (IsAuthenticated,)
     
     def get(self, request, id, format=None):
-        item = SupplierItem.objects.get(id=id)
-        serializer = SupplierItemSerializer(item)
+        product = SupplierProduct.objects.get(id=id)
+        serializer = SupplierProductSerializer(product)
         return Response(serializer.data)
 
     def put(self, request, id, format=None):
-        item = SupplierItem.objects.get(id=id)
-        serializer = SupplierItemSerializer(item, data=request.data, context={'request': request})
+        product = SupplierProduct.objects.get(id=id)
+        serializer = SupplierProductSerializer(product, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
 
     def delete(self, request, id, format=None):
-        item = SupplierItem.objects.get(id=id)
-        item.delete()
+        product = SupplierProduct.objects.get(id=id)
+        product.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # --------------------------------------------------------------------------------------

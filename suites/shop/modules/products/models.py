@@ -19,6 +19,7 @@ class Product(CustomBaseModel):
     description = models.TextField(null=True, blank=True)
     product_category = models.CharField(max_length=128, null=True, blank=True)
     price = models.DecimalField(max_digits=16, decimal_places=2, null=True)
+    product_image = models.FileField(null=True, upload_to=product_upload_path)
 
     class Meta:
         db_table = 'shop_module_product'

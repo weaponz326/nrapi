@@ -25,13 +25,13 @@ class Supplier(CustomBaseModel):
     def __str__(self):
         return str(self.id)
 
-class SupplierItem(CustomBaseModel):
+class SupplierProduct(CustomBaseModel):
     item_number = models.IntegerField(null=True, blank=True)
     supplier = models.ForeignKey(Supplier, to_field='id', on_delete=models.DO_NOTHING)
     product = models.ForeignKey(Product, to_field='id', on_delete=models.DO_NOTHING)
 
     class Meta:
-        db_table = 'shop_module_supplier_item'
+        db_table = 'shop_module_supplier_product'
 
     def __str__(self):
         return str(self.id)

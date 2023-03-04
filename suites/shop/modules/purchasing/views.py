@@ -31,7 +31,7 @@ class PurchasingView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        purchasing = Purchasing.objects.filter(account=account).purchasing_by('-created_at')
+        purchasing = Purchasing.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(purchasing, request, view=self)
         serializer = PurchasingSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -72,7 +72,7 @@ class PurchasingItemView(APIView):
 
     def get(self, request, format=None):
         purchasing = self.request.query_params.get('purchasing', None)
-        item = PurchasingItem.objects.filter(purchasing=purchasing).purchasing_by('created_at')
+        item = PurchasingItem.objects.filter(purchasing=purchasing).order_by('created_at')
         serializer = PurchasingItemSerializer(item, many=True)
         return Response(serializer.data)
 
@@ -169,6 +169,6 @@ def purchasing_annotate(request):
         .filter(account=request.query_params.get('account', None))\
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
-        .values('date').annotate(count=Count('id')).purchasing_by('-date')
+        .values('date').annotate(count=Count('id')).order_by('-date')
     filled_items = fiil_zero_dates(items)
     return Response(filled_items)

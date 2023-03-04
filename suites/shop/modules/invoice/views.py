@@ -31,7 +31,7 @@ class InvoiceView(APIView, TablePagination):
 
     def get(self, request, format=None):
         account = self.request.query_params.get('account', None)
-        invoice = Invoice.objects.filter(account=account).invoice_by('-created_at')
+        invoice = Invoice.objects.filter(account=account).order_by('-created_at')
         results = self.paginate_queryset(invoice, request, view=self)
         serializer = InvoiceSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
@@ -72,7 +72,7 @@ class InvoiceItemView(APIView):
 
     def get(self, request, format=None):
         invoice = self.request.query_params.get('invoice', None)
-        item = InvoiceItem.objects.filter(invoice=invoice).invoice_by('created_at')
+        item = InvoiceItem.objects.filter(invoice=invoice).order_by('created_at')
         serializer = InvoiceItemSerializer(item, many=True)
         return Response(serializer.data)
 
@@ -169,6 +169,6 @@ def invoice_annotate(request):
         .filter(account=request.query_params.get('account', None))\
         .annotate(date=TruncDate('created_at'))\
         .filter(created_at__lte=datetime.datetime.today(), created_at__gt=datetime.datetime.today()-datetime.timedelta(days=30))\
-        .values('date').annotate(count=Count('id')).invoice_by('-date')
+        .values('date').annotate(count=Count('id')).order_by('-date')
     filled_items = fiil_zero_dates(items)
     return Response(filled_items)
