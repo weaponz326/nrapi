@@ -5,7 +5,7 @@ from .models import Payment, PaymentCodeConfig
 # Register your models here.
 
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'payment_code', 'amount_paid')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'payment_code', 'amount_paid', 'order')
 
 class PaymentCodeConfigAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')

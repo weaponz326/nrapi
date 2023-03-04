@@ -2,7 +2,7 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.shop.accounts.models import Account
-# from suites.shop.modules.customers.models import Customer
+from suites.shop.modules.customers.models import Customer
 from suites.shop.modules.products.models import Product
 
 
@@ -10,7 +10,7 @@ from suites.shop.modules.products.models import Product
 
 class Invoice(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    # customer = models.ForeignKey(Customer, to_field='id', null=True, blank=True, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(Customer, to_field='id', null=True, blank=True, on_delete=models.DO_NOTHING)
     customer_name = models.CharField(max_length=256, null=True, blank=True)
     customer_contact = models.TextField(null=True, blank=True)
     invoice_code = models.CharField(max_length=64, blank=True)
