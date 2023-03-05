@@ -1,6 +1,8 @@
 + suites
 	+ personal
 		+ users (A)
+		+ payments (A)
+		+ support (A)
 		+ modules
 			+ portal (A)
 			+ settings (A)
