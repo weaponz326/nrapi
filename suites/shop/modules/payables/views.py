@@ -23,7 +23,7 @@ from suites.personal.users.services import generate_code, get_initials
 class PayableView(APIView, TablePagination):
     permission_classes = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    ordering_fields = ['created_at', 'payable_code', 'payable_date', 'due_date', 'amount', 'customer_name', 'date_paid']
+    ordering_fields = ['created_at', 'payable_code', 'payable_date', 'due_date', 'amount', 'supplier_name', 'date_paid']
     ordering = ['-created_at']
 
     def get(self, request, format=None):

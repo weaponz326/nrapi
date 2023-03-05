@@ -6,7 +6,7 @@ from .models import Receivable, ReceivableCodeConfig
 # Register your models here.
 
 class ReceivableAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'receivable_code', 'receivable_date', 'amount', 'customer_name')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'receivable_code', 'receivable_date', 'amount', 'customer')
 
 class ReceivableCodeConfigAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')

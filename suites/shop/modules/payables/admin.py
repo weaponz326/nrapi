@@ -6,7 +6,7 @@ from .models import Payable, PayableCodeConfig
 # Register your models here.
 
 class PayableAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'payable_code', 'payable_date', 'amount', 'customer_name')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'payable_code', 'payable_date', 'amount', 'supplier')
 
 class PayableCodeConfigAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')
