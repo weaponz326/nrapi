@@ -2,13 +2,16 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.hotel.accounts.models import Account
+from suites.hotel.modules.guests.models import Guest
+from suites.hotel.modules.checkin.models import Checkin
+from suites.hotel.modules.services.models import Service
 
 
 # Create your models here.
 
 class Bill(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    # guest = models.ForeignKey(Guest, to_field='id', on_delete=models.DO_NOTHING)
+    guest = models.ForeignKey(Guest, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     bill_code = models.CharField(max_length=64, blank=True)
     bill_date = models.DateTimeField(null=True, blank=True)
     total_amount = models.DecimalField(max_digits=16, decimal_places=2, null=True)
@@ -22,7 +25,7 @@ class Bill(CustomBaseModel):
 class CheckinCharge(CustomBaseModel):
     bill = models.ForeignKey(Bill, to_field='id', on_delete=models.DO_NOTHING)
     item_number = models.IntegerField(null=True, blank=True)
-    # checkin = models.ForeignKey(Checkin, to_field='id', on_delete=models.DO_NOTHING)
+    checkin = models.ForeignKey(Checkin, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
 
     class Meta:
         db_table = 'hotel_module_bill_checkin_charge'
@@ -31,9 +34,9 @@ class CheckinCharge(CustomBaseModel):
         return str(self.id)
 
 class ServiceCharge(CustomBaseModel):
-    # service = models.ForeignKey(Service, to_field='id', on_delete=models.DO_NOTHING)
-    item_number = models.IntegerField(null=True, blank=True)
     bill = models.ForeignKey(Bill, to_field='id', on_delete=models.DO_NOTHING)
+    item_number = models.IntegerField(null=True, blank=True)
+    service = models.ForeignKey(Service, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
 
     class Meta:
         db_table = 'hotel_module_bill_service_charge'

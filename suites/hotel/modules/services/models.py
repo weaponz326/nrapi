@@ -2,13 +2,14 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.hotel.accounts.models import Account
+from suites.hotel.modules.guests.models import Guest
 
 
 # Create your models here.
 
 class Service(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    # guest = models.ForeignKey(Guest, to_field='id', null=True, blank=True, on_delete=models.DO_NOTHING)
+    guest = models.ForeignKey(Guest, to_field='id', null=True, blank=True, on_delete=models.DO_NOTHING)
     service_code = models.CharField(max_length=64, null=True, blank=True)
     service_name = models.CharField(max_length=256, null=True, blank=True)
     service_type = models.CharField(max_length=64, null=True, blank=True)
