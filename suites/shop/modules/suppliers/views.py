@@ -69,7 +69,7 @@ class SupplierProductView(APIView):
 
     def get(self, request, format=None):
         supplier = self.request.query_params.get('supplier', None)
-        product = SupplierProduct.objects.filter(supplier=supplier).supplier_by('created_at')
+        product = SupplierProduct.objects.filter(supplier=supplier).order_by('created_at')
         serializer = SupplierProductSerializer(product, many=True)
         return Response(serializer.data)
 

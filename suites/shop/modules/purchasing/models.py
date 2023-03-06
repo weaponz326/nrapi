@@ -12,7 +12,7 @@ class Purchasing(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
     supplier = models.ForeignKey(Supplier, to_field='id', null=True, blank=True, on_delete=models.DO_NOTHING)
     purchasing_code = models.CharField(max_length=64, blank=True)
-    purchasing_date = models.DateTimeField(null=True, blank=True)
+    purchasing_date = models.DateField(null=True, blank=True)
     purchasing_status = models.CharField(max_length=32, null=True, blank=True)
     purchasing_total = models.DecimalField(max_digits=16, decimal_places=2, null=True)
     invoice_number = models.CharField(max_length=64, blank=True)
