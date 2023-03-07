@@ -7,6 +7,7 @@ from suites.personal.users.models import CustomBaseModel, User
 
 class Note(CustomBaseModel):
     user = models.ForeignKey(User, to_field='id', on_delete=models.DO_NOTHING)
+    note_code = models.CharField(null=True, blank=True, max_length=32)
     title = models.CharField(null=True, blank=True, max_length=256)
     body = models.TextField(null=True, blank=True)
 

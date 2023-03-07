@@ -156,7 +156,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
         AccountCodeConfig.objects.create(
             id=instance.id,
             entry_mode="Auto",
-            prefix=get_initials(instance.first_name) + ' ' + get_initials(instance.last_name),
+            prefix=get_initials(instance.first_name) + get_initials(instance.last_name),
             suffix="AC",
             last_code="000"
         )

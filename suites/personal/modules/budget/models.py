@@ -7,6 +7,7 @@ from suites.personal.users.models import CustomBaseModel, User
 
 class Budget(CustomBaseModel):
     user = models.ForeignKey(User, to_field='id', on_delete=models.DO_NOTHING)
+    budget_code = models.CharField(null=True, blank=True, max_length=32)
     budget_name = models.CharField(max_length=128, null=True, blank=True)
     budget_type = models.CharField(max_length=32, null=True)
 

@@ -161,7 +161,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
         CalendarCodeConfig.objects.create(
             id=instance.id,
             entry_mode="Auto",
-            prefix=get_initials(instance.first_name) + ' ' + get_initials(instance.last_name),
+            prefix=get_initials(instance.first_name) + get_initials(instance.last_name),
             suffix="CA",
             last_code="0000"
         )
@@ -204,7 +204,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
         ScheduleCodeConfig.objects.create(
             id=instance.id,
             entry_mode="Auto",
-            prefix=get_initials(instance.first_name) + ' ' + get_initials(instance.last_name),
+            prefix=get_initials(instance.first_name) + get_initials(instance.last_name),
             suffix="SD",
             last_code="000000"
         )

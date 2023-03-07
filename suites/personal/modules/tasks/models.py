@@ -7,6 +7,7 @@ from suites.personal.users.models import CustomBaseModel, User
 
 class TaskGroup(CustomBaseModel):
     user = models.ForeignKey(User, to_field='id', on_delete=models.DO_NOTHING)
+    task_group_code = models.CharField(max_length=32, null=True, blank=True)
     task_group = models.CharField(max_length=256, null=True, blank=True)
 
     class Meta:
@@ -17,6 +18,7 @@ class TaskGroup(CustomBaseModel):
 
 class TaskItem(CustomBaseModel):
     task_group = models.ForeignKey(TaskGroup, to_field='id', on_delete=models.DO_NOTHING)
+    task_item_code = models.CharField(max_length=64, null=True, blank=True)
     task_item = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     priority = models.CharField(max_length=32, null=True)

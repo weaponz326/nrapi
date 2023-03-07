@@ -181,7 +181,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
         BudgetCodeConfig.objects.create(
             id=instance.id,
             entry_mode="Auto",
-            prefix=get_initials(instance.first_name) + ' ' + get_initials(instance.last_name),
+            prefix=get_initials(instance.first_name) + get_initials(instance.last_name),
             suffix="BU",
             last_code="0000"
         )

@@ -7,6 +7,7 @@ from suites.personal.users.models import CustomBaseModel, User
 
 class Calendar(CustomBaseModel):
     user = models.ForeignKey(User, to_field='id', on_delete=models.DO_NOTHING)
+    calendar_code = models.CharField(null=True, blank=True, max_length=32)
     calendar_name = models.CharField(null=True, blank=True, max_length=256)
 
     class Meta:
@@ -17,6 +18,7 @@ class Calendar(CustomBaseModel):
 
 class Schedule(CustomBaseModel):
     calendar = models.ForeignKey(Calendar, to_field='id', on_delete=models.DO_NOTHING)
+    schedule_code = models.CharField(null=True, blank=True, max_length=64)
     schedule_name = models.CharField(null=True, blank=True, max_length=256)
     description = models.TextField(null=True, blank=True)
     start_date = models.DateTimeField(null=True, blank=True)

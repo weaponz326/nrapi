@@ -110,7 +110,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
         NoteCodeConfig.objects.create(
             id=instance.id,
             entry_mode="Auto",
-            prefix=get_initials(instance.first_name) + ' ' + get_initials(instance.last_name),
+            prefix=get_initials(instance.first_name) + get_initials(instance.last_name),
             suffix="NT",
             last_code="00000"
         )
