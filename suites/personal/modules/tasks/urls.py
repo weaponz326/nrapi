@@ -9,6 +9,11 @@ urlpatterns = [
     path('task-item/', views.TaskItemView.as_view()),
     path('task-item/<id>', views.TaskItemDetailView.as_view()),
 
+    path('config/task-group-code/<id>', views.TaskGroupCodeConfigDetailView.as_view()),
+    path('config/new-task-group-code/<id>', views.NewTaskGroupCodeConfigView.as_view()),
+    path('config/task-item-code/<id>', views.TaskItemCodeConfigDetailView.as_view()),
+    path('config/new-task-item-code/<id>', views.NewTaskItemCodeConfigView.as_view()),
+
     path('dashboard/task-group-count/', views.task_group_count),
     path('dashboard/task-item-count/', views.task_item_count),
     path('dashboard/all-todo-count/', views.all_todo_count),

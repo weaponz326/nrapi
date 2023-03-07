@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import TaskGroup, TaskItem
+from .models import TaskGroup, TaskGroupCodeConfig, TaskItem, TaskItemCodeConfig
 
 
 class TaskGroupSerializer(serializers.ModelSerializer):
@@ -20,3 +20,13 @@ class TaskItemSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class TaskGroupCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskGroupCodeConfig
+        fields = '__all__'
+
+class TaskItemCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskItemCodeConfig
+        fields = '__all__'

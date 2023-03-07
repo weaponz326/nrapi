@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Calendar, Schedule
+from .models import Calendar, CalendarCodeConfig, Schedule, ScheduleCodeConfig
 
 
 class CalendarSerializer(serializers.ModelSerializer):
@@ -20,3 +20,13 @@ class ScheduleSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class CalendarCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CalendarCodeConfig
+        fields = '__all__'
+
+class ScheduleCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScheduleCodeConfig
+        fields = '__all__'

@@ -2,6 +2,8 @@ import datetime
 from django.db.models.functions import TruncDate
 from django.db.models import Count
 from django.db.models.functions import TruncDate
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -11,10 +13,12 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import TaskGroup, TaskItem
-from .serializers import TaskGroupSerializer, TaskItemSerializer
+from suites.personal.users.models import User
+
+from .models import TaskGroup, TaskGroupCodeConfig, TaskItem, TaskItemCodeConfig
+from .serializers import TaskGroupCodeConfigSerializer, TaskGroupSerializer, TaskItemCodeConfigSerializer, TaskItemSerializer
 from suites.personal.users.paginations import TablePagination
-from suites.personal.users.services import fiil_zero_dates
+from suites.personal.users.services import fiil_zero_dates, generate_code, get_initials
 
 
 # Create your views here.
@@ -112,6 +116,95 @@ class TaskItemDetailView(APIView):
         task_item = TaskItem.objects.get(id=id)
         task_item.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# --------------------------------------------------------------------------------------
+# config
+
+# task group
+
+class TaskGroupCodeConfigDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code = TaskGroupCodeConfig.objects.get(id=id)
+        serializer = TaskGroupCodeConfigSerializer(code)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        code = TaskGroupCodeConfig.objects.get(id=id)
+        serializer = TaskGroupCodeConfigSerializer(code, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class NewTaskGroupCodeConfigView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code_set = TaskGroupCodeConfig.objects.get(id=id)
+        new_code = generate_code(code_set.last_code)                
+
+        if code_set.entry_mode == 'Auto':
+            code = TaskGroupCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
+            content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
+            return Response(content)
+        return Response(status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=User)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        TaskGroupCodeConfig.objects.create(
+            id=instance.id,
+            entry_mode="Auto",
+            prefix=get_initials(instance.first_name) + ' ' + get_initials(instance.last_name),
+            suffix="CA",
+            last_code="0000"
+        )
+
+# schedule
+
+class TaskItemCodeConfigDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code = TaskItemCodeConfig.objects.get(id=id)
+        serializer = TaskItemCodeConfigSerializer(code)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        code = TaskItemCodeConfig.objects.get(id=id)
+        serializer = TaskItemCodeConfigSerializer(code, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class NewTaskItemCodeConfigView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code_set = TaskItemCodeConfig.objects.get(id=id)
+        new_code = generate_code(code_set.last_code)                
+
+        if code_set.entry_mode == 'Auto':
+            code = TaskItemCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
+            content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
+            return Response(content)
+        return Response(status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=User)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        TaskItemCodeConfig.objects.create(
+            id=instance.id,
+            entry_mode="Auto",
+            prefix=get_initials(instance.first_name) + ' ' + get_initials(instance.last_name),
+            suffix="SD",
+            last_code="000000"
+        )
 
 # --------------------------------------------------------------------------------------
 # dashboard
