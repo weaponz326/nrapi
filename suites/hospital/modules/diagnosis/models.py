@@ -2,14 +2,14 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.hospital.accounts.models import Account
-from suites.hospital.modules.patients.models import Patient
+from suites.hospital.modules.admissions.models import Admission
 
 
 # Create your models here.
 
 class Diagnosis(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    patient = models.ForeignKey(Patient, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
+    admission = models.ForeignKey(Admission, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     diagnosis_code = models.CharField(max_length=64, null=True, blank=True)
     diagnosis_date = models.DateTimeField(null=True, blank=True)
     consultant_name = models.CharField(max_length=256, null=True, blank=True)
@@ -21,7 +21,6 @@ class Diagnosis(CustomBaseModel):
         return str(self.id)
 
 class DiagnosisReport(CustomBaseModel):
-    diagnosis = models.ForeignKey(Diagnosis, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     blood_group = models.CharField(max_length=64, null=True, blank=True)
     temperature = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     weight = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)

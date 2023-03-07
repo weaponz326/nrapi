@@ -5,7 +5,7 @@ from .models import Dispense, DispenseCodeConfig, DispenseItem
 # Register your models here.
 
 class DispenseAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'patient', 'dispense_code')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'admission', 'dispense_code')
 
 class DispenseItemAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'item_number', 'dispense', 'drug')

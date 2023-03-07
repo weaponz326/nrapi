@@ -2,7 +2,8 @@ from django.db import models
 
 from suites.personal.users.models import CustomBaseModel
 from suites.hospital.accounts.models import Account
-from suites.hospital.modules.patients.models import Patient
+from suites.hospital.modules.admissions.models import Admission
+from suites.hospital.modules.prescriptions.models import Prescription
 from suites.hospital.modules.drugs.models import Drug
 
 
@@ -10,10 +11,10 @@ from suites.hospital.modules.drugs.models import Drug
 
 class Dispense(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
-    patient = models.ForeignKey(Patient, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
+    admission = models.ForeignKey(Admission, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
+    prescription = models.ForeignKey(Prescription, to_field='id', on_delete=models.DO_NOTHING, null=True, blank=True)
     dispense_code = models.CharField(max_length=64, null=True, blank=True)
     dispense_date = models.DateTimeField(null=True, blank=True)
-    dispense_status = models.CharField(max_length=128, null=True, blank=True)
 
     class Meta:
         db_table = 'hospital_module_dispensary'
@@ -25,6 +26,7 @@ class DispenseItem(CustomBaseModel):
     item_number = models.IntegerField(null=True, blank=True)
     dispense = models.ForeignKey(Dispense, to_field='id', on_delete=models.DO_NOTHING)
     drug = models.ForeignKey(Drug, to_field='id', on_delete=models.DO_NOTHING)
+    quantity = models.IntegerField(null=True, blank=True)
     remarks = models.TextField(null=True, blank=True)
 
     class Meta:

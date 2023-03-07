@@ -5,7 +5,7 @@ from .models import Prescription, PrescriptionCodeConfig, PrescriptionItem
 # Register your models here.
 
 class PrescriptionAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'patient', 'prescription_code')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'admission', 'prescription_code')
 
 class PrescriptionItemAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'item_number', 'prescription', 'medicine')

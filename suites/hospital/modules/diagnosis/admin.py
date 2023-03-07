@@ -5,10 +5,10 @@ from .models import Diagnosis, DiagnosisCodeConfig, DiagnosisReport
 # Register your models here.
 
 class DiagnosisAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'account', 'patient', 'diagnosis_code', 'consultant_name')
+    list_display = ('pkid', 'id', 'created_at', 'account', 'admission', 'diagnosis_code', 'consultant_name')
 
 class DiagnosisReportAdmin(admin.ModelAdmin):
-    list_display = ('pkid', 'id', 'created_at', 'diagnosis', 'blood_group', 'temperature', 'pulse')
+    list_display = ('pkid', 'id', 'created_at', 'blood_group', 'temperature', 'pulse')
 
 class DiagnosisCodeConfigAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'id', 'created_at', 'prefix', 'suffix')
