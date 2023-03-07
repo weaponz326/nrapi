@@ -159,11 +159,11 @@ def save_extended_profile(sender, instance, created, **kwargs):
             id=instance.id,
             entry_mode="Auto",
             prefix=get_initials(instance.first_name) + get_initials(instance.last_name),
-            suffix="CA",
+            suffix="TG",
             last_code="0000"
         )
 
-# schedule
+# task item
 
 class TaskItemCodeConfigDetailView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -202,7 +202,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
             id=instance.id,
             entry_mode="Auto",
             prefix=get_initials(instance.first_name) + get_initials(instance.last_name),
-            suffix="SD",
+            suffix="TA",
             last_code="000000"
         )
 
