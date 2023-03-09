@@ -12,8 +12,8 @@ from rest_framework.filters import OrderingFilter
 from rest_framework.parsers import MultiPartParser, FileUploadParser
 from rest_framework.decorators import api_view
 
-from .models import MenuGroup, MenuItem, MenuItemCodeConfig
-from .serializers import  MenuGroupSerializer, MenuItemSerializer, MenuItemCodeConfigSerializer
+from .models import MenuGroup, MenuGroupCodeConfig, MenuItem, MenuItemCodeConfig
+from .serializers import  MenuGroupCodeConfigSerializer, MenuGroupSerializer, MenuItemSerializer, MenuItemCodeConfigSerializer
 from suites.personal.users.paginations import TablePagination
 from suites.personal.users.services import generate_code, get_initials
 from suites.restaurant.accounts.models import Account
@@ -121,6 +121,47 @@ class MenuItemDetailView(APIView):
 # --------------------------------------------------------------------------------------
 # config
 
+class MenuGroupCodeConfigDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code = MenuGroupCodeConfig.objects.get(id=id)
+        serializer = MenuGroupCodeConfigSerializer(code)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        code = MenuGroupCodeConfig.objects.get(id=id)
+        serializer = MenuGroupCodeConfigSerializer(code, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class NewMenuGroupCodeConfigView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code_set = MenuGroupCodeConfig.objects.get(id=id)
+        new_code = generate_code(code_set.last_code)                
+
+        if code_set.entry_mode == 'Auto':
+            code = MenuGroupCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
+            content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
+            return Response(content)
+        return Response(status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=Account)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        MenuGroupCodeConfig.objects.create(
+            id=instance.id,
+            entry_mode="Auto",
+            prefix=get_initials(instance.name),
+            suffix="MG",
+            last_code="000"
+        )
+
 class MenuItemCodeConfigDetailView(APIView):
     permission_classes = (IsAuthenticated,)
 
@@ -158,8 +199,8 @@ def save_extended_profile(sender, instance, created, **kwargs):
             id=instance.id,
             entry_mode="Auto",
             prefix=get_initials(instance.name),
-            suffix="MN",
-            last_code="000"
+            suffix="MI",
+            last_code="00000"
         )
 
 # --------------------------------------------------------------------------------------

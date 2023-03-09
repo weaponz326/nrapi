@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import MenuGroup, MenuItem, MenuItemCodeConfig
+from .models import MenuGroup, MenuGroupCodeConfig, MenuItem, MenuItemCodeConfig
 
 
 class MenuGroupSerializer(serializers.ModelSerializer):
@@ -21,6 +21,11 @@ class MenuItemSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class MenuGroupCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MenuGroupCodeConfig
+        fields = '__all__'
 
 class MenuItemCodeConfigSerializer(serializers.ModelSerializer):
     class Meta:

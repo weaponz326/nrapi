@@ -14,6 +14,7 @@ def menu_upload_path(instance, filename):
 
 class MenuGroup(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
+    menu_group_code = models.CharField(max_length=32, null=True, blank=True)
     menu_group = models.CharField(max_length=256, null=True, blank=True)
     category = models.CharField(max_length=64, null=True, blank=True)
 
@@ -33,6 +34,18 @@ class MenuItem(CustomBaseModel):
 
     class Meta:
         db_table = 'restaurant_module_menu_item'
+
+    def __str__(self):
+        return str(self.id)
+
+class MenuGroupCodeConfig(CustomBaseModel):
+    entry_mode = models.CharField(max_length=32, blank=True, null=True)
+    prefix = models.CharField(max_length=32, blank=True, null=True)
+    suffix = models.CharField(max_length=32, blank=True, null=True)
+    last_code = models.CharField(max_length=64, blank=True, null=True)
+
+    class Meta:
+        db_table = 'restaurant_module_menu_group_code_config'
 
     def __str__(self):
         return str(self.id)
