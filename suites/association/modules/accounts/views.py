@@ -2,6 +2,8 @@ import datetime
 from django.db.models.functions import TruncDate
 from django.db.models import Count
 from django.db.models import Sum
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
@@ -11,10 +13,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import Account, Transaction
-from .serializers import AccountSerializer, TransactionSerializer
+from suites.association.accounts.models import Account as AssociationAccount
+from .models import Account, AccountCodeConfig, Transaction
+from .serializers import AccountCodeConfigSerializer, AccountSerializer, TransactionSerializer
 from suites.personal.users.paginations import TablePagination
-from suites.personal.users.services import fiil_zero_dates
+from suites.personal.users.services import fiil_zero_dates, generate_code, get_initials
 
 
 # Create your views here.
@@ -113,6 +116,50 @@ class AllTransactionsView(APIView, TablePagination):
         results = self.paginate_queryset(account, request, view=self)
         serializer = TransactionSerializer(results, many=True)
         return self.get_paginated_response(serializer.data)
+
+# --------------------------------------------------------------------------------------
+# config
+
+class AccountCodeConfigDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code = AccountCodeConfig.objects.get(id=id)
+        serializer = AccountCodeConfigSerializer(code)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        code = AccountCodeConfig.objects.get(id=id)
+        serializer = AccountCodeConfigSerializer(code, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class NewAccountCodeConfigView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code_set = AccountCodeConfig.objects.get(id=id)
+        new_code = generate_code(code_set.last_code)                
+
+        if code_set.entry_mode == 'Auto':
+            code = AccountCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
+            content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
+            return Response(content)
+        return Response(status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=AssociationAccount)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        AccountCodeConfig.objects.create(
+            id=instance.id,
+            entry_mode="Auto",
+            prefix=get_initials(instance.name),
+            suffix="AC",
+            last_code="000"
+        )
 
 # --------------------------------------------------------------------------------------
 # dashboard

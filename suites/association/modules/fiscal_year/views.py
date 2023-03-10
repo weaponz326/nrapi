@@ -127,7 +127,7 @@ def save_extended_profile(sender, instance, created, **kwargs):
             id=instance.id,
             entry_mode="Auto",
             prefix=get_initials(instance.name),
-            suffix="TM",
+            suffix="FY",
             last_code="000"
         )
 

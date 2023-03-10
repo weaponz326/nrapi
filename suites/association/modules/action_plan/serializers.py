@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import ActionPlan, PlanStep
+from .models import ActionPlan, ActionPlanCodeConfig, PlanStep
 
 
 class ActionPlanSerializer(serializers.ModelSerializer):
@@ -13,3 +13,7 @@ class PlanStepSerializer(serializers.ModelSerializer):
         model = PlanStep
         fields = '__all__'
         
+class ActionPlanCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ActionPlanCodeConfig
+        fields = '__all__'

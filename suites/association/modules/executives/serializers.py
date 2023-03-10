@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Executive
+from .models import Executive, ExecutiveCodeConfig
 
 
 class ExecutiveSerializer(serializers.ModelSerializer):
@@ -15,3 +15,8 @@ class ExecutiveSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class ExecutiveCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExecutiveCodeConfig
+        fields = '__all__'

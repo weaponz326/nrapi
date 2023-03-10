@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Committee, CommitteeMember
+from .models import Committee, CommitteeCodeConfig, CommitteeMember
 
 class CommitteeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,3 +19,8 @@ class CommitteeMemberSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+class CommitteeCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CommitteeCodeConfig
+        fields = '__all__'

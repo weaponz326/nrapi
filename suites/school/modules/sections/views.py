@@ -144,8 +144,8 @@ def save_extended_profile(sender, instance, created, **kwargs):
             id=instance.id,
             entry_mode="Auto",
             prefix=get_initials(instance.name),
-            suffix="SU",
-            last_code="0000"
+            suffix="SE",
+            last_code="000"
         )
 
 # --------------------------------------------------------------------------------------

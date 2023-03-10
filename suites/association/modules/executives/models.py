@@ -18,3 +18,15 @@ class Executive(CustomBaseModel):
 
     def __str__(self):
         return str(self.id)
+
+class ExecutiveCodeConfig(CustomBaseModel):
+    entry_mode = models.CharField(max_length=32, blank=True, null=True)
+    prefix = models.CharField(max_length=32, blank=True, null=True)
+    suffix = models.CharField(max_length=32, blank=True, null=True)
+    last_code = models.CharField(max_length=64, blank=True, null=True)
+
+    class Meta:
+        db_table = 'association_module_executive_code_config'
+
+    def __str__(self):
+        return str(self.id)
