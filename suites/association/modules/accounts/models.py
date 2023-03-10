@@ -8,6 +8,7 @@ from suites.association.accounts.models import Account
 
 class Account(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
+    account_code = models.CharField(max_length=64, null=True, blank=True)
     account_name = models.CharField(max_length=126, null=True, blank=True)
     account_number = models.CharField(max_length=64, null=True, blank=True)
     bank_name = models.CharField(max_length=126, null=True, blank=True)

@@ -10,6 +10,7 @@ from suites.association.modules.members.models import Member
 class Committee(CustomBaseModel):
     account = models.ForeignKey(Account, to_field='id', on_delete=models.DO_NOTHING)
     committee_chairman = models.ForeignKey(Member, null=True, blank=True, to_field='id', on_delete=models.DO_NOTHING)
+    committee_code = models.CharField(max_length=32, null=True, blank=True)
     committee_name = models.CharField(max_length=256, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     date_commissioned = models.DateField(null=True, blank=True)
