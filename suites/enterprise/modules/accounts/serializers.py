@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Account, Transaction
+from .models import Account, AccountCodeConfig, Transaction
 
 
 class AccountSerializer(serializers.ModelSerializer):
@@ -20,3 +20,9 @@ class TransactionSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+
+class AccountCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AccountCodeConfig
+        fields = '__all__'

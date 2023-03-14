@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Appraisal, AppraisalSheet
+from .models import Appraisal, AppraisalCodeConfig, AppraisalSheet
 
 
 class AppraisalSerializer(serializers.ModelSerializer):
@@ -19,4 +19,9 @@ class AppraisalSerializer(serializers.ModelSerializer):
 class AppraisalSheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = AppraisalSheet
+        fields = '__all__'
+
+class AppraisalCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppraisalCodeConfig
         fields = '__all__'

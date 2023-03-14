@@ -8,4 +8,7 @@ urlpatterns = [
     path('appraisal/<id>', views.AppraisalDetailView.as_view()),
     path('appraisal-sheet/', views.AppraisalSheetView.as_view()),
     path('appraisal-sheet/<id>', views.AppraisalSheetDetailView.as_view()),
+
+    path('config/appraisal-code/<id>', views.AppraisalCodeConfigDetailView.as_view()),
+    path('config/new-appraisal-code/<id>', views.NewAppraisalCodeConfigView.as_view()),
 ]

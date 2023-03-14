@@ -1,9 +1,14 @@
 from rest_framework import serializers
 
-from .models import Visitor
+from .models import VisitCodeConfig, Visit
 
 
-class VisitorSerializer(serializers.ModelSerializer):
+class VisitSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Visitor
+        model = Visit
+        fields = '__all__'
+
+class VisitCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VisitCodeConfig
         fields = '__all__'

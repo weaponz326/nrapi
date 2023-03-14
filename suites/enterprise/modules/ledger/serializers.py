@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Ledger, LedgerItem
+from .models import Ledger, LedgerCodeConfig, LedgerItem
 
 
 class LedgerSerializer(serializers.ModelSerializer):
@@ -20,3 +20,9 @@ class LedgerItemSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+    
+
+class LedgerCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LedgerCodeConfig
+        fields = '__all__'

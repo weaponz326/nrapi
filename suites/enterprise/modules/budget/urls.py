@@ -10,6 +10,9 @@ urlpatterns = [
     path('income/<id>', views.IncomeDetailView.as_view()),
     path('expenditure/', views.ExpenditureView.as_view()),
     path('expenditure/<id>', views.ExpenditureDetailView.as_view()),
+
+    path('config/budget-code/<id>', views.BudgetCodeConfigDetailView.as_view()),
+    path('config/new-budget-code/<id>', views.NewBudgetCodeConfigView.as_view()),
     
     path('dashboard/budget-count', views.budget_count),
     path('dashboard/income-total', views.income_total),

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Budget, Income, Expenditure
+from .models import Budget, BudgetCodeConfig, Income, Expenditure
 
 
 class BudgetSerializer(serializers.ModelSerializer):
@@ -17,3 +17,9 @@ class ExpenditureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expenditure
         fields = '__all__'        
+
+
+class BudgetCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BudgetCodeConfig
+        fields = '__all__'

@@ -14,10 +14,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import OrderReview, Procurement 
-from .serializers import OrderReviewSerializer, ProcurementSerializer
+from suites.enterprise.accounts.models import Account
+from .models import OrderReview, Procurement, ProcurementCodeConfig 
+from .serializers import OrderReviewSerializer, ProcurementCodeConfigSerializer, ProcurementSerializer
 from suites.personal.users.paginations import TablePagination
-from suites.personal.users.services import fiil_zero_dates
+from suites.personal.users.services import fiil_zero_dates, generate_code, get_initials
 
 
 # Create your views here.
@@ -107,4 +108,48 @@ def save_order_review(sender, instance, created, **kwargs):
     if created:
         OrderReview.objects.create(
             id=instance.id,
+        )
+
+# --------------------------------------------------------------------------------------
+# config
+
+class ProcurementCodeConfigDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code = ProcurementCodeConfig.objects.get(id=id)
+        serializer = ProcurementCodeConfigSerializer(code)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        code = ProcurementCodeConfig.objects.get(id=id)
+        serializer = ProcurementCodeConfigSerializer(code, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class NewProcurementCodeConfigView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code_set = ProcurementCodeConfig.objects.get(id=id)
+        new_code = generate_code(code_set.last_code)                
+
+        if code_set.entry_mode == 'Auto':
+            code = ProcurementCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
+            content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
+            return Response(content)
+        return Response(status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=Account)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        ProcurementCodeConfig.objects.create(
+            id=instance.id,
+            entry_mode="Auto",
+            prefix=get_initials(instance.name),
+            suffix="PR",
+            last_code="00000"
         )

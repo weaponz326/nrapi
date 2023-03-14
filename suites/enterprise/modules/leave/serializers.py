@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Leave
+from .models import Leave, LeaveCodeConfig
 
 
 class LeaveSerializer(serializers.ModelSerializer):
@@ -15,3 +15,9 @@ class LeaveSerializer(serializers.ModelSerializer):
             self.Meta.depth = 0
         else:
             self.Meta.depth = 1
+
+
+class LeaveCodeConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LeaveCodeConfig
+        fields = '__all__'

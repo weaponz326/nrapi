@@ -13,10 +13,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.filters import OrderingFilter
 from rest_framework.decorators import api_view
 
-from .models import Appraisal, AppraisalSheet 
-from .serializers import AppraisalSerializer, AppraisalSheetSerializer
+from suites.enterprise.accounts.models import Account
+from .models import Appraisal, AppraisalCodeConfig, AppraisalSheet 
+from .serializers import AppraisalCodeConfigSerializer, AppraisalSerializer, AppraisalSheetSerializer
 from suites.personal.users.paginations import TablePagination
-from suites.personal.users.services import fiil_zero_dates
+from suites.personal.users.services import fiil_zero_dates, generate_code, get_initials
 
 
 # Create your views here.
@@ -106,4 +107,48 @@ def save_appraisal_sheet(sender, instance, created, **kwargs):
     if created:
         AppraisalSheet.objects.create(
             id=instance.id,
+        )
+
+# --------------------------------------------------------------------------------------
+# config
+
+class AppraisalCodeConfigDetailView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code = AppraisalCodeConfig.objects.get(id=id)
+        serializer = AppraisalCodeConfigSerializer(code)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        code = AppraisalCodeConfig.objects.get(id=id)
+        serializer = AppraisalCodeConfigSerializer(code, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+
+class NewAppraisalCodeConfigView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, id, format=None):
+        code_set = AppraisalCodeConfig.objects.get(id=id)
+        new_code = generate_code(code_set.last_code)                
+
+        if code_set.entry_mode == 'Auto':
+            code = AppraisalCodeConfig.objects.filter(id=id)
+            code.update(last_code=new_code)
+            content = {'code': '{}{}{}'.format(code_set.prefix, new_code, code_set.suffix)}
+            return Response(content)
+        return Response(status.HTTP_204_NO_CONTENT)
+
+@receiver(post_save, sender=Account)
+def save_extended_profile(sender, instance, created, **kwargs):
+    if created:
+        AppraisalCodeConfig.objects.create(
+            id=instance.id,
+            entry_mode="Auto",
+            prefix=get_initials(instance.name),
+            suffix="AP",
+            last_code="00000"
         )
